@@ -158,5 +158,15 @@
   "note": "Мировые тренды X почти все японские. Слова PHP2Shell в топ-50 трендов нет.",
   "snapshot": "2026-10-21T20:03:00+03:00",
   "verified": true
- }
+ },
+ "nvd_cvss31": 9.8,
+ "php_net_cvss40": 9.2,
+ "nvd_status": "Analyzed",
+ "in_cisa_kev": false,
+ "kev_catalog_version": "2026.10.21",
+ "github_repos": 216,
+ "github_repos_time_msk": "20:02",
+ "modat_php_services": 4384302,
+ "modat_php_hosts": 1886612,
+ "confirmed_successful_breaches": 0
 }

@@ -26,7 +26,8 @@
    "detail": "USN-8948-1: 26.10, 26.04, 24.04, 22.04",
    "time": "2026-10-21T17:55:00+03:00",
    "source_url": "https://ubuntu.com/security/notices/USN-8948-1",
-   "verified": true
+   "verified": false,
+   "fixed_versions": "USN-8948-1"
   },
   {
    "name": "Debian 13 trixie",
@@ -53,16 +54,18 @@
    "detail": "aports master: php84 8.4.27 и php85 8.5.12 исправлены, php83 пока 8.3.35",
    "time": "2026-10-21T18:15:00+03:00",
    "source_url": "https://git.alpinelinux.org/aports/log/community/php84",
-   "verified": true
+   "verified": false,
+   "fixed_versions": "php84 8.4.27, php85 8.5.12; php83 ещё 8.3.35"
   },
   {
    "name": "Red Hat",
    "kind": "дистрибутив",
-   "status": "pending",
+   "status": "no advisory",
    "detail": "Исправления нет: Bugzilla 2556842 в статусе NEW, RHSA нет",
    "time": null,
    "source_url": "https://bugzilla.redhat.com/show_bug.cgi?id=2556842",
-   "verified": true
+   "verified": false,
+   "fixed_versions": null
   },
   {
    "name": "Docker (официальный образ php)",
@@ -99,8 +102,9 @@
    "detail": "ea-php74 и новее; ea-php85 8.5.12, ea-php84 8.4.27, ea-php83 8.3.36, ea-php82 8.2.35; сборки 11.110.0.153 / 11.134.0.66 / 11.136.0.50 / 11.138.0.18; для <7.4 TuxCare ELS",
    "time": "2026-10-21T19:55:00+03:00",
    "source_url": "https://support.cpanel.net/hc/en-us/articles/44397389677335-Critical-PHP-Security-Release-CVE-2026-109618-and-CVE-2026-109619",
-   "verified": true,
-   "note": "время на странице без пояса"
+   "verified": false,
+   "note": "время на странице без пояса",
+   "fixed_versions": "ea-php82 8.2.35, ea-php83 8.3.36, ea-php84 8.4.27, ea-php85 8.5.12"
   },
   {
    "name": "Plesk (Linux)",
@@ -176,6 +180,41 @@
    "time": "2026-10-21T16:53:00+03:00",
    "source_url": "https://www.fastly.com/blog/fastlys-proactive-protection-critical-php-rce-cve-2026-109618",
    "verified": true
+  },
+  {
+   "name": "Debian trixie",
+   "status": "fixed",
+   "fixed_versions": "php8.4 8.4.27-1~deb13u1",
+   "source_url": "https://security-tracker.debian.org/tracker/DSA-6574-1",
+   "verified": false
+  },
+  {
+   "name": "Debian bookworm",
+   "status": "fixed",
+   "fixed_versions": "php8.2 8.2.35-1~deb12u1",
+   "source_url": "https://security-tracker.debian.org/tracker/DLA-4848-1",
+   "verified": false
+  },
+  {
+   "name": "Docker official php",
+   "status": "fixed",
+   "fixed_versions": "8.5.12/8.4.27/8.3.36/8.2.35",
+   "source_url": "https://hub.docker.com/_/php",
+   "verified": false
+  },
+  {
+   "name": "Plesk Linux",
+   "status": "fixed",
+   "fixed_versions": "8.2.35/8.3.36/8.4.27/8.5.12",
+   "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351",
+   "verified": false
+  },
+  {
+   "name": "Plesk Windows",
+   "status": "in development",
+   "fixed_versions": null,
+   "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351",
+   "verified": false
   }
  ],
  "reactions": [
