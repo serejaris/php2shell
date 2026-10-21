@@ -70,47 +70,100 @@ figcaption{font-size:17px;color:var(--mute);margin-top:10px}
 footer{margin-top:80px;color:var(--mute);font-size:18px;border-top:1px solid var(--line);padding-top:24px}
 @media(max-width:800px){h1{font-size:44px}.cards2{grid-template-columns:1fr}}
 
-/* ===== wide-screen layout (stream 16:9) ===== */
-body{font-size:27px}
-main{max-width:1720px;padding:72px 56px 120px}
-h1{font-size:84px;max-width:1500px}
-.lead{font-size:32px;max-width:1300px}
-h2{font-size:54px}
-h3{font-size:34px}
-section>p,section>h3,.quote,.list,.cards2,.stat,.versions,.warn,.step,.tl,.card,.rumor{max-width:1240px}
+/* ===== fluid wide layout (stream 16:9, laptops >=1200px) ===== */
+:root{--gut:clamp(18px,4vw,72px)}
+body{font-size:clamp(20px,0.9rem + 0.75vw,28px)}
+main{width:min(1720px,100% - 2*var(--gut));max-width:none;margin:0 auto;padding:clamp(40px,4vw,72px) 0 120px}
+h1{font-size:clamp(44px,2rem + 3.2vw,92px);max-width:1500px}
+.lead{font-size:clamp(22px,0.9rem + 1vw,34px);max-width:1300px}
+h2{font-size:clamp(34px,1rem + 2.3vw,60px)}
+h3{font-size:clamp(26px,0.8rem + 1vw,36px)}
+.kicker{font-size:clamp(15px,0.5rem + .6vw,19px)}
+section>p,section>h3,.quote,.list,.cards2,.stat,.versions,.warn,.step,.tl,section>.card,.rumor{max-width:1240px}
 figure{max-width:1240px}
 .hero figure{max-width:1500px}
-.tl li{grid-template-columns:200px 1fr}
+.tl li{grid-template-columns:clamp(120px,12vw,210px) 1fr}
 .src{max-width:1500px}
+/* toc */
+.toc{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 36px}
+.toc a{font-family:'JetBrains Mono',monospace;font-size:clamp(15px,.5rem + .55vw,19px);color:var(--fg);text-decoration:none;border:1px solid var(--line);background:var(--panel);padding:8px 16px;border-radius:999px}
+.toc a:first-child{border-color:var(--pink);color:var(--pink);box-shadow:0 0 14px rgba(255,20,147,.35)}
+.toc a:hover{border-color:var(--lime);color:var(--lime)}
+/* "Что случилось" summary */
+#what{margin-top:56px}
+.wgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,1.4vw,26px)}
+.wcard{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--pink);border-radius:18px;padding:clamp(20px,1.6vw,30px)}
+.wcard:nth-child(even){border-top-color:var(--lime)}
+.wcard h3{margin:0 0 12px;font-size:clamp(24px,.7rem + 1vw,34px);display:flex;gap:12px;align-items:baseline}
+.wcard h3 .wn{font-family:'JetBrains Mono',monospace;color:var(--pink);font-size:.7em}
+.wcard p{margin:0;font-size:clamp(20px,.8rem + .6vw,27px);line-height:1.5}
+.wcard ul{list-style:none;margin:0;padding:0;font-size:clamp(19px,.75rem + .55vw,25px);line-height:1.45}
+.wcard li{margin:0 0 8px}.wcard li .t{color:var(--lime);font-family:'JetBrains Mono',monospace;margin-right:8px}
+.wcard.act{grid-column:1/-1;border:2px solid var(--pink);background:linear-gradient(90deg,rgba(255,20,147,.16),rgba(182,255,59,.05))}
+.wcard.act p{font-size:clamp(22px,.9rem + .7vw,30px);font-weight:600}
 /* post block: Russian narrative left, X embed right */
-.tweet{display:grid;grid-template-columns:minmax(0,1fr) 550px;gap:48px;align-items:start;margin:44px 0;padding:28px 32px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--lime);border-radius:18px}
+.tweet{display:grid;grid-template-columns:minmax(0,1fr) 550px;gap:clamp(24px,2.5vw,48px);align-items:start;margin:44px 0;padding:clamp(20px,1.6vw,32px);background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--lime);border-radius:18px}
 .tnarr{min-width:0}
-.tnarr .tmeta{font-size:26px}
+.tnarr .tmeta{font-size:clamp(20px,.7rem + .6vw,26px)}
 .tnarr .tmeta b{color:#fff}
 .tnarr .tmeta .mono{color:var(--mute)}
-.trole{color:var(--lime);font-size:21px;font-family:'JetBrains Mono',monospace;margin:6px 0 16px}
-.tru{font-size:30px;line-height:1.5;color:var(--fg);margin:0 0 18px}
-.tnarr .tfoot{font-size:17px;gap:22px}
+.trole{color:var(--lime);font-size:clamp(16px,.55rem + .55vw,21px);font-family:'JetBrains Mono',monospace;margin:6px 0 16px}
+.tru{font-size:clamp(21px,.8rem + .85vw,30px);line-height:1.5;color:var(--fg);margin:0 0 18px}
+.tnarr .tfoot{font-size:clamp(14px,.5rem + .4vw,17px);gap:22px}
 .tnarr .tfoot a{color:var(--pink);text-decoration:none}
 .tembed{width:550px;max-width:100%}
 .tembed .twitter-tweet{margin:0!important}
+@media(max-width:1199px){.wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:1000px){
- body{font-size:22px}
- main{padding:48px 20px 100px}
- h1{font-size:48px}
- h2{font-size:38px}
- .tweet{grid-template-columns:1fr;gap:20px;padding:20px}
+ .tweet{grid-template-columns:1fr}
  .tembed{width:100%;max-width:550px}
- .tru{font-size:23px}
- .tl li{grid-template-columns:120px 1fr}
 }
+@media(max-width:700px){.wgrid{grid-template-columns:1fr}.cards2{grid-template-columns:1fr}}
+/* "Что сейчас" dashboard */
+.dash{margin:8px 0 40px;background:rgba(21,19,29,.85);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,1.6vw,30px)}
+.dhead{font-size:clamp(15px,.5rem + .6vw,20px);color:var(--mute);text-transform:uppercase;letter-spacing:.06em;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.dhead .live{width:12px;height:12px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 12px #ff3b3b;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.dgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.1vw,20px)}
+.dtile{--c:var(--lime);background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:16px;padding:clamp(14px,1.2vw,22px)}
+.dtile.red{--c:#ff3b3b}.dtile.yellow{--c:#ffd400}.dtile.lime{--c:var(--lime)}
+.dlab{font-size:clamp(13px,.45rem + .5vw,17px);color:var(--mute);text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:8px}
+.dlab i{width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c);flex:none}
+.dval{font-size:clamp(22px,.8rem + 1.1vw,34px);font-weight:800;line-height:1.15;margin:10px 0 8px;color:var(--c)}
+.dnote{font-size:clamp(16px,.6rem + .45vw,21px);color:#d9d3e3;line-height:1.4}
+.dtile.act{--c:var(--pink);background:linear-gradient(135deg,rgba(255,20,147,.22),rgba(255,20,147,.06));border:2px solid var(--pink)}
+.dtile.act .dval{color:#fff;font-size:clamp(20px,.7rem + .9vw,28px)}
+@media(max-width:1199px){.dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.dgrid{grid-template-columns:1fr}}
 </style></head><body><main>
 <header class="hero">
   <div class="kicker">стрим · 21 октября 2026 · <span class="mono">PHP2Shell</span></div>
   <h1>PHP2Shell: ИИ нашёл дыры в&nbsp;PHP, и&nbsp;интернет срочно обновляется</h1>
   <p class="lead">Разбираем по шагам, что случилось, при чём тут ИИ и что сделать с&nbsp;твоим сайтом сегодня.</p>
-  <figure><img src="img/wiz.webp" alt="Обложка Wiz Research: PHP2Shell, CVE-2026-109618/9"><figcaption>Обложка исследования Wiz Research</figcaption></figure>
+  <nav class="toc"><a href="#what">Что случилось ↓</a><a href="#timeline">Таймлайн</a><a href="#ai">При чём тут ИИ</a><a href="#todo">Что делать</a><a href="#russia">Что в России</a></nav>
+  <div class="dash" id="now-status"><div class="dhead mono"><span class="live"></span>Что сейчас · Обновлено: 21 октября, 18:47 МСК</div><div class="dgrid"><div class="dtile red"><div class="dlab mono"><i></i>Угроза</div><div class="dval">2 критические дыры</div><div class="dnote">CVE-2026-109618 и CVE-2026-109619, CVSS 9.2 из 10</div></div><div class="dtile lime"><div class="dlab mono"><i></i>Патч</div><div class="dval">Вышел в 17:00 МСК</div><div class="dnote">PHP 8.5.12 · 8.4.27 · 8.3.36 · 8.2.35. Для 8.1 и старше патчей нет</div></div><div class="dtile red"><div class="dlab mono"><i></i>Атаки</div><div class="dval">Идут массово</div><div class="dnote">Cloudflare видит атаки с 10:43 МСК, watchTowr: Exploitation In The Wild</div></div><div class="dtile yellow"><div class="dlab mono"><i></i>Сайты на PHP</div><div class="dval">≈70% веба</div><div class="dnote">В зоне .ru 94% сайтов с известным серверным языком (W3Techs)</div></div><div class="dtile lime"><div class="dlab mono"><i></i>Debian</div><div class="dval">Исправление есть</div><div class="dnote">DSA-6574-1 для php8.4 (trixie), php8.2 8.2.35 в bookworm (DLA-4848-1)</div></div><div class="dtile lime"><div class="dlab mono"><i></i>Cloudflare WAF</div><div class="dval">Защита с 06:02 МСК</div><div class="dnote">Правила включены всем клиентам, бесплатным тоже</div></div><div class="dtile yellow"><div class="dlab mono"><i></i>Россия, хостинги</div><div class="dval">Исправленного PHP пока нет</div><div class="dnote">Ни один хостинг не объявил патч. Битрикс24 и Beget временно ограничили формы и работу с файлами. Взломов в .ru не подтверждено</div></div><div class="dtile act"><div class="dlab mono"><i></i>Что делать сейчас</div><div class="dval">Зайди в панель хостинга, проверь версию PHP и переключись на исправленную</div></div></div></div>
+  <figure><img src="img/wiz.webp?v=0cc6d093" alt="Обложка Wiz Research: PHP2Shell, CVE-2026-109618/9"><figcaption>Обложка исследования Wiz Research</figcaption></figure>
 </header>
+
+<section id="what">
+  <h2><span class="num">00</span> Что случилось</h2>
+  <div class="wgrid">
+    <div class="wcard"><h3><span class="wn">1</span>PHP везде</h3><p>PHP — язык программирования, на нём работает примерно <span class="mono hl">70%</span> сайтов в мире. В зоне <span class="mono">.ru</span> на PHP работают <span class="mono hl">94%</span> сайтов с известным серверным языком.</p></div>
+    <div class="wcard"><h3><span class="wn">2</span>Две критические дыры</h3><p>Их номера <span class="mono">CVE-2026-109618</span> и <span class="mono">CVE-2026-109619</span>, у обеих <span class="mono hl">9.2</span> из 10. Через одну чужак запускает свои команды на сервере без логина и пароля, через другую достаёт из памяти сервера пароли, токены и ключи.</p></div>
+    <div class="wcard"><h3><span class="wn">3</span>Нашёл ИИ</h3><p>Calif нашла критическую дыру с моделью <span class="mono">GPT-5.6 Sol</span> от OpenAI, Wiz нашла обе дыры независимо, тоже с ИИ. Дыры пролежали в коде больше 10 лет, с передовыми моделями их нашли и связали в рабочую атаку меньше чем за неделю.</p></div>
+    <div class="wcard"><h3><span class="wn">4</span>Сутки по МСК</h3><ul>
+      <li><span class="t">20.10 вечер</span>детали дыр утекли в сеть</li>
+      <li><span class="t">23:27</span>в X появилось видео эксплойта</li>
+      <li><span class="t">21.10 06:02</span>Cloudflare включает защиту всем клиентам</li>
+      <li><span class="t">10:43</span>Cloudflare видит первые атаки</li>
+      <li><span class="t">15:55</span>премьер Японии Санаэ Такаити просит всех обновиться сегодня же вечером</li>
+      <li><span class="t">17:00</span>выходят патчи PHP</li>
+    </ul></div>
+    <div class="wcard"><h3><span class="wn">5</span>Кого задело</h3><p>Атаки идут массово. Из предосторожности Финляндия закрыла доступ из интернета к публичным госсервисам, отключились ряд сайтов в Нидерландах и все сайты levelsio. О взломах никто из них не сообщал.</p></div>
+    <div class="wcard"><h3><span class="wn">6</span>Что в России</h3><p>На <span class="mono">18:47</span> МСК исправленный PHP не объявил ни один российский хостинг. Битрикс24 и Beget временно ограничили формы и работу с файлами; подтверждённых взломов в <span class="mono">.ru</span> нет.</p></div>
+    <div class="wcard act"><h3><span class="wn">7</span>Что сделать прямо сейчас</h3><p>Зайди в панель хостинга и проверь версию PHP: нужна <span class="mono hl">8.2.35 / 8.3.36 / 8.4.27 / 8.5.12</span> или новее, с <span class="mono">8.1</span> и старше переезжай на <span class="mono">8.2+</span>. Если переключателя нет, напиши в поддержку с номерами CVE, и ничего из ленты X не скачивай и не запускай.</p></div>
+  </div>
+</section>
 
 <section id="hook">
   <h2><span class="num">01</span> Премьер Японии просит обновиться сегодня вечером</h2>
@@ -130,7 +183,7 @@ figure{max-width:1240px}
 </div>
 </section>
 
-<section id="what">
+<section id="details">
   <h2><span class="num">02</span> Что случилось простыми словами</h2>
   <p>Нашли две уязвимости. У каждой дыры в софте есть номер в общем каталоге, он называется <b>CVE</b>. Наши номера: <span class="mono hl">CVE-2026-109618</span> и <span class="mono hl">CVE-2026-109619</span>.</p>
   <p>Опасность дыры меряют по шкале <b>CVSS</b> от 0 до 10. У обеих <span class="mono hl">9.2</span>, это критический уровень. Оценку подтверждают американская база NVD и немецкое ведомство BSI.</p>
@@ -143,7 +196,7 @@ figure{max-width:1240px}
   <div class="versions mono"><span>8.5.12</span><span>8.4.27</span><span>8.3.36</span><span>8.2.35</span></div>
   <p class="warn">Для PHP <span class="mono">8.1</span> и старше официальных патчей нет. С таких версий надо переезжать на <span class="mono">8.2</span> и выше.</p>
   <div class="stat"><div class="big mono">94%</div><div>сайтов в зоне <span class="mono">.ru</span> с известным серверным языком работают на PHP (W3Techs, 21.10.2026). Нас это касается напрямую.</div></div>
-  <figure><img src="img/php2shell.png" alt="php2shell.com"><figcaption>php2shell.com: проверка сайта и инструкции (Wiz Research, Calif, OpenAI)</figcaption></figure>
+  <figure><img src="img/php2shell.png?v=e652d5ca" alt="php2shell.com"><figcaption>php2shell.com: проверка сайта и инструкции (Wiz Research, Calif, OpenAI)</figcaption></figure>
 </section>
 
 <section id="timeline">
@@ -173,7 +226,7 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/k_firsov/status/2112641845926989944"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/x-k-firsov-video.jpg" alt="Кадр из видео @k_firsov"><figcaption>Кадр из видео эксплойта в посте @k_firsov</figcaption></figure>
+  <figure><img src="img/x-k-firsov-video.jpg?v=016133e2" alt="Кадр из видео @k_firsov"><figcaption>Кадр из видео эксплойта в посте @k_firsov</figcaption></figure>
   <div class="tweet">
   <div class="tnarr">
     <div class="tmeta"><b>Dane Knecht 🦭</b> <span class="mono">@dok2001</span></div>
@@ -207,7 +260,7 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/Cloudflare/status/2112911026437935381"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/cloudflare.png" alt="Cloudflare Blog"><figcaption>Блог Cloudflare: как защищали сайты от php2shell</figcaption></figure>
+  <figure><img src="img/cloudflare.png?v=f018f039" alt="Cloudflare Blog"><figcaption>Блог Cloudflare: как защищали сайты от php2shell</figcaption></figure>
   <div class="tweet">
   <div class="tnarr">
     <div class="tmeta"><b>NCSC UK</b> <span class="mono">@NCSC</span></div>
@@ -224,7 +277,7 @@ figure{max-width:1240px}
 <section id="ai">
   <h2><span class="num">04</span> Главное для нас: дыры нашёл ИИ</h2>
   <p>Компания Calif нашла критическую дыру с помощью модели <span class="mono hl">GPT-5.6 Sol</span> от OpenAI. Wiz нашла обе дыры независимо, тоже с ИИ. OpenAI собрала коалицию: разработчики PHP, исследователи, Cloudflare и другие два месяца готовили исправление.</p>
-  <figure><img src="img/openai.png" alt="OpenAI: Patch the Planet"><figcaption>OpenAI: Patch the Planet</figcaption></figure>
+  <figure><img src="img/openai.png?v=c012c214" alt="OpenAI: Patch the Planet"><figcaption>OpenAI: Patch the Planet</figcaption></figure>
   <blockquote class="quote"><p>«the same capabilities can also help attackers rapidly develop offensive tools and exploits»</p><p class="tr">«Те же возможности помогают атакующим быстро делать инструменты для атак и эксплойты».</p><cite>OpenAI</cite></blockquote>
   <blockquote class="quote"><p>«we expect similar findings to increase sharply in the coming months»</p><p class="tr">«Мы ожидаем, что в ближайшие месяцы таких находок станет резко больше».</p><cite>OpenAI</cite></blockquote>
   <div class="tweet">
@@ -272,7 +325,7 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/sagitz_/status/2112901380080058778"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/x-sagitz.jpg" alt="Картинка из поста @sagitz_"><figcaption>Картинка из треда Саги Цадика (Wiz)</figcaption></figure>
+  <figure><img src="img/x-sagitz.jpg?v=2784096f" alt="Картинка из поста @sagitz_"><figcaption>Картинка из треда Саги Цадика (Wiz)</figcaption></figure>
   <div class="tweet">
   <div class="tnarr">
     <div class="tmeta"><b>Wiz</b> <span class="mono">@wiz_io</span></div>
@@ -297,9 +350,9 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/Google/status/2112914740058181739"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/x-google-video.jpg" alt="Кадр из видео Google"><figcaption>Кадр из видео в посте Google</figcaption></figure>
+  <figure><img src="img/x-google-video.jpg?v=c32a6e50" alt="Кадр из видео Google"><figcaption>Кадр из видео в посте Google</figcaption></figure>
   <p>Anthropic в своём исследовании проверяла, как быстро модели пишут эксплойт по свежему патчу (на дырах Firefox). Их сильнейшая модель Mythos Preview сделала первый рабочий эксплойт меньше чем за час.</p>
-  <figure><img src="img/anthropic.jpg" alt="Anthropic research"><figcaption>Anthropic: исследование про n-day уязвимости</figcaption></figure>
+  <figure><img src="img/anthropic.jpg?v=6c228d22" alt="Anthropic research"><figcaption>Anthropic: исследование про n-day уязвимости</figcaption></figure>
   <p>Calif уточняет: первым дыру нашёл и сделал рабочий эксплойт исследователь @lcfr_hax, его пост датирован 5 августа.</p>
   <div class="tweet">
   <div class="tnarr">
@@ -331,8 +384,8 @@ figure{max-width:1240px}
   <h2><span class="num">05</span> Что происходит сейчас</h2>
   <p><b>Атаки идут.</b> Cloudflare видит их с утра. У watchTowr статус уязвимости: <span class="mono hl">Exploitation: In The Wild</span>, то есть её используют в реальных атаках. Hadrian пишет: «Exploitation is still happening at scale» («Атаки по-прежнему идут массово»).</p>
   <p><b>Удачных взломов публично пока никто не подтвердил.</b> Huntress: «No indicators of compromise have been confirmed yet» («Признаков взлома пока не подтверждено»).</p>
-  <figure><img src="img/watchtowr.png" alt="watchTowr FAQ"><figcaption>watchTowr: FAQ по CVE-2026-109618</figcaption></figure>
-  <figure><img src="img/hadrian.webp" alt="Hadrian alert"><figcaption>Hadrian: «php2shell: two leaked critical PHP RCEs»</figcaption></figure>
+  <figure><img src="img/watchtowr.png?v=687b100b" alt="watchTowr FAQ"><figcaption>watchTowr: FAQ по CVE-2026-109618</figcaption></figure>
+  <figure><img src="img/hadrian.webp?v=275075ab" alt="Hadrian alert"><figcaption>Hadrian: «php2shell: two leaked critical PHP RCEs»</figcaption></figure>
   <div class="stat"><div class="big mono">1,3 млн+</div><div>уязвимых хостов в интернете, грубая оценка @silascutler по данным сканирования</div></div>
   <div class="tweet">
   <div class="tnarr">
@@ -345,7 +398,7 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/silascutler/status/2112684895608652003"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/x-silascutler.jpg" alt="Карта хостов из поста @silascutler"><figcaption>Скриншот из поста @silascutler</figcaption></figure>
+  <figure><img src="img/x-silascutler.jpg?v=b35d327f" alt="Карта хостов из поста @silascutler"><figcaption>Скриншот из поста @silascutler</figcaption></figure>
   <h3>Кто отключился из предосторожности</h3>
   <ul class="list">
     <li><b>Финляндия:</b> госцентр Valtori в <span class="mono">12:45</span> МСК закрыл входящий трафик из интернета к публичным госсервисам Финляндии (налоговая, электронные услуги полиции, земельная служба). Взлома не было.</li>
@@ -356,7 +409,7 @@ figure{max-width:1240px}
     <li><b>Cygames</b> (Umamusume): по данным Dexerto, компания прямо связала свои техработы с уязвимостью PHP.</li>
   </ul>
   <p class="note">О взломах никто из них не сообщал.</p>
-  <figure><img src="img/yle.jpg" alt="Yle"><figcaption>Yle: Финляндия временно закрывает госсайты</figcaption></figure>
+  <figure><img src="img/yle.jpg?v=b8633d57" alt="Yle"><figcaption>Yle: Финляндия временно закрывает госсайты</figcaption></figure>
   <div class="tweet">
   <div class="tnarr">
     <div class="tmeta"><b>NCSC-NL</b> <span class="mono">@ncsc_nl</span></div>
@@ -368,7 +421,7 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/ncsc_nl/status/2112874187719385243"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/nunl.jpg" alt="NU.nl liveblog"><figcaption>NU.nl ведёт лайвблог об отключениях в Нидерландах</figcaption></figure>
+  <figure><img src="img/nunl.jpg?v=7153c283" alt="NU.nl liveblog"><figcaption>NU.nl ведёт лайвблог об отключениях в Нидерландах</figcaption></figure>
   <div class="tweet">
   <div class="tnarr">
     <div class="tmeta"><b>@levelsio</b> <span class="mono">@levelsio</span></div>
@@ -380,8 +433,8 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/levelsio/status/2112887674251976827"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/bbc.jpg" alt="BBC News"><figcaption>BBC News: сайты по всему миру уходят в офлайн</figcaption></figure>
-  <figure><img src="img/dexerto.jpg" alt="Dexerto"><figcaption>Dexerto: игры Pokémon, Umamusume и другие ушли на техработы</figcaption></figure>
+  <figure><img src="img/bbc.jpg?v=28d41fb0" alt="BBC News"><figcaption>BBC News: сайты по всему миру уходят в офлайн</figcaption></figure>
+  <figure><img src="img/dexerto.jpg?v=2a03faf1" alt="Dexerto"><figcaption>Dexerto: игры Pokémon, Umamusume и другие ушли на техработы</figcaption></figure>
   <h3 class="rumor-h">Слухи</h3>
   <ul class="list rumor">
     <li><span class="tag">слух</span> Отключение госсайтов Франции.</li>
@@ -455,7 +508,7 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/prthgo/status/2112923929631433168"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/x-prthgo.jpg" alt="Мем из поста @prthgo"><figcaption>Мем из поста @prthgo</figcaption></figure>
+  <figure><img src="img/x-prthgo.jpg?v=be37187b" alt="Мем из поста @prthgo"><figcaption>Мем из поста @prthgo</figcaption></figure>
   <p>В Японии вспоминают Log4Shell и сравнивают реакцию премьеров:</p>
   <div class="tweet">
   <div class="tnarr">
@@ -561,8 +614,8 @@ figure{max-width:1240px}
     <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none" data-width="550"><a href="https://x.com/TheHackersNews/status/2112917025047670787"></a></blockquote>
   </div>
 </div>
-  <figure><img src="img/phpnet.png" alt="php.net"><figcaption>Официальная новость с исправлениями — на php.net</figcaption></figure>
-  <figure><img src="img/sansec.jpg" alt="Sansec"><figcaption>Sansec: инструкция для магазинов на Magento</figcaption></figure>
+  <figure><img src="img/phpnet.png?v=5b89a04a" alt="php.net"><figcaption>Официальная новость с исправлениями — на php.net</figcaption></figure>
+  <figure><img src="img/sansec.jpg?v=b61d6ab0" alt="Sansec"><figcaption>Sansec: инструкция для магазинов на Magento</figcaption></figure>
 </section>
 
 <section id="russia">
@@ -579,7 +632,7 @@ figure{max-width:1240px}
     <li><b>Взломы в .ru:</b> подтверждённых нет. Positive Technologies, F6, Kaspersky, BI.ZONE и Solar об этом молчат.</li>
   </ul>
   <div class="card"><div class="ctitle">Совет</div><p>Зайди в панель и проверь версию PHP. С <span class="mono">8.1</span> и ниже переходи на <span class="mono">8.2+</span> и жди от хостинга сообщения об исправленной версии. На своём VPS PHP обновляешь ты сам. Обновление WordPress или Битрикса PHP не обновляет.</p></div>
-  <figure><img src="img/habr.png" alt="Хабр"><figcaption>Новость на Хабре</figcaption></figure>
+  <figure><img src="img/habr.png?v=c9941b65" alt="Хабр"><figcaption>Новость на Хабре</figcaption></figure>
 </section>
 
 <section id="final">
