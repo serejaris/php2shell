@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHP2Shell: ИИ нашёл дыры в PHP · стрим Сережи Риса</title>
+<meta name="description" content="Разбираем по шагам, что случилось, при чём тут ИИ и что сделать с твоим сайтом сегодня.">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Стрим Сережи Риса">
+<meta property="og:title" content="PHP2Shell: ИИ нашёл дыры в PHP, и интернет срочно обновляется">
+<meta property="og:description" content="Разбираем по шагам, что случилось, при чём тут ИИ и что сделать с твоим сайтом сегодня.">
+<meta property="og:url" content="https://serejaris.github.io/php2shell/">
+<meta property="og:image" content="https://serejaris.github.io/php2shell/img/php2shell.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@serejaris"><meta name="twitter:image" content="https://serejaris.github.io/php2shell/img/php2shell.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#0b0a10;--panel:#15131d;--line:#2a2635;--fg:#efeaf5;--mute:#a49db3;--pink:#ff1493;--lime:#b6ff3b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Outfit,system-ui,sans-serif;font-size:23px;line-height:1.55;
+ background-image:radial-gradient(circle at 15% -10%,rgba(255,20,147,.18),transparent 40%),radial-gradient(circle at 110% 30%,rgba(182,255,59,.08),transparent 35%),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+ background-size:auto,auto,40px 40px,40px 40px;background-attachment:fixed}
+main{max-width:940px;margin:0 auto;padding:72px 40px 120px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:.92em}
+.hl{color:var(--lime)}
+a{color:var(--pink)}
+.hero{padding:24px 0 40px}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--lime);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--lime);display:inline-block;padding:6px 14px;border-radius:999px}
+h1{font-size:64px;line-height:1.05;font-weight:800;margin:28px 0 20px;letter-spacing:-.02em}
+h1{background:linear-gradient(90deg,#fff 0%,#ffd1ea 50%,var(--pink) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:28px;color:var(--mute);margin:0 0 32px}
+section{margin:96px 0;padding-top:16px}
+h2{font-size:44px;line-height:1.15;font-weight:800;margin:0 0 28px;letter-spacing:-.01em}
+h2 .num{font-family:'JetBrains Mono',monospace;color:var(--pink);font-size:.55em;vertical-align:middle;margin-right:14px;border:2px solid var(--pink);padding:2px 10px;border-radius:8px;text-shadow:0 0 12px rgba(255,20,147,.6)}
+h3{font-size:30px;margin:40px 0 14px}
+p{margin:0 0 22px}
+figure{margin:32px 0}
+figure img{width:100%;border-radius:16px;border:1px solid var(--line);display:block;box-shadow:0 0 0 1px rgba(255,20,147,.15),0 20px 40px rgba(0,0,0,.4)}
+figcaption{font-size:17px;color:var(--mute);margin-top:10px}
+.quote{margin:28px 0;padding:24px 28px;border-left:5px solid var(--pink);background:linear-gradient(90deg,rgba(255,20,147,.10),transparent);border-radius:0 14px 14px 0}
+.quote p{margin:0 0 10px;font-size:26px;font-weight:600}
+.quote .tr{font-weight:400;color:var(--mute);font-size:22px}
+.quote cite{display:block;font-style:normal;font-family:'JetBrains Mono',monospace;color:var(--lime);font-size:17px}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+.card p{margin:0}
+.ctitle{color:var(--lime);font-weight:600;margin-bottom:8px}
+.versions{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 26px}
+.versions span{background:rgba(182,255,59,.1);color:var(--lime);border:1px solid var(--lime);border-radius:10px;padding:8px 18px;font-size:28px;font-weight:700}
+.warn{border:1px solid var(--pink);background:rgba(255,20,147,.08);padding:18px 22px;border-radius:14px}
+.big-warn{font-size:26px;font-weight:600}
+.note{color:var(--mute);font-size:19px}
+.stat{display:flex;gap:28px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 30px;margin:32px 0}
+.stat .big{font-size:72px;font-weight:700;color:var(--pink);line-height:1;text-shadow:0 0 24px rgba(255,20,147,.5)}
+.tl{list-style:none;padding:0;margin:0 0 32px;border-left:2px dashed var(--line)}
+.tl li{position:relative;padding:0 0 22px 28px;display:grid;grid-template-columns:170px 1fr;gap:12px}
+.tl li::before{content:'';position:absolute;left:-8px;top:12px;width:14px;height:14px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px var(--pink)}
+.tl .t{color:var(--lime)}
+.list{padding-left:28px}.list li{margin-bottom:14px}.list.small{font-size:20px}
+.rumor .tag,.tag{font-family:'JetBrains Mono',monospace;font-size:15px;background:#ffd400;color:#000;padding:2px 8px;border-radius:6px;margin-right:8px;text-transform:uppercase}
+.step{display:flex;gap:22px;margin:28px 0}
+.step .sn{flex:0 0 52px;height:52px;border-radius:12px;background:var(--pink);color:#000;font-weight:700;font-size:26px;display:flex;align-items:center;justify-content:center}
+.step h3{margin:6px 0 10px}
+.tweet{margin:30px 0}
+.tweet .twitter-tweet{margin:0 auto 12px!important}
+.tcard{display:block;text-decoration:none;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--lime);border-radius:14px;padding:18px 22px}
+.tcard:hover{border-color:var(--pink)}
+.tmeta{font-size:19px}.tmeta .mono{color:var(--mute)}
+.ttext{font-size:19px;margin:8px 0 10px;color:#d9d3e3;white-space:pre-line}
+.tfoot{display:flex;flex-wrap:wrap;gap:18px;font-size:15px;color:var(--mute)}
+.tfoot .views{color:var(--pink);font-weight:700}
+.cta{display:block;text-align:center;margin:36px 0;padding:26px;border-radius:18px;background:var(--pink);color:#000;font-weight:800;font-size:28px;text-decoration:none;box-shadow:0 0 30px rgba(255,20,147,.5)}
+.src{font-size:19px;padding-left:30px}.src li{margin-bottom:8px}.src .url{color:var(--mute);font-size:14px;word-break:break-all;display:block}
+footer{margin-top:80px;color:var(--mute);font-size:18px;border-top:1px solid var(--line);padding-top:24px}
+@media(max-width:800px){h1{font-size:44px}.cards2{grid-template-columns:1fr}}
+</style></head><body><main>
+<header class="hero">
+  <div class="kicker">стрим · 21 октября 2026 · <span class="mono">PHP2Shell</span></div>
+  <h1>PHP2Shell: ИИ нашёл дыры в&nbsp;PHP, и&nbsp;интернет срочно обновляется</h1>
+  <p class="lead">Разбираем по шагам, что случилось, при чём тут ИИ и что сделать с&nbsp;твоим сайтом сегодня.</p>
+  <figure><img src="img/wiz.webp" alt="Обложка Wiz Research: PHP2Shell, CVE-2026-109618/9"><figcaption>Обложка исследования Wiz Research</figcaption></figure>
+</header>
+
+<section id="hook">
+  <h2><span class="num">01</span> Премьер Японии просит обновиться сегодня вечером</h2>
+  <p>21 октября в <span class="mono">15:55</span> МСК премьер-министр Японии Санаэ Такаити пишет в X:</p>
+  <blockquote class="quote"><p lang="ja">皆様に、今夜に対応して頂きたい大至急のお願いです。</p><p class="tr">«Очень срочная просьба ко всем: пожалуйста, примите меры сегодня же вечером».</p></blockquote>
+  <p>Пост посмотрели больше <span class="mono hl">26 млн</span> раз. Речь про PHP, язык, на котором работает примерно <span class="mono hl">70%</span> сайтов в мире. В нём нашли две опасные дыры, и помог их найти ИИ. Дыры пролежали в коде больше <span class="mono">10</span> лет.</p>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/takaichi_sanae/status/2112890642590564386"></a></blockquote>
+  <a class="tcard" href="https://x.com/takaichi_sanae/status/2112890642590564386" target="_blank" rel="noopener">
+    <div class="tmeta"><b>高市早苗</b> <span class="mono">@takaichi_sanae</span></div>
+    <div class="ttext">皆様に、今夜に対応して頂きたい大至急のお願いです。
+多くのウェブサイトで使用されているPHPに関し、PHPのセキュリティチームが、重大な２件の脆弱性に関する注意喚起を行っています。</div>
+    <div class="tfoot mono"><span>21.10.2026 15:55 МСК</span><span class="views">26,1 млн просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+</section>
+
+<section id="what">
+  <h2><span class="num">02</span> Что случилось простыми словами</h2>
+  <p>Нашли две уязвимости. У каждой дыры в софте есть номер в общем каталоге, он называется <b>CVE</b>. Наши номера: <span class="mono hl">CVE-2026-109618</span> и <span class="mono hl">CVE-2026-109619</span>.</p>
+  <p>Опасность дыры меряют по шкале <b>CVSS</b> от 0 до 10. У обеих <span class="mono hl">9.2</span>, это критический уровень. Оценку подтверждают американская база NVD и немецкое ведомство BSI.</p>
+  <div class="cards2">
+    <div class="card"><div class="ctitle">Дыра 1: код на сервере</div><p>Злоумышленник запускает свои команды на чужом сервере. Логин и пароль ему для этого не нужны.</p></div>
+    <div class="card"><div class="ctitle">Дыра 2: чтение памяти</div><p>Похоже на Heartbleed 2014 года. Из памяти сервера можно вытащить пароли, токены, API-ключи и сертификаты.</p></div>
+  </div>
+  <p>Затронуты почти все версии PHP, начиная с <span class="mono">5.4</span>. Через PHP под ударом WordPress, Drupal, Joomla, Magento, Laravel и MediaWiki (движок Википедии).</p>
+  <p><b>Патч</b> — это исправление, обновлённая версия программы, где дыра закрыта. Детали утекли в сеть вечером <span class="mono">20.10</span>. Патчи вышли <span class="mono">21.10</span> в <span class="mono">17:00</span> МСК:</p>
+  <div class="versions mono"><span>8.5.12</span><span>8.4.27</span><span>8.3.36</span><span>8.2.35</span></div>
+  <p class="warn">Для PHP <span class="mono">8.1</span> и старше официальных патчей нет. С таких версий надо переезжать на <span class="mono">8.2</span> и выше.</p>
+  <div class="stat"><div class="big mono">94%</div><div>сайтов в зоне <span class="mono">.ru</span> с известным серверным языком работают на PHP (W3Techs, 21.10.2026). Нас это касается напрямую.</div></div>
+  <figure><img src="img/php2shell.png" alt="php2shell.com"><figcaption>php2shell.com: проверка сайта и инструкции (Wiz Research, Calif, OpenAI)</figcaption></figure>
+</section>
+
+<section id="timeline">
+  <h2><span class="num">03</span> Таймлайн дня (МСК)</h2>
+  <ol class="tl">
+    <li><span class="t mono">20.10 23:27</span><span>@k_firsov публикует видео эксплойта: «php2shell. Tomorrow is a helluva day». <b>Эксплойт</b> — это готовая программа, которая использует дыру для атаки.</span></li>
+    <li><span class="t mono">21.10 02:18</span><span>@silascutler оценивает: уязвимых хостов в сети, скорее всего, больше <span class="mono">1,3 млн</span>.</span></li>
+    <li><span class="t mono">06:02</span><span>Cloudflare включает защитные правила WAF всем клиентам, бесплатным тоже. <b>WAF</b> — фильтр перед сайтом, он отсекает подозрительные запросы.</span></li>
+    <li><span class="t mono">10:43</span><span>CTO Cloudflare Дейн Кнехт: видим первые атаки. Патча ещё нет.</span></li>
+    <li><span class="t mono">12:45</span><span>Финляндия: госцентр Valtori из предосторожности закрывает доступ из интернета к публичным госсервисам.</span></li>
+    <li><span class="t mono">13:07</span><span>NCSC UK: готовьтесь обновляться сразу. Если не выходит, отключайте систему.</span></li>
+    <li><span class="t mono">14:35</span><span>Hadrian фиксирует массовые атаки.</span></li>
+    <li><span class="t mono">15:44</span><span>levelsio отключает от сети все свои сайты и VPS.</span></li>
+    <li><span class="t mono">15:55</span><span>Пост премьер-министра Японии.</span></li>
+    <li><span class="t mono">16:38</span><span>Wiz публикует разбор PHP2Shell.</span></li>
+    <li><span class="t mono hl">17:00</span><span>Выходят патчи PHP.</span></li>
+    <li><span class="t mono">17:04</span><span>OpenAI рассказывает, как их модель помогла найти дыры.</span></li>
+  </ol>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/k_firsov/status/2112641845926989944"></a></blockquote>
+  <a class="tcard" href="https://x.com/k_firsov/status/2112641845926989944" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Kirill Firsov</b> <span class="mono">@k_firsov</span></div>
+    <div class="ttext">php2shell
+Tomorrow is a helluva day.</div>
+    <div class="tfoot mono"><span>20.10.2026 23:27 МСК</span><span class="views">2,1 млн просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/x-k-firsov-video.jpg" alt="Кадр из видео @k_firsov"><figcaption>Кадр из видео эксплойта в посте @k_firsov</figcaption></figure>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/dok2001/status/2112811965735202970"></a></blockquote>
+  <a class="tcard" href="https://x.com/dok2001/status/2112811965735202970" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Dane Knecht 🦭</b> <span class="mono">@dok2001</span></div>
+    <div class="ttext">PHP sites behind Cloudflare already have an initial set of WAF rules deployed for the known exploit vectors in these vulnerabilities. The rules are available to all customers, including free.
+We are seeing early attacks emerging and are updating…</div>
+    <div class="tfoot mono"><span>21.10.2026 10:43 МСК</span><span class="views">556 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/dok2001/status/2112909127060259086"></a></blockquote>
+  <a class="tcard" href="https://x.com/dok2001/status/2112909127060259086" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Dane Knecht 🦭</b> <span class="mono">@dok2001</span></div>
+    <div class="ttext">The Cloudflare&#x27;s writeup on our php2shell response is up.
+Rules went live at 03:02 UTC, about 9 hours before disclosure. Unfortunately the vulnerability leaked early, so we were already watching attackers mutate payloads against the rules and updating as…</div>
+    <div class="tfoot mono"><span>21.10.2026 17:09 МСК</span><span class="views">87 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/Cloudflare/status/2112911026437935381"></a></blockquote>
+  <a class="tcard" href="https://x.com/Cloudflare/status/2112911026437935381" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Cloudflare</b> <span class="mono">@Cloudflare</span></div>
+    <div class="ttext">Cloudflare has deployed default web application firewall (WAF) protections for newly disclosed PHP vulnerabilities before public disclosure. The rules use request and response signals to stop exploit attempts and prevent exposed data from reaching attackers.</div>
+    <div class="tfoot mono"><span>21.10.2026 17:16 МСК</span><span class="views">83 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/cloudflare.png" alt="Cloudflare Blog"><figcaption>Блог Cloudflare: как защищали сайты от php2shell</figcaption></figure>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/NCSC/status/2112848265074847828"></a></blockquote>
+  <a class="tcard" href="https://x.com/NCSC/status/2112848265074847828" target="_blank" rel="noopener">
+    <div class="tmeta"><b>NCSC UK</b> <span class="mono">@NCSC</span></div>
+    <div class="ttext">The NCSC is encouraging UK organisations to prepare for immediate updating of systems using PHP. Where immediate remediation is not feasible, organisations should consider taking the system offline until it can be fully mitigated.
+For more⬇️</div>
+    <div class="tfoot mono"><span>21.10.2026 13:07 МСК</span><span class="views">488 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+</section>
+
+<section id="ai">
+  <h2><span class="num">04</span> Главное для нас: дыры нашёл ИИ</h2>
+  <p>Компания Calif нашла критическую дыру с помощью модели <span class="mono hl">GPT-5.6 Sol</span> от OpenAI. Wiz нашла обе дыры независимо, тоже с ИИ. OpenAI собрала коалицию: разработчики PHP, исследователи, Cloudflare и другие два месяца готовили исправление.</p>
+  <figure><img src="img/openai.png" alt="OpenAI: Patch the Planet"><figcaption>OpenAI: Patch the Planet</figcaption></figure>
+  <blockquote class="quote"><p>«the same capabilities can also help attackers rapidly develop offensive tools and exploits»</p><p class="tr">«Те же возможности помогают атакующим быстро делать инструменты для атак и эксплойты».</p><cite>OpenAI</cite></blockquote>
+  <blockquote class="quote"><p>«we expect similar findings to increase sharply in the coming months»</p><p class="tr">«Мы ожидаем, что в ближайшие месяцы таких находок станет резко больше».</p><cite>OpenAI</cite></blockquote>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/OpenAI/status/2112907856018309586"></a></blockquote>
+  <a class="tcard" href="https://x.com/OpenAI/status/2112907856018309586" target="_blank" rel="noopener">
+    <div class="tmeta"><b>OpenAI</b> <span class="mono">@OpenAI</span></div>
+    <div class="ttext">OpenAI models helped researchers—operating as part of our Patch the Planet initiative—discover critical security flaws in PHP, an open-source programming language used to run an estimated 70% of websites.
+Over the past two months, we led a coalition of…</div>
+    <div class="tfoot mono"><span>21.10.2026 17:04 МСК</span><span class="views">1,0 млн просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/gdb/status/2112921529650688312"></a></blockquote>
+  <a class="tcard" href="https://x.com/gdb/status/2112921529650688312" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Greg Brockman</b> <span class="mono">@gdb</span></div>
+    <div class="ttext">Over the past two months, we have been leading a coalition to mitigate one of the most severe bugs in open source software found in recent memory, php2shell, found as part of our Patch the Planet initiative.</div>
+    <div class="tfoot mono"><span>21.10.2026 17:58 МСК</span><span class="views">58 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <blockquote class="quote"><p>«As expected in 2026, AI did most of the work here.»</p><p class="tr">«Как и положено в 2026-м, бо́льшую часть работы сделал ИИ».</p><cite>Саги Цадик, Wiz</cite></blockquote>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/sagitz_/status/2112901387122332066"></a></blockquote>
+  <a class="tcard" href="https://x.com/sagitz_/status/2112901387122332066" target="_blank" rel="noopener">
+    <div class="tmeta"><b>sagitz</b> <span class="mono">@sagitz_</span></div>
+    <div class="ttext">As expected in 2026, AI did most of the work here.
+This research began with a prompt targeting security flaws in PHP functions reachable from popular codebases.
+One thing led to another, and we ended up uncovering an entire class of security…</div>
+    <div class="tfoot mono"><span>21.10.2026 16:38 МСК</span><span class="views">17 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/sagitz_/status/2112901380080058778"></a></blockquote>
+  <a class="tcard" href="https://x.com/sagitz_/status/2112901380080058778" target="_blank" rel="noopener">
+    <div class="tmeta"><b>sagitz</b> <span class="mono">@sagitz_</span></div>
+    <div class="ttext">Today we disclose PHP2Shell - remotely exploitable memory corruptions in PHP
+WordPress pre-auth RCE: ✅
+Drupal pre-auth RCE: ✅
+Joomla pre-auth RCE: ✅
+Remote memory disclosure of any PHP application: ✅
+Read more ⬇️🧵</div>
+    <div class="tfoot mono"><span>21.10.2026 16:38 МСК</span><span class="views">169 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/x-sagitz.jpg" alt="Картинка из поста @sagitz_"><figcaption>Картинка из треда Саги Цадика (Wiz)</figcaption></figure>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/wiz_io/status/2112899825305780607"></a></blockquote>
+  <a class="tcard" href="https://x.com/wiz_io/status/2112899825305780607" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Wiz</b> <span class="mono">@wiz_io</span></div>
+    <div class="ttext">PHP2Shell marks an inflection point: AI changes the practical exploitability of longstanding vulnerabilities. Frontier models (Wiz Atlas, GPT-5.6-Sol, and Gemini 4 Argon) were used to hunt down and chain these 10-year-old flaws in under a week, with Gemini…</div>
+    <div class="tfoot mono"><span>21.10.2026 16:32 МСК</span><span class="views">3 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <p>Google рассказывает про свою модель Gemini 4 Argon, её тоже проверяли в Wiz:</p>
+  <blockquote class="quote"><p>«found more than two times more vulnerabilities than baseline models»</p><p class="tr">«Нашла больше чем вдвое больше уязвимостей, чем базовые модели».</p><cite>Google</cite></blockquote>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/Google/status/2112914740058181739"></a></blockquote>
+  <a class="tcard" href="https://x.com/Google/status/2112914740058181739" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Google</b> <span class="mono">@Google</span></div>
+    <div class="ttext">Researchers at @wiz_io put Gemini 4 Argon to the test against complex cyber threats.
+In real-world testing, it found more than two times more vulnerabilities than baseline models — catching a critical risk that previous frontier models missed.
+See how they…</div>
+    <div class="tfoot mono"><span>21.10.2026 17:31 МСК</span><span class="views">79 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/x-google-video.jpg" alt="Кадр из видео Google"><figcaption>Кадр из видео в посте Google</figcaption></figure>
+  <p>Anthropic в своём исследовании проверяла, как быстро модели пишут эксплойт по свежему патчу (на дырах Firefox). Их сильнейшая модель Mythos Preview сделала первый рабочий эксплойт меньше чем за час.</p>
+  <figure><img src="img/anthropic.jpg" alt="Anthropic research"><figcaption>Anthropic: исследование про n-day уязвимости</figcaption></figure>
+  <p>Calif уточняет: первым дыру нашёл и сделал рабочий эксплойт исследователь @lcfr_hax, его пост датирован 5 августа.</p>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/calif_io/status/2112914613297668583"></a></blockquote>
+  <a class="tcard" href="https://x.com/calif_io/status/2112914613297668583" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Calif</b> <span class="mono">@calif_io</span></div>
+    <div class="ttext">Let’s set the record straight: @lcfr_hax was the first to discover php2shell and develop a working exploit. See his August 5 tweet: 
+His work convinced the PHP Foundation to invest in fixing this entire bug class. He then worked around the clock to review,</div>
+    <div class="tfoot mono"><span>21.10.2026 17:31 МСК</span><span class="views">44 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <p>CTO Cloudflare Дейн Кнехт говорит прямо:</p>
+  <blockquote class="quote"><p>«This won't be the last one. Models will keep finding bugs like this in software everyone runs.»</p><p class="tr">«Это не последний случай. Модели продолжат находить такие баги в софте, которым пользуются все».</p><cite>Дейн Кнехт, Cloudflare</cite></blockquote>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/dok2001/status/2112921277870866880"></a></blockquote>
+  <a class="tcard" href="https://x.com/dok2001/status/2112921277870866880" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Dane Knecht 🦭</b> <span class="mono">@dok2001</span></div>
+    <div class="ttext">Credit to @OpenAI @wiz_io @ThePHPF for finding php2shell and running a responsible, coordinated disclosure.
+This won&#x27;t be the last one. Models will keep finding bugs like this in software everyone runs. Maintainers, researchers, providers and governments…</div>
+    <div class="tfoot mono"><span>21.10.2026 17:57 МСК</span><span class="views">7 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+</section>
+
+<section id="now">
+  <h2><span class="num">05</span> Что происходит сейчас</h2>
+  <p><b>Атаки идут.</b> Cloudflare видит их с утра. У watchTowr статус уязвимости: <span class="mono hl">Exploitation: In The Wild</span>, то есть её используют в реальных атаках. Hadrian пишет: «Exploitation is still happening at scale» («Атаки по-прежнему идут массово»).</p>
+  <p><b>Удачных взломов публично пока никто не подтвердил.</b> Huntress: «No indicators of compromise have been confirmed yet» («Признаков взлома пока не подтверждено»).</p>
+  <figure><img src="img/watchtowr.png" alt="watchTowr FAQ"><figcaption>watchTowr: FAQ по CVE-2026-109618</figcaption></figure>
+  <figure><img src="img/hadrian.webp" alt="Hadrian alert"><figcaption>Hadrian: «php2shell: two leaked critical PHP RCEs»</figcaption></figure>
+  <div class="stat"><div class="big mono">1,3 млн+</div><div>уязвимых хостов в интернете, грубая оценка @silascutler по данным сканирования</div></div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/silascutler/status/2112684895608652003"></a></blockquote>
+  <a class="tcard" href="https://x.com/silascutler/status/2112684895608652003" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Silas Cutler (p1nk)</b> <span class="mono">@silascutler</span></div>
+    <div class="ttext">Rough estimate - likely over 1.3 million internet exposed hosts vulnerable to #PHP2Shell</div>
+    <div class="tfoot mono"><span>21.10.2026 02:18 МСК</span><span class="views">25 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/x-silascutler.jpg" alt="Карта хостов из поста @silascutler"><figcaption>Скриншот из поста @silascutler</figcaption></figure>
+  <h3>Кто отключился из предосторожности</h3>
+  <ul class="list">
+    <li><b>Финляндия:</b> госцентр Valtori в <span class="mono">12:45</span> МСК закрыл входящий трафик из интернета к публичным госсервисам Финляндии (налоговая, электронные услуги полиции, земельная служба). Взлома не было.</li>
+    <li><b>Нидерланды</b> (по NU.nl): Mijn Overheid, NotuBiz, сайты FC Twente и FC Groningen, Tweakers. Сайт NCSC-NL тоже ушёл в офлайн.</li>
+    <li><b>levelsio</b> выключил все свои сайты и VPS до выхода патча.</li>
+    <li><b>BBC:</b> пропали страницы нескольких программ, например Doctor Who и The Traitors. Связь с PHP BBC не подтвердила.</li>
+    <li><b>Nintendo:</b> сервисы на техработах. Связь с PHP не подтверждена (The Record, Dexerto).</li>
+    <li><b>Cygames</b> (Umamusume): по данным Dexerto, компания прямо связала свои техработы с уязвимостью PHP.</li>
+  </ul>
+  <p class="note">О взломах никто из них не сообщал.</p>
+  <figure><img src="img/yle.jpg" alt="Yle"><figcaption>Yle: Финляндия временно закрывает госсайты</figcaption></figure>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/ncsc_nl/status/2112874187719385243"></a></blockquote>
+  <a class="tcard" href="https://x.com/ncsc_nl/status/2112874187719385243" target="_blank" rel="noopener">
+    <div class="tmeta"><b>NCSC-NL</b> <span class="mono">@ncsc_nl</span></div>
+    <div class="ttext">Vanwege de kwetsbaarheden in PHP hebben wij uit voorzorg onze website ( tijdelijk offline gehaald. We adviseren voorbereidingen te treffen op een komende patch op 21 oktober 16.00 uur. Lees het gehele bericht op LinkedIn:</div>
+    <div class="tfoot mono"><span>21.10.2026 14:50 МСК</span><span class="views">15 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/nunl.jpg" alt="NU.nl liveblog"><figcaption>NU.nl ведёт лайвблог об отключениях в Нидерландах</figcaption></figure>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/levelsio/status/2112887674251976827"></a></blockquote>
+  <a class="tcard" href="https://x.com/levelsio/status/2112887674251976827" target="_blank" rel="noopener">
+    <div class="tmeta"><b>@levelsio</b> <span class="mono">@levelsio</span></div>
+    <div class="ttext">I pre-emptively disconnected ALL my sites / VPS servers from the web
+I&#x27;ll wait for the patch to hit at 2 PM UTC
+If you have a PHP website, probably good to take them down until you patch PHP
+69.3% of the web runs on PHP so this is going to be intense!
+Good…</div>
+    <div class="tfoot mono"><span>21.10.2026 15:44 МСК</span><span class="views">252 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/bbc.jpg" alt="BBC News"><figcaption>BBC News: сайты по всему миру уходят в офлайн</figcaption></figure>
+  <figure><img src="img/dexerto.jpg" alt="Dexerto"><figcaption>Dexerto: игры Pokémon, Umamusume и другие ушли на техработы</figcaption></figure>
+  <h3 class="rumor-h">Слухи</h3>
+  <ul class="list rumor">
+    <li><span class="tag">слух</span> Отключение госсайтов Франции.</li>
+    <li><span class="tag">слух</span> Отключения Dread и BreachForums.</li>
+  </ul>
+</section>
+
+<section id="memes">
+  <h2><span class="num">06</span> Мемы и X</h2>
+  <p>Англоязычный X весь день шутит.</p>
+  <ul class="list">
+    <li>«php2shell. Tomorrow is a helluva day» («Завтра будет адский денёк») — пост, с которого всё началось.</li>
+    <li>@marcohextor: clankers жгут ВВП небольшой страны в токенах, чтобы хакнуть <span class="mono">70%</span> веба. <i>Clanker</i> в X — ироничное прозвище для ИИ.</li>
+    <li>levelsio: «Ask your clanker to install it!» («Попроси своего ИИ поставить патч!»).</li>
+    <li>levelsio рассказал про знакомого админа в большой компании: «Спасибо, пропатчу через пару дней, я сейчас в OOO» (в отпуске).</li>
+    <li>«PHP2SHELL TOOK DOWN RULE34 NOO».</li>
+    <li>«the internet had a day… it's wednesday» («у интернета был тот ещё денёк… и это среда»).</li>
+  </ul>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/marcohextor/status/2112666048000561307"></a></blockquote>
+  <a class="tcard" href="https://x.com/marcohextor/status/2112666048000561307" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Marco Hextor</b> <span class="mono">@marcohextor</span></div>
+    <div class="ttext">php2shell
+clankers around the world watching this on repeat while burning the GDP of a small nation in tokens racing to pwn 70% of the web
+brrrrrrrrrrrrrrrrrrrrrrrrrrrrr</div>
+    <div class="tfoot mono"><span>21.10.2026 01:03 МСК</span><span class="views">99 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/levelsio/status/2112923845267210658"></a></blockquote>
+  <a class="tcard" href="https://x.com/levelsio/status/2112923845267210658" target="_blank" rel="noopener">
+    <div class="tmeta"><b>@levelsio</b> <span class="mono">@levelsio</span></div>
+    <div class="ttext">Ubuntu now has a fix for PHP
+Ask your clanker to install it!</div>
+    <div class="tfoot mono"><span>21.10.2026 18:07 МСК</span><span class="views">19 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/levelsio/status/2112891358226645334"></a></blockquote>
+  <a class="tcard" href="https://x.com/levelsio/status/2112891358226645334" target="_blank" rel="noopener">
+    <div class="tmeta"><b>@levelsio</b> <span class="mono">@levelsio</span></div>
+    <div class="ttext">I notified a friend working at a big tech corporate about the PHP vulnerability as their entire infrastructure runs on PHP
+He answered
+&quot;Thanks, I&#x27;ll try patch it in a few days as I&#x27;m Out of Office (OOO) now&quot;
+And this is a modern tech company, imagine the…</div>
+    <div class="tfoot mono"><span>21.10.2026 15:58 МСК</span><span class="views">127 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/theh924/status/2112857555731091906"></a></blockquote>
+  <a class="tcard" href="https://x.com/theh924/status/2112857555731091906" target="_blank" rel="noopener">
+    <div class="tmeta"><b>h</b> <span class="mono">@theh924</span></div>
+    <div class="ttext">PHP2SHELL TOOK DOWN RULE34 NOO</div>
+    <div class="tfoot mono"><span>21.10.2026 13:44 МСК</span><span class="views">153 просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/prthgo/status/2112923929631433168"></a></blockquote>
+  <a class="tcard" href="https://x.com/prthgo/status/2112923929631433168" target="_blank" rel="noopener">
+    <div class="tmeta"><b>parth🥊</b> <span class="mono">@prthgo</span></div>
+    <div class="ttext">the internet had a day
+&gt;indian CA emudhra used private key 4
+&gt;8 TLS certs compromised
+&gt;php2shell: unauthenticated RCE in php itself
+&gt;levelsio took every site offline
+it&#x27;s wednesday.</div>
+    <div class="tfoot mono"><span>21.10.2026 18:08 МСК</span><span class="views">223 просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/x-prthgo.jpg" alt="Мем из поста @prthgo"><figcaption>Мем из поста @prthgo</figcaption></figure>
+  <p>В Японии вспоминают Log4Shell и сравнивают реакцию премьеров:</p>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/moznion/status/2112921603839594828"></a></blockquote>
+  <a class="tcard" href="https://x.com/moznion/status/2112921603839594828" target="_blank" rel="noopener">
+    <div class="tmeta"><b>moznion</b> <span class="mono">@moznion</span></div>
+    <div class="ttext">php2shellについては事前に（exploitが出ていたとしても) 高市早苗首相が注意喚起してくれるのに、log4shellについては岸田文雄前首相はなにも言ってくれなかった事について考えている</div>
+    <div class="tfoot mono"><span>21.10.2026 17:59 МСК</span><span class="views">219 просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <p>Русский X почти молчит. Лучшее, что нашлось, у @0xhrH: «Прям день открытых дверей какой-то».</p>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/0xhrH/status/2112815579065114865"></a></blockquote>
+  <a class="tcard" href="https://x.com/0xhrH/status/2112815579065114865" target="_blank" rel="noopener">
+    <div class="tmeta"><b>хырхыр 单身狗</b> <span class="mono">@0xhrH</span></div>
+    <div class="ttext">Какой же прекрасный сегодня день у безопасников и админов. Тут тебе и PHP2Shell, и компрометация приватных ключей восьми промежуточных центров сертификации.
+Прям день открытых дверей какой-то</div>
+    <div class="tfoot mono"><span>21.10.2026 10:57 МСК</span><span class="views">9 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/XakepRU/status/2112855413767225368"></a></blockquote>
+  <a class="tcard" href="https://x.com/XakepRU/status/2112855413767225368" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Xakep.ru</b> <span class="mono">@XakepRU</span></div>
+    <div class="ttext">Разработчики PHP предупредили о скором выпуске экстренных патчей
+Технические детали проблем пока не раскрываются, однако исследователи уже подтвердили существование багов, а в сети появилось видео с демонстрацией эксплоита PHP2Shell.</div>
+    <div class="tfoot mono"><span>21.10.2026 13:36 МСК</span><span class="views">517 просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/mzemlu777/status/2112932212362351084"></a></blockquote>
+  <a class="tcard" href="https://x.com/mzemlu777/status/2112932212362351084" target="_blank" rel="noopener">
+    <div class="tmeta"><b>mzemlu.eth</b> <span class="mono">@mzemlu777</span></div>
+    <div class="ttext">PHP2Shell: две критические RCE-дыры в PHP (CVSS 9.2), детали утекли раньше патча. Патчи вышли — обновляйся или отключай сайт. rule34 уже отключился.
+Чек на сегодня:
+— php -v → свежий патч-релиз
+— хостинг → тикет в поддержку
+— WordPress тоже на PHP</div>
+    <div class="tfoot mono"><span>21.10.2026 18:41 МСК</span><span class="views">79 просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+</section>
+
+<section id="trash">
+  <h2><span class="num">07</span> Осторожно, мусор</h2>
+  <p><b>PoC</b> (proof of concept) — пример кода, который показывает, что дыра работает. На GitHub уже около <span class="mono hl">180</span> репозиториев с «PoC» для PHP2Shell. Многие из них пустышки.</p>
+  <ul class="list">
+    <li>@Stekkz проверил <span class="mono">29</span> публичных репозиториев. На чистом PHP не воспроизвёлся ни один.</li>
+    <li>Tenable предупреждает: среди таких репозиториев встречается вредонос.</li>
+    <li>Уже есть мемкоин <span class="mono">$PHP2SHELL</span>. Ссылку не даю.</li>
+  </ul>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/Stekkz/status/2112872031163383852"></a></blockquote>
+  <a class="tcard" href="https://x.com/Stekkz/status/2112872031163383852" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Sebastiaan</b> <span class="mono">@Stekkz</span></div>
+    <div class="ttext">PHP2Shell (CVE-2026-109618/109619, CVSS 9.2): 29 public repos audited; none repro&#x27;d the alleged upload-progress UAF on stock PHP. 
+The working RCE demo uses app-level session poisoning + file inclusion. #PHP2Shell</div>
+    <div class="tfoot mono"><span>21.10.2026 14:42 МСК</span><span class="views">733 просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/rafalohaki/status/2112903909282881773"></a></blockquote>
+  <a class="tcard" href="https://x.com/rafalohaki/status/2112903909282881773" target="_blank" rel="noopener">
+    <div class="tmeta"><b>Rafał</b> <span class="mono">@rafalohaki</span></div>
+    <div class="ttext">Here, made demo video for shell access. This cve is not universal btw.  
+Session-file poisoning to LFI to RCE on current PHP (8.5.11, tested)
+No CVE — this is an application flaw, not a PHP core bug.
+ #infosec #php2shell #php</div>
+    <div class="tfoot mono"><span>21.10.2026 16:48 МСК</span><span class="views">4 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <p class="warn big-warn">Новичкам: ничего из ленты не скачивай и не запускай. Ни «PoC», ни «сканеры», ни «патчи» из чужих репозиториев.</p>
+</section>
+
+<section id="todo">
+  <h2><span class="num">08</span> Что делать</h2>
+  <div class="step"><div class="sn mono">1</div><div><h3>Облачный Битрикс24</h3><p>Битрикс обновит PHP сам. Пока он временно ограничил формы и работу с файлами. Подробности в блоке «Что в России».</p></div></div>
+  <div class="step"><div class="sn mono">2</div><div><h3>Сайт на обычном хостинге</h3><p>Зайди в панель хостинга и посмотри версию PHP. Если она ниже <span class="mono">8.2.35 / 8.3.36 / 8.4.27 / 8.5.12</span>, переключи на исправленную. Если переключателя нет, напиши в поддержку и дай ссылку на <span class="mono">CVE-2026-109618</span> и <span class="mono">CVE-2026-109619</span>. Beget временно ограничил загрузки и формы.</p></div></div>
+  <div class="step"><div class="sn mono">3</div><div><h3>Свой сервер (VPS)</h3><p>Отдай ИИ-ассистенту новость с <span class="mono">php.net</span> и попроси обновить PHP по шагам. Статус по дистрибутивам:</p>
+    <ul class="list small">
+      <li>Debian: <span class="mono">DSA-6574-1</span> для php8.4 (trixie). На трекере Debian php8.2 в bookworm тоже отмечен исправленным, версия <span class="mono">8.2.35</span> (DLA-4848-1).</li>
+      <li>Red Hat: патча пока нет.</li>
+      <li>Ubuntu: действует <span class="mono">USN-8948-1</span>.</li>
+      <li>Google App Engine (PHP <span class="mono">8.2+</span>) обновляется сам.</li>
+    </ul></div></div>
+  <div class="step"><div class="sn mono">4</div><div><h3>Если патч поставить пока нельзя</h3><p>Временная мера от Sansec: заблокировать запросы <span class="mono">multipart/form-data</span> на nginx или Apache. Учти: загрузка файлов на сайте при этом перестанет работать. Режим обслуживания WordPress или Magento от этой дыры не спасает.</p></div></div>
+  <div class="step"><div class="sn mono">5</div><div><h3>Признаки атаки</h3><p>По The Hacker News: странные multipart-запросы, серии ошибок <span class="mono">500</span>, огромные cookie <span class="mono">PHPSESSID</span>, необъяснимые рестарты воркеров.</p></div></div>
+  <div class="tweet">
+  <blockquote class="twitter-tweet" data-theme="dark" data-dnt="true" data-conversation="none"><a href="https://x.com/TheHackersNews/status/2112917025047670787"></a></blockquote>
+  <a class="tcard" href="https://x.com/TheHackersNews/status/2112917025047670787" target="_blank" rel="noopener">
+    <div class="tmeta"><b>The Hacker News</b> <span class="mono">@TheHackersNews</span></div>
+    <div class="ttext">Disabling session.upload_progress blocks certain CVE-2026-109619 attack paths, but does NOT fully mitigate the flaw or protect against CVE-2026-109618.
+Watch for unusual multipart requests, repeated HTTP 500 errors, oversized PHPSESSID cookies, and…</div>
+    <div class="tfoot mono"><span>21.10.2026 17:40 МСК</span><span class="views">3 тыс. просмотров</span><span>открыть пост ↗</span></div>
+  </a>
+</div>
+  <figure><img src="img/phpnet.png" alt="php.net"><figcaption>Официальная новость с исправлениями — на php.net</figcaption></figure>
+  <figure><img src="img/sansec.jpg" alt="Sansec"><figcaption>Sansec: инструкция для магазинов на Magento</figcaption></figure>
+</section>
+
+<section id="russia">
+  <h2><span class="num">09</span> Что в России</h2>
+  <p class="note">Срез на <span class="mono">18:47</span> МСК, 21.10.</p>
+  <p class="warn">Исправленный PHP (<span class="mono">8.2.35 / 8.3.36 / 8.4.27 / 8.5.12</span>) пока не объявил ни один российский хостинг или панель.</p>
+  <ul class="list">
+    <li><b>1С-Битрикс</b> (UPD <span class="mono">17:57</span>): обновление серверов облачного Битрикс24 готовят и тестируют. Временные ограничения сохраняются: формы, сделки в CRM, письма, бизнес-процессы. Функции будут возвращать поэтапно.</li>
+    <li><b>Beget</b> обещает в приоритете обновить PHP и снять ограничения. Сейчас ограничены загрузки и формы, для облачных баз данных закрыты порты <span class="mono">80/443</span>, Adminer и phpMyAdmin временно недоступны.</li>
+    <li><b>Timeweb Cloud</b> советует VPS-клиентам обновиться самим.</li>
+    <li><b>ISPmanager:</b> готовых сборок пока нет.</li>
+    <li><b>REG.RU, Sprinthost, Selectel, FirstVDS, FastPanel, Jino, Hostland, Fozzy, Tilda:</b> заявлений нет.</li>
+    <li><b>НКЦКИ и БДУ ФСТЭК:</b> записей про PHP2Shell пока нет.</li>
+    <li><b>Взломы в .ru:</b> подтверждённых нет. Positive Technologies, F6, Kaspersky, BI.ZONE и Solar об этом молчат.</li>
+  </ul>
+  <div class="card"><div class="ctitle">Совет</div><p>Зайди в панель и проверь версию PHP. С <span class="mono">8.1</span> и ниже переходи на <span class="mono">8.2+</span> и жди от хостинга сообщения об исправленной версии. На своём VPS PHP обновляешь ты сам. Обновление WordPress или Битрикса PHP не обновляет.</p></div>
+  <figure><img src="img/habr.png" alt="Хабр"><figcaption>Новость на Хабре</figcaption></figure>
+</section>
+
+<section id="final">
+  <h2><span class="num">10</span> Новая реальность</h2>
+  <p>ИИ находит дыры всё быстрее. Дыры в PHP пролежали больше десяти лет. По словам Wiz, с передовыми моделями их нашли и связали в рабочую атаку меньше чем за неделю. Срочные обновления вроде сегодняшнего будут случаться чаще.</p>
+  <blockquote class="quote"><p>«we expect similar findings to increase sharply in the coming months»</p><p class="tr">«В ближайшие месяцы таких находок станет резко больше».</p><cite>OpenAI</cite></blockquote>
+  <p>Что с этим делать: знай, на чём крутятся твои сайты, держи версии свежими и подпишись на новости своего хостинга. С обновлением поможет ИИ-ассистент.</p>
+  <a class="cta" href="https://t.me/vibecod3rs">Заходи в чат Вайбкодеров → t.me/vibecod3rs</a>
+</section>
+
+<section id="sources"><h2><span class="num">11</span> Источники</h2><ol class="src"><li><a href="https://www.wiz.io/blog/php2shell-php-rce">Wiz: PHP2Shell</a> <span class="mono url">https://www.wiz.io/blog/php2shell-php-rce</span></li><li><a href="https://www.php2shell.com/">php2shell.com</a> <span class="mono url">https://www.php2shell.com/</span></li><li><a href="https://www.php.net/archive/2026.php">php.net: архив новостей 2026</a> <span class="mono url">https://www.php.net/archive/2026.php</span></li><li><a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w">GitHub advisory GHSA-w8hw-w9fx-j79w</a> <span class="mono url">https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w</span></li><li><a href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp">GitHub advisory GHSA-6wmf-4rv5-p3rp</a> <span class="mono url">https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp</span></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-109618">NVD: CVE-2026-109618</a> <span class="mono url">https://nvd.nist.gov/vuln/detail/CVE-2026-109618</span></li><li><a href="https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2026/2026-297981-1032.html">BSI: предупреждение</a> <span class="mono url">https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2026/2026-297981-1032.html</span></li><li><a href="https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities">OpenAI: Patch the Planet</a> <span class="mono url">https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities</span></li><li><a href="https://www.anthropic.com/research/n-days">Anthropic: N-days</a> <span class="mono url">https://www.anthropic.com/research/n-days</span></li><li><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection/">Cloudflare Blog</a> <span class="mono url">https://blog.cloudflare.com/php-vulnerabilities-waf-protection/</span></li><li><a href="https://watchtowr.com/intelligence/php-cve-2026-109618-faq/">watchTowr: FAQ</a> <span class="mono url">https://watchtowr.com/intelligence/php-cve-2026-109618-faq/</span></li><li><a href="https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619">Hadrian: alert</a> <span class="mono url">https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619</span></li><li><a href="https://sansec.io/research/php2shell">Sansec: PHP2Shell</a> <span class="mono url">https://sansec.io/research/php2shell</span></li><li><a href="https://www.securityweek.com/php2shell-mass-exploitation-looms-for-leaked-critical-php-flaws/">SecurityWeek</a> <span class="mono url">https://www.securityweek.com/php2shell-mass-exploitation-looms-for-leaked-critical-php-flaws/</span></li><li><a href="https://security-tracker.debian.org/tracker/CVE-2026-109618">Debian security tracker</a> <span class="mono url">https://security-tracker.debian.org/tracker/CVE-2026-109618</span></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2556842">Red Hat Bugzilla 2556842</a> <span class="mono url">https://bugzilla.redhat.com/show_bug.cgi?id=2556842</span></li><li><a href="https://cloud.google.com/blog/products/identity-security/responding-to-core-php-vulnerabilities-cve-2026-109618-cve-2026-109619">Google Cloud Blog</a> <span class="mono url">https://cloud.google.com/blog/products/identity-security/responding-to-core-php-vulnerabilities-cve-2026-109618-cve-2026-109619</span></li><li><a href="https://www.nu.nl/tech/6413897/live-grote-nederlandse-sites-uit-voorzorg-offline-wegens-kwetsbaarheid-php.html">NU.nl: лайвблог</a> <span class="mono url">https://www.nu.nl/tech/6413897/live-grote-nederlandse-sites-uit-voorzorg-offline-wegens-kwetsbaarheid-php.html</span></li><li><a href="https://www.bbc.co.uk/news/articles/cmly0lg3w5x2o">BBC News</a> <span class="mono url">https://www.bbc.co.uk/news/articles/cmly0lg3w5x2o</span></li><li><a href="https://therecord.media/php-script-vulnerabilities-warnings">The Record</a> <span class="mono url">https://therecord.media/php-script-vulnerabilities-warnings</span></li><li><a href="https://yle.fi/a/74-20252600">Yle News: Финляндия</a> <span class="mono url">https://yle.fi/a/74-20252600</span></li><li><a href="https://www.ts.fi/a/7116818">Turun Sanomat</a> <span class="mono url">https://www.ts.fi/a/7116818</span></li><li><a href="https://www.hs.fi/suomi/art-2000012357566.html">Helsingin Sanomat</a> <span class="mono url">https://www.hs.fi/suomi/art-2000012357566.html</span></li><li><a href="https://www.dexerto.com/pokemon/pokemon-umamusume-and-other-major-games-taken-offline-over-critical-php-vulnerability-3420823/">Dexerto: игры на техработах</a> <span class="mono url">https://www.dexerto.com/pokemon/pokemon-umamusume-and-other-major-games-taken-offline-over-critical-php-vulnerability-3420823/</span></li><li><a href="https://w3techs.com/technologies/segmentation/tld-ru-/programming_language">W3Techs: серверные языки в .ru</a> <span class="mono url">https://w3techs.com/technologies/segmentation/tld-ru-/programming_language</span></li><li><a href="https://habr.com/ru/news/1097256/">Хабр</a> <span class="mono url">https://habr.com/ru/news/1097256/</span></li><li><a href="https://www.1c-bitrix.ru/about/news/29334792/">1С-Битрикс</a> <span class="mono url">https://www.1c-bitrix.ru/about/news/29334792/</span></li><li><a href="https://t.me/bitrix24_ru/3220">Битрикс24 в Telegram</a> <span class="mono url">https://t.me/bitrix24_ru/3220</span></li><li><a href="https://beget.com/ru/news/2026/uyazvimost-v-php-ot-21-10-2026">Beget: новость</a> <span class="mono url">https://beget.com/ru/news/2026/uyazvimost-v-php-ot-21-10-2026</span></li><li><a href="https://t.me/beget_official/565">Beget в Telegram</a> <span class="mono url">https://t.me/beget_official/565</span></li><li><a href="https://t.me/timewebcloud_alerts/418">Timeweb Cloud в Telegram</a> <span class="mono url">https://t.me/timewebcloud_alerts/418</span></li><li><a href="https://t.me/ispmanager/712">ISPmanager в Telegram</a> <span class="mono url">https://t.me/ispmanager/712</span></li></ol><h3>Посты в X</h3><ol class="src"><li><a href="https://x.com/takaichi_sanae/status/2112890642590564386">@takaichi_sanae</a> <span class="mono url">x.com/takaichi_sanae/status/2112890642590564386</span></li><li><a href="https://x.com/OpenAI/status/2112907856018309586">@OpenAI</a> <span class="mono url">x.com/OpenAI/status/2112907856018309586</span></li><li><a href="https://x.com/dok2001/status/2112811965735202970">@dok2001</a> <span class="mono url">x.com/dok2001/status/2112811965735202970</span></li><li><a href="https://x.com/NCSC/status/2112848265074847828">@NCSC</a> <span class="mono url">x.com/NCSC/status/2112848265074847828</span></li><li><a href="https://x.com/levelsio/status/2112887674251976827">@levelsio</a> <span class="mono url">x.com/levelsio/status/2112887674251976827</span></li><li><a href="https://x.com/sagitz_/status/2112901380080058778">@sagitz_</a> <span class="mono url">x.com/sagitz_/status/2112901380080058778</span></li><li><a href="https://x.com/sagitz_/status/2112901387122332066">@sagitz_</a> <span class="mono url">x.com/sagitz_/status/2112901387122332066</span></li><li><a href="https://x.com/levelsio/status/2112891358226645334">@levelsio</a> <span class="mono url">x.com/levelsio/status/2112891358226645334</span></li><li><a href="https://x.com/dok2001/status/2112909127060259086">@dok2001</a> <span class="mono url">x.com/dok2001/status/2112909127060259086</span></li><li><a href="https://x.com/dok2001/status/2112921277870866880">@dok2001</a> <span class="mono url">x.com/dok2001/status/2112921277870866880</span></li><li><a href="https://x.com/Cloudflare/status/2112911026437935381">@Cloudflare</a> <span class="mono url">x.com/Cloudflare/status/2112911026437935381</span></li><li><a href="https://x.com/Google/status/2112914740058181739">@Google</a> <span class="mono url">x.com/Google/status/2112914740058181739</span></li><li><a href="https://x.com/gdb/status/2112921529650688312">@gdb</a> <span class="mono url">x.com/gdb/status/2112921529650688312</span></li><li><a href="https://x.com/k_firsov/status/2112641845926989944">@k_firsov</a> <span class="mono url">x.com/k_firsov/status/2112641845926989944</span></li><li><a href="https://x.com/wiz_io/status/2112899825305780607">@wiz_io</a> <span class="mono url">x.com/wiz_io/status/2112899825305780607</span></li><li><a href="https://x.com/calif_io/status/2112914613297668583">@calif_io</a> <span class="mono url">x.com/calif_io/status/2112914613297668583</span></li><li><a href="https://x.com/Stekkz/status/2112872031163383852">@Stekkz</a> <span class="mono url">x.com/Stekkz/status/2112872031163383852</span></li><li><a href="https://x.com/rafalohaki/status/2112903909282881773">@rafalohaki</a> <span class="mono url">x.com/rafalohaki/status/2112903909282881773</span></li><li><a href="https://x.com/silascutler/status/2112684895608652003">@silascutler</a> <span class="mono url">x.com/silascutler/status/2112684895608652003</span></li><li><a href="https://x.com/TheHackersNews/status/2112917025047670787">@TheHackersNews</a> <span class="mono url">x.com/TheHackersNews/status/2112917025047670787</span></li><li><a href="https://x.com/ncsc_nl/status/2112874187719385243">@ncsc_nl</a> <span class="mono url">x.com/ncsc_nl/status/2112874187719385243</span></li><li><a href="https://x.com/marcohextor/status/2112666048000561307">@marcohextor</a> <span class="mono url">x.com/marcohextor/status/2112666048000561307</span></li><li><a href="https://x.com/levelsio/status/2112923845267210658">@levelsio</a> <span class="mono url">x.com/levelsio/status/2112923845267210658</span></li><li><a href="https://x.com/theh924/status/2112857555731091906">@theh924</a> <span class="mono url">x.com/theh924/status/2112857555731091906</span></li><li><a href="https://x.com/prthgo/status/2112923929631433168">@prthgo</a> <span class="mono url">x.com/prthgo/status/2112923929631433168</span></li><li><a href="https://x.com/moznion/status/2112921603839594828">@moznion</a> <span class="mono url">x.com/moznion/status/2112921603839594828</span></li><li><a href="https://x.com/0xhrH/status/2112815579065114865">@0xhrH</a> <span class="mono url">x.com/0xhrH/status/2112815579065114865</span></li><li><a href="https://x.com/XakepRU/status/2112855413767225368">@XakepRU</a> <span class="mono url">x.com/XakepRU/status/2112855413767225368</span></li><li><a href="https://x.com/mzemlu777/status/2112932212362351084">@mzemlu777</a> <span class="mono url">x.com/mzemlu777/status/2112932212362351084</span></li></ol><p class="note">Просмотры постов сняты 21.10.2026 около 18:50 МСК.</p></section>
+<footer>Сережа Рис · <a href="https://x.com/serejaris">@serejaris</a> · <a href="https://t.me/vibecod3rs">t.me/vibecod3rs</a></footer>
+</main>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body></html>

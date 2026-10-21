@@ -1,0 +1,33 @@
+name: decode-and-publish
+on:
+  push:
+    branches: [main]
+    paths: ['img-b64/**', 'index.html', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode images, commit to main, publish gh-pages
+        run: |
+          set -e
+          git config user.name "Sereja Ris"
+          git config user.email "170590558+serejaris@users.noreply.github.com"
+          if [ -d img-b64 ]; then
+            cat img-b64/img.tar.b64.part* | base64 -d | tar xf -
+            git rm -rq img-b64
+            git add img
+            git commit -m "Decode images"
+            git push origin HEAD:main
+          fi
+          rm -rf /tmp/site && mkdir /tmp/site
+          cp -r index.html img /tmp/site/ && touch /tmp/site/.nojekyll
+          cd /tmp/site
+          git init -q -b gh-pages
+          git config user.name "Sereja Ris"
+          git config user.email "170590558+serejaris@users.noreply.github.com"
+          git add -A && git commit -qm "Publish site"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
