@@ -32,20 +32,22 @@
   {
    "name": "Debian 13 trixie",
    "kind": "дистрибутив",
-   "status": "fixed",
+   "status": "исправлено, DSA-6574-1",
    "detail": "php8.4 8.4.27-1~deb13u1, DSA-6574-1",
    "time": null,
-   "source_url": "https://security-tracker.debian.org/tracker/CVE-2026-109618",
-   "verified": true
+   "source_url": "https://security-tracker.debian.org/tracker/DSA-6574-1",
+   "verified": false,
+   "fixed_versions": "php8.4 8.4.27-1~deb13u1"
   },
   {
    "name": "Debian 12 bookworm",
    "kind": "дистрибутив",
-   "status": "fixed",
+   "status": "исправлено, DLA-4848-1",
    "detail": "php8.2 8.2.35-1~deb12u1, DLA-4848-1",
    "time": null,
-   "source_url": "https://security-tracker.debian.org/tracker/CVE-2026-109618",
-   "verified": true
+   "source_url": "https://security-tracker.debian.org/tracker/DLA-4848-1",
+   "verified": false,
+   "fixed_versions": "php8.2 8.2.35-1~deb12u1"
   },
   {
    "name": "Alpine",
@@ -60,7 +62,7 @@
   {
    "name": "Red Hat",
    "kind": "дистрибутив",
-   "status": "Bugzilla 2556842 NEW, RHSA нет, страницы CVE в Red Hat Security Data API нет",
+   "status": "Bugzilla 2556842 NEW (последнее изменение 20:04 МСК), RHSA нет; карточка в Security Data API отдаёт 404",
    "detail": "Исправления нет: Bugzilla 2556842 в статусе NEW, RHSA нет",
    "time": null,
    "source_url": "https://bugzilla.redhat.com/show_bug.cgi?id=2556842",
@@ -218,7 +220,7 @@
   },
   {
    "name": "Alpine edge",
-   "status": "php83 всё ещё 8.3.35-r0",
+   "status": "php83 8.3.35-r0, исправленной 8.3.36 нет",
    "fixed_versions": null,
    "source_url": "https://pkgs.alpinelinux.org/packages?name=php83&branch=edge",
    "verified": false
@@ -235,6 +237,27 @@
    "status": "исправлено",
    "fixed_versions": "8.5.12, 8.4.27, 8.3.36, 8.2.35",
    "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+   "verified": false
+  },
+  {
+   "name": "Debian sid/forky",
+   "status": "php8.4 8.4.26-1, уязвим (unfixed), баг 1151516",
+   "fixed_versions": null,
+   "source_url": "https://security-tracker.debian.org/tracker/CVE-2026-109618",
+   "verified": false
+  },
+  {
+   "name": "Plesk для Linux",
+   "status": "исправлено для 8.2–8.5; 7.4, 8.0, 8.1 (EOL) в разработке; hotfix sw-engine запланирован",
+   "fixed_versions": "8.2.35, 8.3.36, 8.4.27, 8.5.12",
+   "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351-Vulnerability-CVE-2026-109618-and-CVE-2026-109619-Remote-code-execution-in-PHP-shipped-with-Plesk",
+   "verified": false
+  },
+  {
+   "name": "Plesk для Windows",
+   "status": "исправлений нет, in development; hotfix sw-engine запланирован",
+   "fixed_versions": null,
+   "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351-Vulnerability-CVE-2026-109618-and-CVE-2026-109619-Remote-code-execution-in-PHP-shipped-with-Plesk",
    "verified": false
   }
  ],
