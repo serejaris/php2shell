@@ -258,7 +258,7 @@
  ],
  "russia": {
   "label": "Россия, срез 20:12 МСК",
-  "value": "патч не стоит ни у кого",
+  "value": "никто не объявил патч",
   "sub": "Sprinthost ставит обновления, Beget, SpaceWeb и Битрикс24 с ограничениями, взломов в .ru не подтверждено",
   "tone": "yellow",
   "source_url": "https://bdu.fstec.ru/vul/2026-17191",
