@@ -338,13 +338,13 @@
    {
     "id": "cisa-x",
     "label": "CISA: патчить немедленно",
-    "lane": -1,
+    "lane": -2,
     "anchor": "end"
    },
    {
     "id": "securityweek",
     "label": "watchTowr: попытки есть, успешных взломов нет",
-    "lane": -2,
+    "lane": -1,
     "anchor": "end"
    },
    {

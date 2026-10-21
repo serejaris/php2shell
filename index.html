@@ -10,7 +10,7 @@
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@serejaris"><meta name="twitter:image" content="https://serejaris.github.io/php2shell/img/php2shell.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23ff1493%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/dash.css?v=2c409a5f">
+<link rel="stylesheet" href="assets/dash.css?v=99115c07">
 <style>:root{--bg:#0b0a10;--panel:#15131d;--line:#2a2635;--fg:#efeaf5;--mute:#a49db3;--pink:#ff1493;--lime:#b6ff3b}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -154,7 +154,7 @@ figure{max-width:1240px}
 
   <template x-if="loaded">
   <div>
-  <div class="grid grid-cols-[minmax(0,1fr)_19em] gap-x-[2.6em] mt-[1em]" id="hero">
+  <div class="grid grid-cols-[minmax(0,1fr)_17.5em] gap-x-[2.2em] mt-[1em]" id="hero">
 
    <!-- main column -->
    <div class="min-w-0">
@@ -175,7 +175,7 @@ figure{max-width:1240px}
     <section class="mt-[1.1em]">
      <h3 class="m-0 text-[1.15em] font-semibold text-white">За 21 час: от утечки эксплойта до патча и первых попыток атак</h3>
      <div class="text-[0.72em] text-mute mt-[0.2em]">Ключевые события, время московское, ночные часы на шкале сжаты. <span class="text-hot">●</span> атаки и угрозы <span class="text-acid ml-[0.6em]">●</span> патчи и защита <span class="text-[#8b8d98] ml-[0.6em]">●</span> реакция государств и компаний</div>
-     <div class="relative h-[10.4em] mt-[0.1em]" id="heroTl">
+     <div class="relative h-[10em] mt-[0.1em]" id="heroTl">
       <div class="absolute left-0 right-0 top-1/2 h-px bg-[#3a3d44]"></div>
       <template x-for="(t,i) in axisTicks()" :key="'t'+i">
        <div class="absolute top-1/2 -translate-x-1/2 text-[0.62em] text-mute tabular-nums" :style="`left:${t.x}%`"><div class="mx-auto w-px h-[0.5em] bg-[#3a3d44]"></div><div class="mt-[0.15em] whitespace-nowrap" x-text="t.l"></div></div>
@@ -195,7 +195,7 @@ figure{max-width:1240px}
      </div>
     </section>
 
-    <div class="grid grid-cols-[1.15fr_1fr] gap-x-[2.6em] mt-[0.3em]">
+    <div class="grid grid-cols-[1.15fr_1fr] gap-x-[2.6em] mt-[0.9em]">
      <!-- who fixed -->
      <section>
       <h3 class="m-0 text-[1.05em] font-semibold text-white" x-text="mxTitle()"></h3>
