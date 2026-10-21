@@ -60,7 +60,7 @@
   {
    "name": "Red Hat",
    "kind": "дистрибутив",
-   "status": "no advisory",
+   "status": "Bugzilla 2556842 NEW, RHSA нет, страницы CVE в Red Hat Security Data API нет",
    "detail": "Исправления нет: Bugzilla 2556842 в статусе NEW, RHSA нет",
    "time": null,
    "source_url": "https://bugzilla.redhat.com/show_bug.cgi?id=2556842",
@@ -214,6 +214,27 @@
    "status": "in development",
    "fixed_versions": null,
    "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351",
+   "verified": false
+  },
+  {
+   "name": "Alpine edge",
+   "status": "php83 всё ещё 8.3.35-r0",
+   "fixed_versions": null,
+   "source_url": "https://pkgs.alpinelinux.org/packages?name=php83&branch=edge",
+   "verified": false
+  },
+  {
+   "name": "Debian sid",
+   "status": "php8.4 8.4.26-1, исправленной 8.4.27 нет",
+   "fixed_versions": null,
+   "source_url": "https://sources.debian.org/src/php8.4/",
+   "verified": false
+  },
+  {
+   "name": "PHP upstream",
+   "status": "исправлено",
+   "fixed_versions": "8.5.12, 8.4.27, 8.3.36, 8.2.35",
+   "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
    "verified": false
   }
  ],

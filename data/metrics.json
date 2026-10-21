@@ -161,12 +161,20 @@
  },
  "nvd_cvss31": 9.8,
  "php_net_cvss40": 9.2,
- "nvd_status": "Analyzed",
+ "nvd_status": "Modified",
  "in_cisa_kev": false,
  "kev_catalog_version": "2026.10.21",
- "github_repos": 216,
+ "github_repos": 228,
  "github_repos_time_msk": "20:02",
  "modat_php_services": 4384302,
  "modat_php_hosts": 1886612,
- "confirmed_successful_breaches": 0
+ "confirmed_successful_breaches": 0,
+ "github_repos_prev": "225 в 20:38 МСК",
+ "kev_listed": false,
+ "nvd_last_modified_msk": "20:18",
+ "cvss_nvd": 9.8,
+ "cvss_php": 9.2,
+ "cisa_ssvc_exploitation": "none",
+ "modat": null,
+ "shodan": null
 }
