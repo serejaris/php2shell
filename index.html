@@ -8,8 +8,9 @@
 <meta property="og:url" content="https://serejaris.github.io/php2shell/">
 <meta property="og:image" content="https://serejaris.github.io/php2shell/img/php2shell.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@serejaris"><meta name="twitter:image" content="https://serejaris.github.io/php2shell/img/php2shell.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23ff1493%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/dash.css?v=668944d9">
 <style>:root{--bg:#0b0a10;--panel:#15131d;--line:#2a2635;--fg:#efeaf5;--mute:#a49db3;--pink:#ff1493;--lime:#b6ff3b}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -135,13 +136,236 @@ figure{max-width:1240px}
 .dtile.act .dval{color:#fff;font-size:clamp(20px,.7rem + .9vw,28px)}
 @media(max-width:1199px){.dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.dgrid{grid-template-columns:1fr}}
-</style></head><body><main>
+</style></head><body>
+<div id="dash" x-data="dash()" class="font-sans text-[#efeaf5] leading-snug" style="font-size:clamp(14px,0.35rem + 0.72vw,21px)">
+ <div class="mx-auto w-[min(1760px,calc(100%-2*clamp(14px,2.2vw,48px)))] pt-[1.1em] pb-[2em]">
+
+  <!-- top bar -->
+  <div class="flex flex-wrap items-center gap-[0.9em] mb-[0.9em]">
+   <span class="inline-flex items-center gap-[0.45em] rounded-full bg-[#ff3b3b] text-black font-bold font-mono px-[0.8em] py-[0.25em] text-[0.85em] tracking-wider"><span class="w-[0.6em] h-[0.6em] rounded-full bg-black animate-pulse"></span>LIVE</span>
+   <div class="font-extrabold text-[1.9em] tracking-tight leading-none"><span class="text-hot">PHP2Shell</span> · инцидент</div>
+   <div class="font-mono text-[0.85em] text-mute">CVE-2026-109618 · CVE-2026-109619</div>
+   <div class="ml-auto flex flex-wrap items-center gap-[0.9em] font-mono">
+    <div class="text-right leading-tight"><div class="text-[1.7em] font-bold text-white tabular-nums" x-text="clock()"></div><div class="text-[0.75em] text-mute">Москва, <span x-text="today()"></span></div></div>
+    <div class="text-[0.8em] leading-tight text-right"><div>данные: <b class="text-acid" x-text="updatedMSK()"></b></div><div class="text-mute">обновлены <span x-text="ago()"></span> · проверено <span x-text="fetchedAgo()"></span></div></div>
+    <a href="#read" class="no-underline rounded-xl bg-hot text-black font-bold px-[1em] py-[0.5em] text-[0.9em] hover:bg-acid">Читать разбор ↓</a>
+   </div>
+  </div>
+  <div x-show="err" x-text="err" class="mb-[0.6em] rounded-lg border border-[#ffd400]/60 bg-[#ffd400]/10 text-[#ffd400] px-[0.8em] py-[0.4em] font-mono text-[0.8em]"></div>
+  <div x-show="!loaded" class="text-mute font-mono">Загружаю данные…</div>
+
+  <template x-if="loaded">
+  <div class="grid grid-cols-12 gap-[0.8em]">
+
+   <!-- agents live -->
+   <div class="col-span-12 rounded-2xl border border-hot/60 bg-gradient-to-r from-hot/10 via-panel to-panel p-[0.9em]" id="agents">
+    <div class="flex flex-wrap items-center gap-[0.7em]"><span class="w-[0.6em] h-[0.6em] rounded-full bg-hot animate-pulse"></span><div class="font-mono text-[0.75em] uppercase tracking-wider text-hot">Агенты в эфире</div>
+     <template x-for="(v,k) in AG" :key="k"><span class="inline-flex items-center gap-[0.35em] text-[0.8em]"><span class="inline-flex items-center justify-center w-[1.7em] h-[1.7em] rounded-full text-black font-bold font-mono text-[0.75em]" :style="`background:${v.c}`" x-text="v.i"></span><span x-text="k"></span></span></template>
+     <div class="ml-auto font-mono text-[0.75em] text-mute" x-text="feedAgo()"></div></div>
+    <template x-if="!feedItems.length"><div class="mt-[0.5em] text-mute text-[0.95em]">Агенты ещё не прислали реплик. Как только пришлют, они появятся здесь, свежие сверху.</div></template>
+    <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-[0.5em] mt-[0.6em] max-h-[14em] overflow-y-auto pr-[0.3em]">
+     <template x-for="(f,i) in feedItems" :key="i+f.time_msk">
+      <div class="flex gap-[0.6em] items-start rounded-xl border px-[0.7em] py-[0.5em]" :class="fresh(f)?'border-hot bg-hot/10 shadow-[0_0_16px_rgba(255,20,147,.25)]':'border-line bg-black/25'">
+       <span class="inline-flex items-center justify-center w-[2.2em] h-[2.2em] rounded-full text-black font-bold font-mono text-[0.85em] shrink-0" :style="`background:${av(f.agent).c}`" x-text="av(f.agent).i"></span>
+       <div class="min-w-0"><div class="flex gap-[0.6em] font-mono text-[0.75em]"><b class="text-white" x-text="f.agent"></b><span class="text-acid" x-text="tm(f.time_msk)+' МСК'"></span><template x-if="fresh(f)"><span class="text-hot">● свежее</span></template></div>
+        <div class="text-[0.95em] mt-[0.15em]" x-text="f.say"></div></div>
+      </div>
+     </template>
+    </div>
+   </div>
+
+   <!-- threat light -->
+   <div class="col-span-12 lg:col-span-3 rounded-2xl border border-line bg-panel p-[1em] flex gap-[1em]">
+    <div class="flex flex-col gap-[0.4em] bg-black/60 rounded-full p-[0.4em] h-fit">
+     <span class="block w-[1.6em] h-[1.6em] rounded-full" :class="threatColor()==='red'?'bg-[#ff3b3b] shadow-[0_0_18px_#ff3b3b] animate-pulse':'bg-[#ff3b3b]/15'"></span>
+     <span class="block w-[1.6em] h-[1.6em] rounded-full" :class="threatColor()==='yellow'?'bg-[#ffd400] shadow-[0_0_18px_#ffd400]':'bg-[#ffd400]/15'"></span>
+     <span class="block w-[1.6em] h-[1.6em] rounded-full" :class="threatColor()==='lime'?'bg-acid shadow-[0_0_18px_#b6ff3b]':'bg-acid/15'"></span>
+    </div>
+    <div class="min-w-0">
+     <div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Уровень угрозы</div>
+     <div class="text-[2.1em] font-extrabold leading-none mt-[0.15em]" :class="tone(threatColor())" x-text="S.threat.label"></div>
+     <div class="mt-[0.5em] text-[0.95em]" x-text="S.threat.note"></div>
+     <template x-for="(c,i) in S.cves" :key="i"><div class="mt-[0.5em] font-mono text-[0.78em]"><a class="text-hot no-underline" :href="c.source_url" target="_blank" x-text="c.id"></a> <span class="text-white">CVSS 3.1 <b x-text="c.cvss31"></b> · 4.0 <b x-text="c.cvss40"></b></span><div class="text-mute" x-text="c.kind+' · '+c.cwe"></div></div></template>
+    </div>
+   </div>
+
+   <!-- counters -->
+   <div class="col-span-12 lg:col-span-5 grid grid-cols-3 gap-[0.8em]">
+    <template x-for="c in S.counters" :key="c.id">
+     <div class="rounded-2xl border border-line bg-panel p-[0.9em] flex flex-col">
+      <div class="font-mono text-[0.72em] uppercase tracking-wider text-mute" x-text="c.label"></div>
+      <div class="font-mono font-bold text-[1.9em] tabular-nums mt-[0.3em] leading-none" :class="c.id==='patch'?'text-acid':c.id==='attacks'?'text-[#ffd400]':'text-hot'" x-text="since(c)"></div>
+      <div class="mt-auto pt-[0.5em] font-mono text-[0.72em] text-mute">от <a class="text-mute underline decoration-dotted" :href="c.source_url" target="_blank" x-text="sinceAt(c)"></a></div>
+     </div>
+    </template>
+   </div>
+
+   <!-- version checker -->
+   <div class="col-span-12 lg:col-span-4 rounded-2xl border-2 border-hot bg-gradient-to-br from-hot/20 to-panel p-[1em]">
+    <div class="font-mono text-[0.75em] uppercase tracking-wider text-hot">Проверь свою версию PHP</div>
+    <div class="flex gap-[0.5em] mt-[0.5em]">
+     <input x-model="ver" id="verInput" placeholder="например 8.3.12" class="flex-1 min-w-0 rounded-xl border border-line bg-black/50 text-white font-mono text-[1.3em] px-[0.6em] py-[0.35em] outline-none focus:border-acid">
+    </div>
+    <div class="flex flex-wrap gap-[0.4em] mt-[0.5em] font-mono text-[0.75em]">
+     <template x-for="x in ['8.3.12','8.4.27','8.1.31','7.4.33']"><button @click="ver=x" class="cursor-pointer rounded-full border border-line bg-black/40 text-mute px-[0.7em] py-[0.15em] hover:text-white" x-text="x"></button></template>
+    </div>
+    <template x-if="check()"><div id="verResult" class="mt-[0.6em] rounded-xl border px-[0.8em] py-[0.55em]" :class="chip(check().tone)"><div class="font-bold text-[1.15em]" x-text="check().title"></div><div class="text-[0.9em] text-[#efeaf5] mt-[0.2em]" x-text="check().text"></div></div></template>
+    <template x-if="!check()"><div class="mt-[0.6em] text-[0.85em] text-mute">Версию покажет <span class="font-mono text-white">php -v</span> или панель хостинга. Исправлены: <span class="font-mono text-acid" x-text="Object.values(S.fixed).join(' · ')"></span></div></template>
+   </div>
+
+   <!-- KPIs -->
+   <template x-for="(k,i) in S.kpis" :key="i">
+    <a :href="k.source_url" target="_blank" class="col-span-6 md:col-span-4 xl:col-span-2 no-underline text-[#efeaf5] rounded-2xl border border-line bg-panel p-[0.9em] border-t-4 hover:border-hot" :class="{'border-t-[#ff3b3b]':k.tone==='red','border-t-[#ffd400]':k.tone==='yellow','border-t-acid':k.tone==='lime','border-t-mute':k.tone==='mute'}">
+     <div class="font-mono text-[0.72em] uppercase tracking-wider text-mute" x-text="k.label"></div>
+     <div class="text-[1.65em] font-extrabold mt-[0.2em] leading-tight" :class="tone(k.tone)" x-text="k.value"></div>
+     <div class="text-[0.8em] text-[#d9d3e3] mt-[0.2em]" x-text="k.sub"></div>
+    </a>
+   </template>
+   <a href="#dash-ru" class="col-span-12 md:col-span-8 xl:col-span-2 no-underline text-[#efeaf5] rounded-2xl border border-line bg-panel p-[0.9em] border-t-4 border-t-[#ffd400] hover:border-hot">
+    <div class="font-mono text-[0.72em] uppercase tracking-wider text-mute" x-text="S.russia.label"></div>
+    <div class="text-[1.35em] font-extrabold mt-[0.2em] leading-tight text-[#ffd400]" x-text="S.russia.value"></div>
+    <div class="text-[0.8em] text-[#d9d3e3] mt-[0.2em]" x-text="S.russia.sub"></div>
+   </a>
+
+   <!-- attack status -->
+   <div class="col-span-12 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="flex flex-wrap items-baseline gap-[0.8em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Атаки: что говорят источники</div><div class="font-bold text-[1.1em] text-[#ffd400]" x-text="S.attack_status.summary"></div></div>
+    <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[0.6em] mt-[0.7em]">
+     <template x-for="(a,i) in S.attack_status.sources" :key="i">
+      <div class="rounded-xl border px-[0.7em] py-[0.5em]" :class="chip(a.tone)">
+       <div class="flex justify-between gap-[0.5em] font-mono text-[0.75em]"><b x-text="a.who"></b><span x-text="a.time?tm(a.time)+' МСК':'без времени'"></span></div>
+       <div class="text-[0.85em] text-[#efeaf5] mt-[0.2em]" x-text="a.text"></div>
+       <div class="mt-[0.25em] font-mono text-[0.7em]"><template x-if="!a.verified"><span class="text-[#ffd400]">не подтверждено · </span></template><template x-if="a.source_url"><a :href="a.source_url" target="_blank" class="text-mute">источник ↗</a></template></div>
+      </div>
+     </template>
+    </div>
+   </div>
+
+   <!-- timeline -->
+   <div class="col-span-12 xl:col-span-7 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="flex flex-wrap items-center gap-[0.5em] mb-[0.6em]">
+     <div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-[0.4em]">Таймлайн, МСК</div>
+     <button id="tlAll" @click="cat='all'" class="cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :class="cat==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'">все <span x-text="events.length"></span></button>
+     <template x-for="c in cats()" :key="c"><button @click="cat=c" class="tl-chip cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :data-cat="c" :style="cat===c?`background:${CAT[c].c};color:#000;border-color:${CAT[c].c}`:`color:${CAT[c].c};border-color:${CAT[c].c}55;background:transparent`" x-text="CAT[c].l+' '+cnt(c)"></button></template>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-[0.8em]">
+     <div class="max-h-[26em] overflow-y-auto pr-[0.3em]" id="tlList">
+      <template x-for="e in tl()" :key="e.id">
+       <button @click="pick(e)" class="tl-item w-full text-left cursor-pointer flex gap-[0.6em] items-start rounded-lg border px-[0.6em] py-[0.35em] mb-[0.3em] text-[#efeaf5]" :class="sel&&sel.id===e.id?'border-hot bg-hot/10':'border-transparent bg-black/20 hover:border-line'">
+        <span class="font-mono text-[0.8em] text-acid shrink-0 w-[4.6em]" x-text="(dm(e.time)==='21.10'?'':dm(e.time)+' ')+tm(e.time)"></span>
+        <span class="w-[0.6em] h-[0.6em] rounded-full mt-[0.45em] shrink-0" :style="`background:${CAT[e.category].c}`"></span>
+        <span class="text-[0.92em] leading-snug"><span x-text="e.title"></span><template x-if="!e.verified"><span class="ml-[0.4em] font-mono text-[0.7em] text-[#ffd400] border border-[#ffd400]/50 rounded px-[0.3em]">не подтверждено</span></template></span>
+       </button>
+      </template>
+     </div>
+     <div class="rounded-xl border border-line bg-black/30 p-[0.9em]" id="tlDetail">
+      <template x-if="!sel"><div class="text-mute text-[0.95em]">Нажми на событие слева: здесь появятся подробности и ссылка на источник.</div></template>
+      <template x-if="sel"><div>
+       <div class="flex items-center gap-[0.5em] font-mono text-[0.8em]"><span class="rounded-full px-[0.6em] py-[0.05em] text-black" :style="`background:${CAT[sel.category].c}`" x-text="CAT[sel.category].l"></span><span class="text-acid" x-text="tm(sel.time,true)+' МСК'"></span></div>
+       <div class="text-[1.35em] font-extrabold mt-[0.4em] leading-tight" x-text="sel.title"></div>
+       <div class="mt-[0.5em] text-[1em]" x-text="sel.text"></div>
+       <template x-if="sel.note"><div class="mt-[0.5em] text-[0.85em] text-[#ffd400]" x-text="'⚠ '+sel.note"></div></template>
+       <div class="mt-[0.7em] font-mono text-[0.8em] flex flex-wrap gap-[0.8em]">
+        <a class="text-hot" :href="sel.source_url" target="_blank" x-text="(sel.source_name||'источник')+' ↗'"></a>
+        <template x-if="sel.source_url2"><a class="text-hot" :href="sel.source_url2" target="_blank">ещё источник ↗</a></template>
+        <span :class="sel.verified?'text-acid':'text-[#ffd400]'" x-text="sel.verified?'✓ проверено':'не подтверждено'"></span>
+       </div>
+      </div></template>
+     </div>
+    </div>
+   </div>
+
+   <!-- charts column -->
+   <div class="col-span-12 xl:col-span-5 grid gap-[0.8em]">
+    <div class="rounded-2xl border border-line bg-panel p-[1em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">События по часам, МСК</div><div class="h-[13em] mt-[0.4em]"><canvas id="chHours"></canvas></div></div>
+    <div class="rounded-2xl border border-line bg-panel p-[1em]"><div class="flex justify-between font-mono text-[0.75em] uppercase tracking-wider text-mute"><span>Обсуждение в X по часам, МСК</span><span x-text="'срез '+tm(metrics.x_hourly.snapshot)"></span></div><div class="h-[13em] mt-[0.4em]"><canvas id="chX"></canvas></div>
+     <div class="mt-[0.4em] text-[0.8em] text-[#d9d3e3]">Всего: <template x-for="q in metrics.x_hourly.queries" :key="q.id"><span class="mr-[0.8em]"><span x-text="q.label"></span> <b class="text-white font-mono" x-text="q.total.toLocaleString('ru-RU')"></b></span></template></div></div>
+   </div>
+
+   <div class="col-span-12 lg:col-span-6 rounded-2xl border border-line bg-panel p-[1em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Просмотры ключевых постов X (логарифмическая шкала)</div><div class="h-[17em] mt-[0.4em]"><canvas id="chViews"></canvas></div></div>
+   <div class="col-span-12 sm:col-span-6 lg:col-span-3 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Доля PHP среди сайтов</div>
+    <div class="grid grid-cols-2 gap-[0.5em] mt-[0.5em]"><template x-for="(p,i) in metrics.php_share" :key="p.label"><div class="text-center"><div class="relative h-[8em]"><canvas :id="'chShare'+i"></canvas><div class="absolute inset-0 flex items-center justify-center text-[1.6em] font-extrabold" :class="i?'text-hot':'text-acid'" x-text="p.value+'%'"></div></div><div class="mt-[0.3em] text-[0.85em]" x-text="p.label"></div></div></template></div>
+    <div class="mt-[0.7em] font-mono text-[0.72em] uppercase tracking-wider text-mute">Сколько PHP в сети</div>
+    <template x-for="(x,i) in metrics.exposure" :key="i"><div class="mt-[0.35em] text-[0.8em]"><b x-text="x.label+': '"></b><span x-text="x.value"></span><template x-if="!x.verified"><span class="ml-[0.3em] text-[#ffd400] font-mono text-[0.8em]">не подтверждено</span></template></div></template>
+   </div>
+   <div class="col-span-12 sm:col-span-6 lg:col-span-3 rounded-2xl border border-line bg-panel p-[1em]">
+    <template x-for="s in metrics.series" :key="s.id"><div><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute" x-text="s.label"></div><div class="text-[2em] font-extrabold text-hot leading-none mt-[0.2em]"><span x-text="last(s).v"></span> <span class="text-[0.45em] text-mute font-mono" x-text="'на '+tm(last(s).t)+' МСК'"></span></div><div class="h-[9em] mt-[0.3em]"><canvas :id="'chS_'+s.id"></canvas></div></div></template>
+    <div class="mt-[0.6em] font-mono text-[0.72em] uppercase tracking-wider text-mute">Тренды X</div>
+    <div class="flex flex-wrap gap-[0.3em] mt-[0.3em]"><template x-for="t in metrics.x_trends.items"><span class="rounded-full bg-black/40 border border-line px-[0.6em] text-[0.8em]" x-text="t"></span></template></div>
+    <div class="text-[0.78em] text-mute mt-[0.3em]" x-text="metrics.x_trends.note"></div>
+   </div>
+
+   <!-- vendors table -->
+   <div class="col-span-12 xl:col-span-6 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-auto">Дистрибутивы и вендоры</div><input x-model="vQ" placeholder="фильтр…" class="rounded-lg border border-line bg-black/40 text-white px-[0.6em] py-[0.15em] font-mono text-[0.8em] w-[9em]"></div>
+    <div class="flex flex-wrap gap-[0.35em] mt-[0.5em]"><button @click="vSt='all'" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="vSt==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'">все</button><template x-for="(v,k) in VST" :key="k"><button x-show="vCnt(k)" @click="vSt=k" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="vSt===k?'ring-2 ring-white '+chip(v.c):chip(v.c)" x-text="v.l+' '+vCnt(k)"></button></template></div>
+    <div class="overflow-x-auto mt-[0.5em] max-h-[22em] overflow-y-auto"><table class="w-full border-collapse text-[0.85em]"><thead class="sticky top-0 bg-panel"><tr class="text-left font-mono text-[0.85em] text-mute">
+     <th class="py-[0.3em] pr-[0.5em] cursor-pointer" @click="sortBy(vSort,'name')">Кто <span x-text="arrow(vSort,'name')"></span></th><th class="pr-[0.5em] cursor-pointer" @click="sortBy(vSort,'status')">Статус <span x-text="arrow(vSort,'status')"></span></th><th class="pr-[0.5em]">Детали</th><th class="cursor-pointer" @click="sortBy(vSort,'time')">МСК <span x-text="arrow(vSort,'time')"></span></th></tr></thead>
+     <tbody><template x-for="(r,i) in vRows()" :key="i+r.name"><tr class="border-t border-line align-top"><td class="py-[0.35em] pr-[0.5em]"><a :href="r.source_url" target="_blank" class="text-white no-underline font-semibold" x-text="r.name"></a><div class="text-mute text-[0.8em]" x-text="r.kind"></div></td><td class="pr-[0.5em]"><span class="whitespace-nowrap rounded-full border px-[0.5em] text-[0.85em] font-mono" :class="chip((VST[r.status]||{}).c)" x-text="(VST[r.status]||{l:r.status}).l"></span></td><td class="pr-[0.5em]"><span x-text="r.detail"></span><template x-if="!r.verified"><span class="ml-[0.3em] font-mono text-[0.8em] text-[#ffd400]" x-text="'не подтверждено'+(r.note?': '+r.note:'')"></span></template><template x-if="r.verified&&r.note"><span class="ml-[0.3em] text-mute text-[0.85em]" x-text="'('+r.note+')'"></span></template></td><td class="font-mono whitespace-nowrap" x-text="r.time?tm(r.time):'—'"></td></tr></template></tbody></table></div>
+   </div>
+
+   <!-- russia table -->
+   <div id="dash-ru" class="col-span-12 xl:col-span-6 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-auto">Россия: хостинги и регуляторы · <span x-text="'срез '+tm(H.snapshot)+' МСК'"></span></div><input x-model="hQ" placeholder="фильтр…" class="rounded-lg border border-line bg-black/40 text-white px-[0.6em] py-[0.15em] font-mono text-[0.8em] w-[9em]"></div>
+    <div class="mt-[0.4em] text-[0.9em] text-[#d9d3e3]" x-text="H.summary"></div>
+    <div class="flex flex-wrap gap-[0.35em] mt-[0.5em]" id="hostChips"><button @click="hSt='all'" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="hSt==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'" x-text="'все '+hosting.length"></button><template x-for="(v,k) in HST" :key="k"><button @click="hSt=k" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="hSt===k?'ring-2 ring-white '+chip(v.c):chip(v.c)" x-text="v.l+' '+hCnt(k)"></button></template></div>
+    <div class="overflow-x-auto mt-[0.5em] max-h-[22em] overflow-y-auto"><table class="w-full border-collapse text-[0.85em]"><thead class="sticky top-0 bg-panel"><tr class="text-left font-mono text-[0.85em] text-mute">
+     <th class="py-[0.3em] pr-[0.5em] cursor-pointer" @click="sortBy(hSort,'name')">Кто <span x-text="arrow(hSort,'name')"></span></th><th class="pr-[0.5em] cursor-pointer" @click="sortBy(hSort,'status')">Статус <span x-text="arrow(hSort,'status')"></span></th><th class="pr-[0.5em]">Что известно</th><th class="cursor-pointer" @click="sortBy(hSort,'time_msk')">МСК <span x-text="arrow(hSort,'time_msk')"></span></th></tr></thead>
+     <tbody><template x-for="(r,i) in hRows()" :key="i+r.name"><tr class="border-t border-line align-top"><td class="py-[0.35em] pr-[0.5em]"><a :href="r.source_url" target="_blank" class="text-white no-underline font-semibold" x-text="r.name"></a></td><td class="pr-[0.5em]"><span class="whitespace-nowrap rounded-full border px-[0.5em] text-[0.85em] font-mono" :class="chip((HST[r.status]||{}).c)" x-text="(HST[r.status]||{l:r.status}).l"></span></td><td class="pr-[0.5em]"><span x-text="r.note_ru"></span><template x-if="!r.verified"><span class="ml-[0.3em] font-mono text-[0.8em] text-[#ffd400]">не подтверждено</span></template></td><td class="font-mono text-[0.85em] whitespace-nowrap" x-text="r.time_msk"></td></tr></template></tbody></table></div>
+   </div>
+
+   <!-- reactions table -->
+   <div class="col-span-12 xl:col-span-7 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-auto">Страны и компании: кто как отреагировал</div><input x-model="rQ" placeholder="фильтр: Япония, CERT…" class="rounded-lg border border-line bg-black/40 text-white px-[0.6em] py-[0.15em] font-mono text-[0.8em] w-[12em]"></div>
+    <div class="overflow-x-auto mt-[0.5em] max-h-[24em] overflow-y-auto"><table class="w-full border-collapse text-[0.85em]"><thead class="sticky top-0 bg-panel"><tr class="text-left font-mono text-[0.85em] text-mute">
+     <th class="py-[0.3em] pr-[0.5em] cursor-pointer" @click="sortBy(rSort,'who')">Кто <span x-text="arrow(rSort,'who')"></span></th><th class="pr-[0.5em] cursor-pointer" @click="sortBy(rSort,'country')">Страна <span x-text="arrow(rSort,'country')"></span></th><th class="pr-[0.5em] cursor-pointer" @click="sortBy(rSort,'kind')">Тип <span x-text="arrow(rSort,'kind')"></span></th><th class="pr-[0.5em]">Реакция</th><th class="cursor-pointer" @click="sortBy(rSort,'time')">МСК <span x-text="arrow(rSort,'time')"></span></th></tr></thead>
+     <tbody><template x-for="(r,i) in rRows()" :key="i+r.who"><tr class="border-t border-line align-top"><td class="py-[0.35em] pr-[0.5em] font-semibold"><template x-if="r.source_url"><a :href="r.source_url" target="_blank" class="text-white no-underline" x-text="r.who"></a></template><template x-if="!r.source_url"><span x-text="r.who"></span></template></td><td class="pr-[0.5em]" x-text="r.country"></td><td class="pr-[0.5em] text-mute" x-text="r.kind"></td><td class="pr-[0.5em]"><span x-text="r.action"></span><template x-if="!r.verified"><span class="ml-[0.3em] font-mono text-[0.8em] text-[#ffd400]">не подтверждено</span></template></td><td class="font-mono whitespace-nowrap" x-text="r.time?tm(r.time):'—'"></td></tr></template></tbody></table></div>
+   </div>
+
+   <!-- checklist + fakes -->
+   <div class="col-span-12 xl:col-span-5 grid gap-[0.8em]">
+    <div class="rounded-2xl border-2 border-acid/70 bg-panel p-[1em]">
+     <div class="flex justify-between font-mono text-[0.75em] uppercase tracking-wider"><span class="text-acid">Что сделать прямо сейчас</span><span class="text-mute" x-text="done()+' из '+S.checklist.length"></span></div>
+     <div class="h-[0.4em] rounded-full bg-black/50 mt-[0.4em] overflow-hidden"><div class="h-full bg-acid transition-all" :style="`width:${S.checklist.length?done()/S.checklist.length*100:0}%`"></div></div>
+     <template x-for="c in S.checklist" :key="c.id"><label class="flex gap-[0.6em] items-start mt-[0.5em] cursor-pointer text-[0.95em]"><input type="checkbox" class="mt-[0.3em] w-[1.1em] h-[1.1em] accent-[#b6ff3b] shrink-0" :checked="checks[c.id]" @change="toggle(c.id)"><span :class="checks[c.id]?'line-through text-mute':''" x-text="c.text"></span></label></template>
+    </div>
+    <div class="rounded-2xl border border-[#ff3b3b]/60 bg-[#ff3b3b]/5 p-[1em]">
+     <div class="font-mono text-[0.75em] uppercase tracking-wider text-[#ff6b6b]">Осторожно: фейки</div>
+     <template x-for="f in S.fakes"><div class="mt-[0.45em] text-[0.9em] flex gap-[0.5em]"><span class="text-[#ff6b6b]">✕</span><span><span x-text="f.text"></span><template x-if="!f.verified"><span class="ml-[0.3em] font-mono text-[0.8em] text-[#ffd400]" x-text="'не подтверждено'+(f.note?' ('+f.note+')':'')"></span></template><template x-if="f.source_url"><a :href="f.source_url" target="_blank" class="ml-[0.3em] text-mute font-mono text-[0.8em]">↗</a></template></span></div></template>
+    </div>
+   </div>
+
+   <!-- X feed -->
+   <div class="col-span-12 rounded-2xl border border-line bg-panel p-[1em]">
+    <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-[0.4em]">Лента X по-русски</div>
+     <button @click="tTopic='all'" class="cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :class="tTopic==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'" x-text="'все '+tweets.length"></button>
+     <template x-for="c in topics()" :key="c"><button @click="tTopic=c" class="cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :style="tTopic===c?`background:${CAT[c].c};color:#000;border-color:${CAT[c].c}`:`color:${CAT[c].c};border-color:${CAT[c].c}55;background:transparent`" x-text="CAT[c].l+' '+tweets.filter(t=>t.topic===c).length"></button></template>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[0.6em] mt-[0.7em] max-h-[36em] overflow-y-auto pr-[0.3em]">
+     <template x-for="t in feed()" :key="t.id">
+      <a :href="t.url" target="_blank" class="no-underline text-[#efeaf5] rounded-xl bg-black/30 border border-line border-l-4 p-[0.7em] hover:border-hot" :style="`border-left-color:${(CAT[t.topic]||{}).c}`">
+       <div class="flex justify-between gap-[0.5em]"><b class="truncate" x-text="t.name"></b><span class="font-mono text-[0.75em] text-mute shrink-0" x-text="'@'+t.user"></span></div>
+       <div class="font-mono text-[0.72em] text-acid mt-[0.1em]" x-text="t.role"></div>
+       <div class="text-[0.88em] mt-[0.35em]" x-text="t.ru"></div>
+       <div class="flex flex-wrap gap-[0.7em] font-mono text-[0.72em] text-mute mt-[0.4em]"><span x-text="tm(t.created,true)+' МСК'"></span><span class="text-hot font-bold" x-text="views(t.views)+' просм.'"></span><template x-if="t.likes"><span x-text="views(t.likes)+' ♥'"></span></template><template x-if="!t.verified"><span class="text-[#ffd400]">не подтверждено</span></template></div>
+      </a>
+     </template>
+    </div>
+   </div>
+
+  </div>
+  </template>
+  <div class="mt-[1em] text-center"><a href="#read" class="no-underline inline-block rounded-2xl bg-hot text-black font-extrabold px-[1.4em] py-[0.6em] text-[1.1em] hover:bg-acid">Читать разбор ↓</a></div>
+ </div>
+</div>
+
+<main id="read">
 <header class="hero">
   <div class="kicker">стрим · 21 октября 2026 · <span class="mono">PHP2Shell</span></div>
   <h1>PHP2Shell: ИИ нашёл дыры в&nbsp;PHP, и&nbsp;интернет срочно обновляется</h1>
   <p class="lead">Разбираем по шагам, что случилось, при чём тут ИИ и что сделать с&nbsp;твоим сайтом сегодня.</p>
   <nav class="toc"><a href="#what">Что случилось ↓</a><a href="#timeline">Таймлайн</a><a href="#ai">При чём тут ИИ</a><a href="#todo">Что делать</a><a href="#russia">Что в России</a></nav>
-  <div class="dash" id="now-status"><div class="dhead mono"><span class="live"></span>Что сейчас · Обновлено: 21 октября, 18:47 МСК</div><div class="dgrid"><div class="dtile red"><div class="dlab mono"><i></i>Угроза</div><div class="dval">2 критические дыры</div><div class="dnote">CVE-2026-109618 и CVE-2026-109619, CVSS 9.2 из 10</div></div><div class="dtile lime"><div class="dlab mono"><i></i>Патч</div><div class="dval">Вышел в 17:00 МСК</div><div class="dnote">PHP 8.5.12 · 8.4.27 · 8.3.36 · 8.2.35. Для 8.1 и старше патчей нет</div></div><div class="dtile red"><div class="dlab mono"><i></i>Атаки</div><div class="dval">Идут массово</div><div class="dnote">Cloudflare видит атаки с 10:43 МСК, watchTowr: Exploitation In The Wild</div></div><div class="dtile yellow"><div class="dlab mono"><i></i>Сайты на PHP</div><div class="dval">≈70% веба</div><div class="dnote">В зоне .ru 94% сайтов с известным серверным языком (W3Techs)</div></div><div class="dtile lime"><div class="dlab mono"><i></i>Debian</div><div class="dval">Исправление есть</div><div class="dnote">DSA-6574-1 для php8.4 (trixie), php8.2 8.2.35 в bookworm (DLA-4848-1)</div></div><div class="dtile lime"><div class="dlab mono"><i></i>Cloudflare WAF</div><div class="dval">Защита с 06:02 МСК</div><div class="dnote">Правила включены всем клиентам, бесплатным тоже</div></div><div class="dtile yellow"><div class="dlab mono"><i></i>Россия, хостинги</div><div class="dval">Исправленного PHP пока нет</div><div class="dnote">Ни один хостинг не объявил патч. Битрикс24 и Beget временно ограничили формы и работу с файлами. Взломов в .ru не подтверждено</div></div><div class="dtile act"><div class="dlab mono"><i></i>Что делать сейчас</div><div class="dval">Зайди в панель хостинга, проверь версию PHP и переключись на исправленную</div></div></div></div>
   <figure><img src="img/wiz.webp?v=0cc6d093" alt="Обложка Wiz Research: PHP2Shell, CVE-2026-109618/9"><figcaption>Обложка исследования Wiz Research</figcaption></figure>
 </header>
 
@@ -155,11 +379,11 @@ figure{max-width:1240px}
       <li><span class="t">20.10 вечер</span>детали дыр утекли в сеть</li>
       <li><span class="t">23:27</span>в X появилось видео эксплойта</li>
       <li><span class="t">21.10 06:02</span>Cloudflare включает защиту всем клиентам</li>
-      <li><span class="t">10:43</span>Cloudflare видит первые атаки</li>
+      <li><span class="t">10:43</span>CTO Cloudflare сообщает, что видит атаки</li>
       <li><span class="t">15:55</span>премьер Японии Санаэ Такаити просит всех обновиться сегодня же вечером</li>
-      <li><span class="t">17:00</span>выходят патчи PHP</li>
+      <li><span class="t">16:34</span>выходят патчи PHP</li>
     </ul></div>
-    <div class="wcard"><h3><span class="wn">5</span>Кого задело</h3><p>Атаки идут массово. Из предосторожности Финляндия закрыла доступ из интернета к публичным госсервисам, отключились ряд сайтов в Нидерландах и все сайты levelsio. О взломах никто из них не сообщал.</p></div>
+    <div class="wcard"><h3><span class="wn">5</span>Кого задело</h3><p>Попытки атак есть, успешные взломы не подтверждены. Из предосторожности Финляндия закрыла доступ из интернета к публичным госсервисам, отключились ряд сайтов в Нидерландах и все сайты levelsio. О взломах никто из них не сообщал.</p></div>
     <div class="wcard"><h3><span class="wn">6</span>Что в России</h3><p>На <span class="mono">18:47</span> МСК исправленный PHP не объявил ни один российский хостинг. Битрикс24 и Beget временно ограничили формы и работу с файлами; подтверждённых взломов в <span class="mono">.ru</span> нет.</p></div>
     <div class="wcard act"><h3><span class="wn">7</span>Что сделать прямо сейчас</h3><p>Зайди в панель хостинга и проверь версию PHP: нужна <span class="mono hl">8.2.35 / 8.3.36 / 8.4.27 / 8.5.12</span> или новее, с <span class="mono">8.1</span> и старше переезжай на <span class="mono">8.2+</span>. Если переключателя нет, напиши в поддержку с номерами CVE, и ничего из ленты X не скачивай и не запускай.</p></div>
   </div>
@@ -192,7 +416,7 @@ figure{max-width:1240px}
     <div class="card"><div class="ctitle">Дыра 2: чтение памяти</div><p>Похоже на Heartbleed 2014 года. Из памяти сервера можно вытащить пароли, токены, API-ключи и сертификаты.</p></div>
   </div>
   <p>Затронуты почти все версии PHP, начиная с <span class="mono">5.4</span>. Через PHP под ударом WordPress, Drupal, Joomla, Magento, Laravel и MediaWiki (движок Википедии).</p>
-  <p><b>Патч</b> — это исправление, обновлённая версия программы, где дыра закрыта. Детали утекли в сеть вечером <span class="mono">20.10</span>. Патчи вышли <span class="mono">21.10</span> в <span class="mono">17:00</span> МСК:</p>
+  <p><b>Патч</b> — это исправление, обновлённая версия программы, где дыра закрыта. Детали утекли в сеть вечером <span class="mono">20.10</span>. Патчи вышли <span class="mono">21.10</span> в <span class="mono">16:34</span> МСК:</p>
   <div class="versions mono"><span>8.5.12</span><span>8.4.27</span><span>8.3.36</span><span>8.2.35</span></div>
   <p class="warn">Для PHP <span class="mono">8.1</span> и старше официальных патчей нет. С таких версий надо переезжать на <span class="mono">8.2</span> и выше.</p>
   <div class="stat"><div class="big mono">94%</div><div>сайтов в зоне <span class="mono">.ru</span> с известным серверным языком работают на PHP (W3Techs, 21.10.2026). Нас это касается напрямую.</div></div>
@@ -205,14 +429,14 @@ figure{max-width:1240px}
     <li><span class="t mono">20.10 23:27</span><span>@k_firsov публикует видео эксплойта: «php2shell. Tomorrow is a helluva day». <b>Эксплойт</b> — это готовая программа, которая использует дыру для атаки.</span></li>
     <li><span class="t mono">21.10 02:18</span><span>@silascutler оценивает: уязвимых хостов в сети, скорее всего, больше <span class="mono">1,3 млн</span>.</span></li>
     <li><span class="t mono">06:02</span><span>Cloudflare включает защитные правила WAF всем клиентам, бесплатным тоже. <b>WAF</b> — фильтр перед сайтом, он отсекает подозрительные запросы.</span></li>
-    <li><span class="t mono">10:43</span><span>CTO Cloudflare Дейн Кнехт: видим первые атаки. Патча ещё нет.</span></li>
+    <li><span class="t mono">10:43</span><span>CTO Cloudflare Дейн Кнехт сообщает, что видит первые атаки. Патча ещё нет.</span></li>
     <li><span class="t mono">12:45</span><span>Финляндия: госцентр Valtori из предосторожности закрывает доступ из интернета к публичным госсервисам.</span></li>
     <li><span class="t mono">13:07</span><span>NCSC UK: готовьтесь обновляться сразу. Если не выходит, отключайте систему.</span></li>
-    <li><span class="t mono">14:35</span><span>Hadrian фиксирует массовые атаки.</span></li>
+    <li><span class="t mono">14:35</span><span>Hadrian пишет о массовых атаках, цифр не приводит.</span></li>
     <li><span class="t mono">15:44</span><span>levelsio отключает от сети все свои сайты и VPS.</span></li>
     <li><span class="t mono">15:55</span><span>Пост премьер-министра Японии.</span></li>
+    <li><span class="t mono hl">16:34</span><span>Выходят патчи PHP.</span></li>
     <li><span class="t mono">16:38</span><span>Wiz публикует разбор PHP2Shell.</span></li>
-    <li><span class="t mono hl">17:00</span><span>Выходят патчи PHP.</span></li>
     <li><span class="t mono">17:04</span><span>OpenAI рассказывает, как их модель помогла найти дыры.</span></li>
   </ol>
   <div class="tweet">
@@ -382,7 +606,7 @@ figure{max-width:1240px}
 
 <section id="now">
   <h2><span class="num">05</span> Что происходит сейчас</h2>
-  <p><b>Атаки идут.</b> Cloudflare видит их с утра. У watchTowr статус уязвимости: <span class="mono hl">Exploitation: In The Wild</span>, то есть её используют в реальных атаках. Hadrian пишет: «Exploitation is still happening at scale» («Атаки по-прежнему идут массово»).</p>
+  <p><b>Попытки атак есть.</b> CTO Cloudflare сообщил о них в <span class="mono">10:43</span> МСК. У watchTowr статус уязвимости: <span class="mono hl">Exploitation: In The Wild</span>. По словам watchTowr, успешных атак пока нет. Hadrian пишет: «Exploitation is still happening at scale» («Атаки по-прежнему идут массово»).</p>
   <p><b>Удачных взломов публично пока никто не подтвердил.</b> Huntress: «No indicators of compromise have been confirmed yet» («Признаков взлома пока не подтверждено»).</p>
   <figure><img src="img/watchtowr.png?v=687b100b" alt="watchTowr FAQ"><figcaption>watchTowr: FAQ по CVE-2026-109618</figcaption></figure>
   <figure><img src="img/hadrian.webp?v=275075ab" alt="Hadrian alert"><figcaption>Hadrian: «php2shell: two leaked critical PHP RCEs»</figcaption></figure>
@@ -646,5 +870,8 @@ figure{max-width:1240px}
 <section id="sources"><h2><span class="num">11</span> Источники</h2><ol class="src"><li><a href="https://www.wiz.io/blog/php2shell-php-rce">Wiz: PHP2Shell</a> <span class="mono url">https://www.wiz.io/blog/php2shell-php-rce</span></li><li><a href="https://www.php2shell.com/">php2shell.com</a> <span class="mono url">https://www.php2shell.com/</span></li><li><a href="https://www.php.net/archive/2026.php">php.net: архив новостей 2026</a> <span class="mono url">https://www.php.net/archive/2026.php</span></li><li><a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w">GitHub advisory GHSA-w8hw-w9fx-j79w</a> <span class="mono url">https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w</span></li><li><a href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp">GitHub advisory GHSA-6wmf-4rv5-p3rp</a> <span class="mono url">https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp</span></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-109618">NVD: CVE-2026-109618</a> <span class="mono url">https://nvd.nist.gov/vuln/detail/CVE-2026-109618</span></li><li><a href="https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2026/2026-297981-1032.html">BSI: предупреждение</a> <span class="mono url">https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2026/2026-297981-1032.html</span></li><li><a href="https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities">OpenAI: Patch the Planet</a> <span class="mono url">https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities</span></li><li><a href="https://www.anthropic.com/research/n-days">Anthropic: N-days</a> <span class="mono url">https://www.anthropic.com/research/n-days</span></li><li><a href="https://blog.cloudflare.com/php-vulnerabilities-waf-protection/">Cloudflare Blog</a> <span class="mono url">https://blog.cloudflare.com/php-vulnerabilities-waf-protection/</span></li><li><a href="https://watchtowr.com/intelligence/php-cve-2026-109618-faq/">watchTowr: FAQ</a> <span class="mono url">https://watchtowr.com/intelligence/php-cve-2026-109618-faq/</span></li><li><a href="https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619">Hadrian: alert</a> <span class="mono url">https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619</span></li><li><a href="https://sansec.io/research/php2shell">Sansec: PHP2Shell</a> <span class="mono url">https://sansec.io/research/php2shell</span></li><li><a href="https://www.securityweek.com/php2shell-mass-exploitation-looms-for-leaked-critical-php-flaws/">SecurityWeek</a> <span class="mono url">https://www.securityweek.com/php2shell-mass-exploitation-looms-for-leaked-critical-php-flaws/</span></li><li><a href="https://security-tracker.debian.org/tracker/CVE-2026-109618">Debian security tracker</a> <span class="mono url">https://security-tracker.debian.org/tracker/CVE-2026-109618</span></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2556842">Red Hat Bugzilla 2556842</a> <span class="mono url">https://bugzilla.redhat.com/show_bug.cgi?id=2556842</span></li><li><a href="https://cloud.google.com/blog/products/identity-security/responding-to-core-php-vulnerabilities-cve-2026-109618-cve-2026-109619">Google Cloud Blog</a> <span class="mono url">https://cloud.google.com/blog/products/identity-security/responding-to-core-php-vulnerabilities-cve-2026-109618-cve-2026-109619</span></li><li><a href="https://www.nu.nl/tech/6413897/live-grote-nederlandse-sites-uit-voorzorg-offline-wegens-kwetsbaarheid-php.html">NU.nl: лайвблог</a> <span class="mono url">https://www.nu.nl/tech/6413897/live-grote-nederlandse-sites-uit-voorzorg-offline-wegens-kwetsbaarheid-php.html</span></li><li><a href="https://www.bbc.co.uk/news/articles/cmly0lg3w5x2o">BBC News</a> <span class="mono url">https://www.bbc.co.uk/news/articles/cmly0lg3w5x2o</span></li><li><a href="https://therecord.media/php-script-vulnerabilities-warnings">The Record</a> <span class="mono url">https://therecord.media/php-script-vulnerabilities-warnings</span></li><li><a href="https://yle.fi/a/74-20252600">Yle News: Финляндия</a> <span class="mono url">https://yle.fi/a/74-20252600</span></li><li><a href="https://www.ts.fi/a/7116818">Turun Sanomat</a> <span class="mono url">https://www.ts.fi/a/7116818</span></li><li><a href="https://www.hs.fi/suomi/art-2000012357566.html">Helsingin Sanomat</a> <span class="mono url">https://www.hs.fi/suomi/art-2000012357566.html</span></li><li><a href="https://www.dexerto.com/pokemon/pokemon-umamusume-and-other-major-games-taken-offline-over-critical-php-vulnerability-3420823/">Dexerto: игры на техработах</a> <span class="mono url">https://www.dexerto.com/pokemon/pokemon-umamusume-and-other-major-games-taken-offline-over-critical-php-vulnerability-3420823/</span></li><li><a href="https://w3techs.com/technologies/segmentation/tld-ru-/programming_language">W3Techs: серверные языки в .ru</a> <span class="mono url">https://w3techs.com/technologies/segmentation/tld-ru-/programming_language</span></li><li><a href="https://habr.com/ru/news/1097256/">Хабр</a> <span class="mono url">https://habr.com/ru/news/1097256/</span></li><li><a href="https://www.1c-bitrix.ru/about/news/29334792/">1С-Битрикс</a> <span class="mono url">https://www.1c-bitrix.ru/about/news/29334792/</span></li><li><a href="https://t.me/bitrix24_ru/3220">Битрикс24 в Telegram</a> <span class="mono url">https://t.me/bitrix24_ru/3220</span></li><li><a href="https://beget.com/ru/news/2026/uyazvimost-v-php-ot-21-10-2026">Beget: новость</a> <span class="mono url">https://beget.com/ru/news/2026/uyazvimost-v-php-ot-21-10-2026</span></li><li><a href="https://t.me/beget_official/565">Beget в Telegram</a> <span class="mono url">https://t.me/beget_official/565</span></li><li><a href="https://t.me/timewebcloud_alerts/418">Timeweb Cloud в Telegram</a> <span class="mono url">https://t.me/timewebcloud_alerts/418</span></li><li><a href="https://t.me/ispmanager/712">ISPmanager в Telegram</a> <span class="mono url">https://t.me/ispmanager/712</span></li></ol><h3>Посты в X</h3><ol class="src"><li><a href="https://x.com/takaichi_sanae/status/2112890642590564386">@takaichi_sanae</a> <span class="mono url">x.com/takaichi_sanae/status/2112890642590564386</span></li><li><a href="https://x.com/OpenAI/status/2112907856018309586">@OpenAI</a> <span class="mono url">x.com/OpenAI/status/2112907856018309586</span></li><li><a href="https://x.com/dok2001/status/2112811965735202970">@dok2001</a> <span class="mono url">x.com/dok2001/status/2112811965735202970</span></li><li><a href="https://x.com/NCSC/status/2112848265074847828">@NCSC</a> <span class="mono url">x.com/NCSC/status/2112848265074847828</span></li><li><a href="https://x.com/levelsio/status/2112887674251976827">@levelsio</a> <span class="mono url">x.com/levelsio/status/2112887674251976827</span></li><li><a href="https://x.com/sagitz_/status/2112901380080058778">@sagitz_</a> <span class="mono url">x.com/sagitz_/status/2112901380080058778</span></li><li><a href="https://x.com/sagitz_/status/2112901387122332066">@sagitz_</a> <span class="mono url">x.com/sagitz_/status/2112901387122332066</span></li><li><a href="https://x.com/levelsio/status/2112891358226645334">@levelsio</a> <span class="mono url">x.com/levelsio/status/2112891358226645334</span></li><li><a href="https://x.com/dok2001/status/2112909127060259086">@dok2001</a> <span class="mono url">x.com/dok2001/status/2112909127060259086</span></li><li><a href="https://x.com/dok2001/status/2112921277870866880">@dok2001</a> <span class="mono url">x.com/dok2001/status/2112921277870866880</span></li><li><a href="https://x.com/Cloudflare/status/2112911026437935381">@Cloudflare</a> <span class="mono url">x.com/Cloudflare/status/2112911026437935381</span></li><li><a href="https://x.com/Google/status/2112914740058181739">@Google</a> <span class="mono url">x.com/Google/status/2112914740058181739</span></li><li><a href="https://x.com/gdb/status/2112921529650688312">@gdb</a> <span class="mono url">x.com/gdb/status/2112921529650688312</span></li><li><a href="https://x.com/k_firsov/status/2112641845926989944">@k_firsov</a> <span class="mono url">x.com/k_firsov/status/2112641845926989944</span></li><li><a href="https://x.com/wiz_io/status/2112899825305780607">@wiz_io</a> <span class="mono url">x.com/wiz_io/status/2112899825305780607</span></li><li><a href="https://x.com/calif_io/status/2112914613297668583">@calif_io</a> <span class="mono url">x.com/calif_io/status/2112914613297668583</span></li><li><a href="https://x.com/Stekkz/status/2112872031163383852">@Stekkz</a> <span class="mono url">x.com/Stekkz/status/2112872031163383852</span></li><li><a href="https://x.com/rafalohaki/status/2112903909282881773">@rafalohaki</a> <span class="mono url">x.com/rafalohaki/status/2112903909282881773</span></li><li><a href="https://x.com/silascutler/status/2112684895608652003">@silascutler</a> <span class="mono url">x.com/silascutler/status/2112684895608652003</span></li><li><a href="https://x.com/TheHackersNews/status/2112917025047670787">@TheHackersNews</a> <span class="mono url">x.com/TheHackersNews/status/2112917025047670787</span></li><li><a href="https://x.com/ncsc_nl/status/2112874187719385243">@ncsc_nl</a> <span class="mono url">x.com/ncsc_nl/status/2112874187719385243</span></li><li><a href="https://x.com/marcohextor/status/2112666048000561307">@marcohextor</a> <span class="mono url">x.com/marcohextor/status/2112666048000561307</span></li><li><a href="https://x.com/levelsio/status/2112923845267210658">@levelsio</a> <span class="mono url">x.com/levelsio/status/2112923845267210658</span></li><li><a href="https://x.com/theh924/status/2112857555731091906">@theh924</a> <span class="mono url">x.com/theh924/status/2112857555731091906</span></li><li><a href="https://x.com/prthgo/status/2112923929631433168">@prthgo</a> <span class="mono url">x.com/prthgo/status/2112923929631433168</span></li><li><a href="https://x.com/moznion/status/2112921603839594828">@moznion</a> <span class="mono url">x.com/moznion/status/2112921603839594828</span></li><li><a href="https://x.com/0xhrH/status/2112815579065114865">@0xhrH</a> <span class="mono url">x.com/0xhrH/status/2112815579065114865</span></li><li><a href="https://x.com/XakepRU/status/2112855413767225368">@XakepRU</a> <span class="mono url">x.com/XakepRU/status/2112855413767225368</span></li><li><a href="https://x.com/mzemlu777/status/2112932212362351084">@mzemlu777</a> <span class="mono url">x.com/mzemlu777/status/2112932212362351084</span></li></ol><p class="note">Просмотры постов сняты 21.10.2026 около 18:50 МСК.</p></section>
 <footer>Сережа Рис · <a href="https://x.com/serejaris">@serejaris</a> · <a href="https://t.me/vibecod3rs">t.me/vibecod3rs</a></footer>
 </main>
+<script src="assets/chart.umd.min.js?v=5b183d09"></script>
+<script src="assets/dash.js?v=f09b0ba2"></script>
+<script defer src="assets/alpine.min.js?v=47a8be80"></script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body></html>
