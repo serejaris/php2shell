@@ -86,11 +86,11 @@
   },
   {
    "name": "Hostland",
-   "status": "silent",
+   "status": "in_progress",
    "fixed_versions": [],
-   "note_ru": "Заявлений нет. Последний пост в TG от 16.09.",
-   "time_msk": "проверено 20:04",
-   "source_url": "https://t.me/s/hostland_official",
+   "note_ru": "На виртуальном хостинге устанавливают обновления, на части поддерживаемых версий PHP патчи уже установлены. На старых версиях ограничат уязвимые механизмы. Владельцам VDS советуют обновить PHP до 8.5.12, 8.4.27, 8.3.36 или 8.2.35 самим.",
+   "time_msk": "21.10 20:30",
+   "source_url": "https://t.me/hostland_official/120",
    "verified": true
   },
   {
