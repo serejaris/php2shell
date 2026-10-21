@@ -1,6 +1,6 @@
 {
  "_doc": "updated_at — время среза данных (МСК). threat.level: critical | high | medium | low.",
- "updated_at": "2026-10-21T21:34:05+03:00",
+ "updated_at": "2026-10-21T21:49:18+03:00",
  "threat": {
   "level": "critical",
   "label": "Критический",

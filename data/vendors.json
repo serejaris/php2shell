@@ -62,7 +62,7 @@
   {
    "name": "Red Hat",
    "kind": "дистрибутив",
-   "status": "Bugzilla 2556842 NEW (последнее изменение 20:04 МСК), RHSA нет; карточка в Security Data API отдаёт 404",
+   "status": "Bugzilla 2556842 NEW, RHSA нет",
    "detail": "Исправления нет: Bugzilla 2556842 в статусе NEW, RHSA нет",
    "time": null,
    "source_url": "https://bugzilla.redhat.com/show_bug.cgi?id=2556842",
@@ -185,14 +185,14 @@
   },
   {
    "name": "Debian trixie",
-   "status": "fixed",
+   "status": "исправлено, DSA-6574-1",
    "fixed_versions": "php8.4 8.4.27-1~deb13u1",
    "source_url": "https://security-tracker.debian.org/tracker/DSA-6574-1",
    "verified": false
   },
   {
    "name": "Debian bookworm",
-   "status": "fixed",
+   "status": "исправлено, DLA-4848-1",
    "fixed_versions": "php8.2 8.2.35-1~deb12u1",
    "source_url": "https://security-tracker.debian.org/tracker/DLA-4848-1",
    "verified": false
@@ -220,7 +220,7 @@
   },
   {
    "name": "Alpine edge",
-   "status": "php83 8.3.35-r0, исправленной 8.3.36 нет",
+   "status": "php83 всё ещё 8.3.35-r0",
    "fixed_versions": null,
    "source_url": "https://pkgs.alpinelinux.org/packages?name=php83&branch=edge",
    "verified": false
@@ -241,7 +241,7 @@
   },
   {
    "name": "Debian sid/forky",
-   "status": "php8.4 8.4.26-1, уязвим (unfixed), баг 1151516",
+   "status": "php8.4 8.4.26-1, уязвим",
    "fixed_versions": null,
    "source_url": "https://security-tracker.debian.org/tracker/CVE-2026-109618",
    "verified": false
