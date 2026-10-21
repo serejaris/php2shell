@@ -1,0 +1,267 @@
+{
+ "_doc": "updated_at — время среза данных (МСК). threat.level: critical | high | medium | low.",
+ "updated_at": "2026-10-21T20:18:00+03:00",
+ "threat": {
+  "level": "critical",
+  "label": "Критический",
+  "note": "Попытки атак есть, успешные взломы не подтверждены. Патч вышел в 16:34 МСК, обнови PHP сегодня.",
+  "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+  "verified": true
+ },
+ "cves": [
+  {
+   "id": "CVE-2026-109618",
+   "cvss31": 9.8,
+   "cvss40": 9.2,
+   "cwe": "CWE-416 use-after-free",
+   "nvd_status": "Analyzed",
+   "kind": "Запуск кода на сервере без логина и пароля",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109618",
+   "advisory": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+   "verified": true
+  },
+  {
+   "id": "CVE-2026-109619",
+   "cvss31": 9.8,
+   "cvss40": 9.2,
+   "cwe": "CWE-416 use-after-free",
+   "nvd_status": "Analyzed",
+   "kind": "Чтение памяти сервера: пароли, токены, ключи",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109619",
+   "advisory": "https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp",
+   "verified": true
+  }
+ ],
+ "counters": [
+  {
+   "id": "leak",
+   "label": "с первого видео эксплойта",
+   "since": "2026-10-20T23:27:00+03:00",
+   "source_url": "https://x.com/k_firsov/status/2112641845926989944",
+   "verified": true
+  },
+  {
+   "id": "attacks",
+   "label": "с первого сообщения об атаках",
+   "since": "2026-10-21T10:43:00+03:00",
+   "source_url": "https://sansec.io/research/php2shell",
+   "verified": true
+  },
+  {
+   "id": "patch",
+   "label": "с выхода патча",
+   "since": "2026-10-21T16:34:00+03:00",
+   "source_url": "https://www.php.net/archive/2026.php",
+   "verified": true
+  }
+ ],
+ "fixed": {
+  "8.5": "8.5.12",
+  "8.4": "8.4.27",
+  "8.3": "8.3.36",
+  "8.2": "8.2.35"
+ },
+ "min_branch": "8.2",
+ "kpis": [
+  {
+   "label": "CVSS",
+   "value": "9.8 / 9.2",
+   "sub": "3.1 по NVD / 4.0 по php.net, CWE-416",
+   "tone": "red",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109618",
+   "verified": true
+  },
+  {
+   "label": "Патч",
+   "value": "16:34 МСК",
+   "sub": "8.5.12 · 8.4.27 · 8.3.36 · 8.2.35",
+   "tone": "lime",
+   "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+   "verified": true
+  },
+  {
+   "label": "Атаки",
+   "value": "попытки есть",
+   "sub": "успешные взломы не подтверждены",
+   "tone": "yellow",
+   "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+   "verified": true
+  },
+  {
+   "label": "Хостов с PHP",
+   "value": "1,89 млн",
+   "sub": "Modat, скан 20.10, все PHP без проверки на уязвимость",
+   "tone": "yellow",
+   "source_url": "https://modat.io/blog/php-exposure-before-the-21-oct-2026-security-release/",
+   "verified": true
+  },
+  {
+   "label": "Рунет в X",
+   "value": "121 пост",
+   "sub": "про PHP за сутки, максимум 27 в час",
+   "tone": "mute",
+   "source_url": "https://docs.x.com/x-api/posts/counts/introduction",
+   "verified": true
+  }
+ ],
+ "checklist": [
+  {
+   "id": "ver",
+   "text": "Зайти в панель хостинга и посмотреть версию PHP"
+  },
+  {
+   "id": "upd",
+   "text": "Переключить на 8.2.35 / 8.3.36 / 8.4.27 / 8.5.12 или новее"
+  },
+  {
+   "id": "old",
+   "text": "С 8.1 и старше переехать на 8.2+"
+  },
+  {
+   "id": "ticket",
+   "text": "Нет переключателя — написать в поддержку и дать номера CVE-2026-109618 и CVE-2026-109619"
+  },
+  {
+   "id": "vps",
+   "text": "Свой VPS — обновить PHP самому, попросить ИИ-ассистента провести по шагам"
+  },
+  {
+   "id": "cms",
+   "text": "Помнить: обновление WordPress или Битрикса PHP не обновляет"
+  },
+  {
+   "id": "nopoc",
+   "text": "Ничего из ленты X и GitHub не скачивать и не запускать. Tenable: непроверенный код эксплойтов бывает с вредоносом",
+   "source_url": "https://www.tenable.com/blog/php2shell-cve-2026-109618-cve-2026-109619-frequently-asked-questions-about-critical-php-remote"
+  },
+  {
+   "id": "signs",
+   "text": "Проверить логи: странные multipart-запросы, серии ошибок 500, огромные cookie PHPSESSID, User-Agent hellflow-php2shell и php2shell-poc-v3"
+  }
+ ],
+ "scores_note": "CVSS 3.1 9.8 CRITICAL — оценка NVD (Primary), CVSS 4.0 9.2 — оценка php.net (Secondary). NVD: Analyzed в 20:00 МСК.",
+ "patch": {
+  "time": "2026-10-21T16:34:00+03:00",
+  "detail": "GHSA-6wmf-4rv5-p3rp в 13:34:13 UTC, GHSA-w8hw-w9fx-j79w в 13:34:25 UTC. CERT-EU и Huntress пишут 13:30 UTC.",
+  "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+  "verified": true
+ },
+ "attack_status": {
+  "summary": "Попытки есть, успешные взломы не подтверждены ни компаниями, ни CERT.",
+  "sources": [
+   {
+    "who": "watchTowr",
+    "text": "Видит попытки атак в ханипотах, успешных пока нет: «Whilst nobody has been successful to date» (цитата в SecurityWeek)",
+    "time": "2026-10-21T19:50:00+03:00",
+    "tone": "yellow",
+    "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+    "verified": true
+   },
+   {
+    "who": "Patchstack, Cloudflare, Vega",
+    "text": "Тоже видели попытки атак, по данным СМИ",
+    "time": "2026-10-21T19:50:00+03:00",
+    "tone": "yellow",
+    "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+    "verified": false
+   },
+   {
+    "who": "Hadrian",
+    "text": "«Exploitation is still happening at scale», цифр нет. Открытое расхождение с другими источниками",
+    "time": "2026-10-21T17:35:00+03:00",
+    "tone": "red",
+    "source_url": "https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619",
+    "verified": false
+   },
+   {
+    "who": "Huntress",
+    "text": "Эксплуатации у клиентов не видит, IOC не подтверждены",
+    "time": "2026-10-21T17:00:00+03:00",
+    "tone": "lime",
+    "source_url": "https://www.huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities",
+    "verified": true
+   },
+   {
+    "who": "BSI (v1.1)",
+    "text": "Подтверждённой эксплуатации нет",
+    "time": null,
+    "tone": "lime",
+    "source_url": "https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2026/2026-297981-1032.html",
+    "verified": true
+   },
+   {
+    "who": "Sansec",
+    "text": "Прогноз: «We expect mass exploitation now that the patch and the writeups are public»",
+    "time": "2026-10-21T18:18:00+03:00",
+    "tone": "red",
+    "source_url": "https://sansec.io/research/php2shell",
+    "verified": true
+   },
+   {
+    "who": "CISA KEV",
+    "text": "Этих CVE в каталоге нет (каталог 2026.10.21, проверено 20:02 МСК)",
+    "time": "2026-10-21T17:04:00+03:00",
+    "tone": "mute",
+    "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "verified": true
+   },
+   {
+    "who": "Shadowserver",
+    "text": "Тега под эти CVE нет, счётчика нет (проверено 20:17 МСК)",
+    "time": "2026-10-21T20:17:00+03:00",
+    "tone": "mute",
+    "source_url": "https://dashboard.shadowserver.org/",
+    "verified": true
+   },
+   {
+    "who": "GreyNoise, Censys, Cloudflare Radar",
+    "text": "Публичных счётчиков уязвимых хостов или атак пока нет",
+    "time": "2026-10-21T20:15:00+03:00",
+    "tone": "mute",
+    "source_url": null,
+    "verified": true
+   }
+  ]
+ },
+ "fakes": [
+  {
+   "text": "В X ходят фейковые и вредоносные «PoC». ActiveTK сравнил «слитые PoC» с патчем: большинство преувеличены или про другой баг, часть — вредоносное ПО.",
+   "source_url": "https://x.com/ActiveTK5929/status/2112920515287654655",
+   "verified": true
+  },
+  {
+   "text": "На GitHub есть «PoC»-репозитории без кода, которые собирают звёзды. В одном 336 звёзд, внутри только «Star this repository».",
+   "source_url": null,
+   "verified": true
+  },
+  {
+   "text": "Tenable: непроверенный код эксплойтов бывает с вредоносом, обращайся с ним осторожно.",
+   "source_url": "https://www.tenable.com/blog/php2shell-cve-2026-109618-cve-2026-109619-frequently-asked-questions-about-critical-php-remote",
+   "verified": true
+  },
+  {
+   "text": "CERT-EU пишет, что начали расходиться первые PoC.",
+   "source_url": "https://cert.europa.eu/publications/security-advisories/2026-018",
+   "verified": false
+  },
+  {
+   "text": "На pump.fun больше 46 мемкоинов по теме, к уязвимости они отношения не имеют.",
+   "source_url": null,
+   "verified": false,
+   "note": "по данным GlassDex"
+  },
+  {
+   "text": "Отключение session.upload_progress закрывает часть путей к CVE-2026-109619 и от CVE-2026-109618 не защищает (The Hacker News).",
+   "source_url": "https://x.com/TheHackersNews/status/2112917025047670787",
+   "verified": true
+  }
+ ],
+ "russia": {
+  "label": "Россия, срез 20:12 МСК",
+  "value": "патч не стоит ни у кого",
+  "sub": "Sprinthost ставит обновления, Beget, SpaceWeb и Битрикс24 с ограничениями, взломов в .ru не подтверждено",
+  "tone": "yellow",
+  "source_url": "https://bdu.fstec.ru/vul/2026-17191",
+  "verified": true
+ }
+}

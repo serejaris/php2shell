@@ -1,0 +1,205 @@
+{
+ "_doc": "Срез по РФ 20:02–20:12 МСК 21.10. status: patched | in_progress | restricted | silent. time_msk — строка как в срезе.",
+ "snapshot": "2026-10-21T20:12:00+03:00",
+ "summary": "Ни один российский хостинг не сообщил, что исправленный PHP уже стоит. Sprinthost (19:05) ставит обновления, SpaceWeb (18:48) ограничил upload_progress, Beget и Битрикс24 работают с ограничениями, 1С-Битрикс опубликовал инструкцию по обновлению. БДУ ФСТЭК завела BDU:2026-17191 и BDU:2026-17192. НКЦКИ и ГосСОПКА молчат. Подтверждённых взломов в .ru нет.",
+ "items": [
+  {
+   "name": "Beget",
+   "status": "restricted",
+   "fixed_versions": [],
+   "note_ru": "Новость не обновлялась после релиза. Ограничены upload_progress и загрузка файлов, закрыт доступ к Adminer и phpMyAdmin облачных БД. Об установке исправлений не сообщается.",
+   "time_msk": "21.10 13:19",
+   "source_url": "https://beget.com/ru/news/2026/uyazvimost-v-php-ot-21-10-2026",
+   "verified": true
+  },
+  {
+   "name": "Timeweb Cloud",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Клиентам VPS советуют обновить PHP самим. Об обновлении своей инфраструктуры не сообщается. Новых постов нет.",
+   "time_msk": "21.10 17:04",
+   "source_url": "https://t.me/timewebru/2239",
+   "verified": true
+  },
+  {
+   "name": "Timeweb (виртуальный хостинг)",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "На timeweb.com заявлений нет.",
+   "time_msk": "проверено 20:03",
+   "source_url": "https://timeweb.com/ru/",
+   "verified": true
+  },
+  {
+   "name": "REG.RU",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет. Последний пост в TG от 20.10, последняя новость на сайте от 06.10.",
+   "time_msk": "проверено 20:04",
+   "source_url": "https://www.reg.ru/company/news/",
+   "verified": true
+  },
+  {
+   "name": "Sprinthost",
+   "status": "in_progress",
+   "fixed_versions": [],
+   "note_ru": "Новое: на серверах под своим управлением ограничили уязвимые механизмы и устанавливают обновления. Владельцам боксов советуют обновить PHP самим.",
+   "time_msk": "21.10 19:05",
+   "source_url": "https://t.me/sprinthost/623",
+   "verified": true
+  },
+  {
+   "name": "SpaceWeb (sweb.ru)",
+   "status": "restricted",
+   "fixed_versions": [],
+   "note_ru": "Новое: на хостинге ограничили upload_progress и обещают снять ограничения после обновления всех версий PHP. Клиентам с PHP ниже 8.2 советуют перейти на 8.3.",
+   "time_msk": "21.10 18:48",
+   "source_url": "https://t.me/spaceweb/1065",
+   "verified": true
+  },
+  {
+   "name": "Selectel",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://t.me/s/Selectel",
+   "verified": true
+  },
+  {
+   "name": "FirstVDS",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "О PHP2Shell ничего. Последняя новость от 18.10, про VMmanager.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://firstvds.ru/blog?tab=news",
+   "verified": true
+  },
+  {
+   "name": "Jino",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет. Последняя новость от 30.12.2024.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://jino.ru/about/news/",
+   "verified": true
+  },
+  {
+   "name": "Hostland",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет. Последний пост в TG от 16.09.",
+   "time_msk": "проверено 20:04",
+   "source_url": "https://t.me/s/hostland_official",
+   "verified": true
+  },
+  {
+   "name": "Fozzy",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "На сайте заявлений нет.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://fozzy.com/ru/",
+   "verified": true
+  },
+  {
+   "name": "Мастерхост",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет. Последняя новость о PHP от 21.09: PHP 8.5 доступен на хостинге.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://masterhost.ru/events/news/",
+   "verified": true
+  },
+  {
+   "name": "RU-CENTER (nic.ru)",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Сайт не открылся ни через curl, ни в headless Chrome (пустая страница). Telegram-канал не найден. Статус неизвестен.",
+   "time_msk": "проверено 20:10",
+   "source_url": "https://www.nic.ru/info/news/",
+   "verified": false
+  },
+  {
+   "name": "Tilda",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://t.me/s/tildanews",
+   "verified": true
+  },
+  {
+   "name": "ISPmanager",
+   "status": "in_progress",
+   "fixed_versions": [],
+   "note_ru": "Сборки всё ещё обещаны, объявления о готовности нет. В репозитории нет каталогов от 21.10.",
+   "time_msk": "21.10 12:40",
+   "source_url": "https://t.me/ispmanager/712",
+   "verified": true
+  },
+  {
+   "name": "FastPanel",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "В changelog и базе знаний ничего нет.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://fastpanel.direct/ru/changelog",
+   "verified": true
+  },
+  {
+   "name": "1С-Битрикс (коробка, Управление сайтом)",
+   "status": "in_progress",
+   "fixed_versions": [],
+   "note_ru": "Новое: опубликована инструкция по обновлению PHP до 8.5.12, 8.4.27, 8.3.36 или 8.2.35 с порядком действий для BitrixVM 9.x. Обновлять должен владелец сервера. Время блока не указано.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://www.1c-bitrix.ru/about/news/29334792/",
+   "verified": true
+  },
+  {
+   "name": "Битрикс24 (облако)",
+   "status": "restricted",
+   "fixed_versions": [],
+   "note_ru": "Исправления готовят и тестируют. Ограничены формы, сделки в CRM, письма и бизнес-процессы. Нового UPD после 17:57 нет.",
+   "time_msk": "21.10 18:00",
+   "source_url": "https://t.me/bitrix24_ru/3220",
+   "verified": true
+  },
+  {
+   "name": "BitrixVM",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Новой версии нет, последняя 9.0.10. Битрикс советует проверить репозитории или поставить исправленные пакеты вручную.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://www.1c-bitrix.ru/products/vmbitrix/",
+   "verified": true
+  },
+  {
+   "name": "НКЦКИ (safe-surf.ru)",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет. Последний бюллетень от 12.10, последняя новость от 20.10.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://safe-surf.ru/specialists/news/",
+   "verified": true
+  },
+  {
+   "name": "ГосСОПКА (gossopka.ru)",
+   "status": "silent",
+   "fixed_versions": [],
+   "note_ru": "Заявлений нет. Последняя новость от 15.10.",
+   "time_msk": "проверено 20:02",
+   "source_url": "https://gossopka.ru/",
+   "verified": true
+  },
+  {
+   "name": "БДУ ФСТЭК",
+   "status": "in_progress",
+   "fixed_versions": [],
+   "note_ru": "Новое: опубликованы записи BDU:2026-17191 (CVE-2026-109618) и BDU:2026-17192 (CVE-2026-109619). Уровень опасности критический, эксплойт указан как существующий в открытом доступе, способ устранения уточняется.",
+   "time_msk": "21.10 (время не указано)",
+   "source_url": "https://bdu.fstec.ru/vul/2026-17191",
+   "verified": true
+  }
+ ]
+}

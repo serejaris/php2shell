@@ -1,0 +1,555 @@
+{
+ "_doc": "time — ISO с +03:00 (МСК). category: ai | defense | attack | gov | company | ru. verified:false показывается с пометкой «не подтверждено».",
+ "events": [
+  {
+   "id": "leak-video",
+   "time": "2026-10-20T23:27:00+03:00",
+   "category": "attack",
+   "title": "В X появилось видео эксплойта",
+   "text": "@k_firsov публикует видео эксплойта с подписью «php2shell. Tomorrow is a helluva day». Детали дыр утекли в сеть вечером 20.10.",
+   "source_name": "X @k_firsov",
+   "source_url": "https://x.com/k_firsov/status/2112641845926989944",
+   "verified": true
+  },
+  {
+   "id": "hosts-estimate",
+   "time": "2026-10-21T02:18:00+03:00",
+   "category": "attack",
+   "title": "Оценка: больше 1,3 млн уязвимых хостов",
+   "text": "Исследователь @silascutler грубо оценивает число открытых в интернете уязвимых хостов: больше 1,3 млн.",
+   "source_name": "X @silascutler",
+   "source_url": "https://x.com/silascutler/status/2112684895608652003",
+   "verified": true
+  },
+  {
+   "id": "cf-waf",
+   "time": "2026-10-21T06:02:00+03:00",
+   "category": "defense",
+   "title": "Cloudflare включает правила WAF",
+   "text": "«Starting on October 21 3:02 am UTC, Cloudflare customers using our free or paid WAF were protected by default». Защита включена всем клиентам WAF, бесплатным тоже.",
+   "source_name": "Cloudflare Blog",
+   "source_url": "https://blog.cloudflare.com/php-vulnerabilities-waf-protection/",
+   "verified": true
+  },
+  {
+   "id": "cf-attacks",
+   "time": "2026-10-21T10:43:00+03:00",
+   "category": "attack",
+   "title": "CTO Cloudflare сообщает, что видит атаки",
+   "text": "CTO Cloudflare Дейн Кнехт пишет, что видит первые атаки. Когда атаки начались, Cloudflare не сообщает. Время подтверждает хронология Sansec.",
+   "source_name": "X @dok2001",
+   "source_url": "https://x.com/dok2001/status/2112811965735202970",
+   "verified": true,
+   "source_url2": "https://sansec.io/research/php2shell"
+  },
+  {
+   "id": "fi-valtori",
+   "time": "2026-10-21T12:45:00+03:00",
+   "category": "gov",
+   "title": "Финляндия закрывает доступ к госсервисам",
+   "text": "Госцентр Valtori из предосторожности закрыл входящий трафик из интернета к публичным госсервисам Финляндии: налоговая, электронные услуги полиции, земельная служба. Взлома не было.",
+   "source_name": "Yle News",
+   "source_url": "https://yle.fi/a/74-20252600",
+   "verified": true
+  },
+  {
+   "id": "uk-ncsc",
+   "time": "2026-10-21T13:07:00+03:00",
+   "category": "gov",
+   "title": "NCSC UK: готовьтесь обновляться сразу",
+   "text": "Национальный центр кибербезопасности Великобритании советует готовиться обновить PHP сразу. Если быстро не выходит, систему лучше временно отключить.",
+   "source_name": "X @NCSC",
+   "source_url": "https://x.com/NCSC/status/2112848265074847828",
+   "verified": true
+  },
+  {
+   "id": "ru-beget",
+   "time": "2026-10-21T13:19:00+03:00",
+   "category": "ru",
+   "title": "Beget ограничил загрузки и формы",
+   "text": "Beget временно ограничил загрузку файлов и формы и обещает в приоритете обновить PHP после выхода исправлений.",
+   "source_name": "Beget в Telegram",
+   "source_url": "https://t.me/beget_official/565",
+   "verified": true
+  },
+  {
+   "id": "ru-xakep",
+   "time": "2026-10-21T13:36:00+03:00",
+   "category": "ru",
+   "title": "«Хакер» пишет про экстренные патчи",
+   "text": "Xakep.ru: разработчики PHP предупредили о скором выпуске экстренных патчей, в сети появилось видео с демонстрацией эксплойта.",
+   "source_name": "X @XakepRU",
+   "source_url": "https://x.com/XakepRU/status/2112855413767225368",
+   "verified": true
+  },
+  {
+   "id": "hadrian-mass",
+   "time": "2026-10-21T14:35:00+03:00",
+   "category": "attack",
+   "title": "Hadrian пишет о массовых атаках",
+   "text": "Hadrian: «Exploitation is still happening at scale», цифр нет. Другие источники успешных атак не подтверждают.",
+   "source_name": "Hadrian",
+   "source_url": "https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619",
+   "verified": false,
+   "note": "Открытое расхождение данных об эксплуатации"
+  },
+  {
+   "id": "nl-ncsc",
+   "time": "2026-10-21T14:50:00+03:00",
+   "category": "gov",
+   "title": "NCSC-NL уводит свой сайт в офлайн",
+   "text": "Национальный центр кибербезопасности Нидерландов из предосторожности временно отключил свой сайт и советует готовиться к патчу.",
+   "source_name": "X @ncsc_nl",
+   "source_url": "https://x.com/ncsc_nl/status/2112874187719385243",
+   "verified": true
+  },
+  {
+   "id": "levelsio-off",
+   "time": "2026-10-21T15:44:00+03:00",
+   "category": "company",
+   "title": "levelsio отключает все свои сайты",
+   "text": "levelsio заранее отключил от сети все свои сайты и VPS до выхода патча.",
+   "source_name": "X @levelsio",
+   "source_url": "https://x.com/levelsio/status/2112887674251976827",
+   "verified": true
+  },
+  {
+   "id": "jp-pm",
+   "time": "2026-10-21T15:55:00+03:00",
+   "category": "gov",
+   "title": "Премьер Японии просит обновиться сегодня",
+   "text": "Премьер-министр Японии Санаэ Такаити просит всех принять меры сегодня же вечером. Пост посмотрели больше 26 млн раз.",
+   "source_name": "X @takaichi_sanae",
+   "source_url": "https://x.com/takaichi_sanae/status/2112890642590564386",
+   "verified": true
+  },
+  {
+   "id": "php-patch",
+   "time": "2026-10-21T16:34:00+03:00",
+   "category": "defense",
+   "title": "Выходят патчи PHP",
+   "text": "Вышли PHP 8.5.12, 8.4.27, 8.3.36 и 8.2.35. Бюллетени GHSA-6wmf-4rv5-p3rp (13:34:13 UTC) и GHSA-w8hw-w9fx-j79w (13:34:25 UTC). Для 8.1 и старше официальных патчей нет.",
+   "source_name": "GitHub php-src advisory",
+   "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+   "verified": true
+  },
+  {
+   "id": "wiz-writeup",
+   "time": "2026-10-21T16:38:00+03:00",
+   "category": "ai",
+   "title": "Wiz публикует разбор PHP2Shell",
+   "text": "Wiz Research публикует разбор. Саги Цадик из Wiz: бо́льшую часть работы сделал ИИ, передовые модели нашли и связали дыры меньше чем за неделю.",
+   "source_name": "Wiz",
+   "source_url": "https://www.wiz.io/blog/php2shell-php-rce",
+   "verified": true
+  },
+  {
+   "id": "openai",
+   "time": "2026-10-21T17:04:00+03:00",
+   "category": "ai",
+   "title": "OpenAI рассказывает про Patch the Planet",
+   "text": "OpenAI: её модели помогли найти дыры. Два месяца компания вела коалицию разработчиков PHP, исследователей и провайдеров, которая готовила исправление.",
+   "source_name": "OpenAI",
+   "source_url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
+   "verified": true
+  },
+  {
+   "id": "ru-timeweb",
+   "time": "2026-10-21T17:04:00+03:00",
+   "category": "ru",
+   "title": "Timeweb Cloud: обновите PHP сами",
+   "text": "Timeweb Cloud советует клиентам VPS обновить PHP до исправленной версии самостоятельно.",
+   "source_name": "Timeweb Cloud в Telegram",
+   "source_url": "https://t.me/timewebcloud_alerts/418",
+   "verified": true
+  },
+  {
+   "id": "cf-writeup",
+   "time": "2026-10-21T17:09:00+03:00",
+   "category": "defense",
+   "title": "Разбор Cloudflare",
+   "text": "Дейн Кнехт выкладывает разбор Cloudflare: правила заработали примерно за 9 часов до раскрытия, команда подстраивала защиту под новые варианты атак.",
+   "source_name": "X @dok2001",
+   "source_url": "https://x.com/dok2001/status/2112909127060259086",
+   "verified": true
+  },
+  {
+   "id": "google",
+   "time": "2026-10-21T17:31:00+03:00",
+   "category": "ai",
+   "title": "Google про Gemini 4 Argon",
+   "text": "Google: в тестах Wiz модель Gemini 4 Argon нашла больше чем вдвое больше уязвимостей, чем базовые модели.",
+   "source_name": "X @Google",
+   "source_url": "https://x.com/Google/status/2112914740058181739",
+   "verified": true
+  },
+  {
+   "id": "calif",
+   "time": "2026-10-21T17:31:00+03:00",
+   "category": "ai",
+   "title": "Calif: первым дыру нашёл @lcfr_hax",
+   "text": "Calif уточняет: первым дыру нашёл и сделал рабочий эксплойт исследователь @lcfr_hax, его пост датирован 5 августа.",
+   "source_name": "X @calif_io",
+   "source_url": "https://x.com/calif_io/status/2112914613297668583",
+   "verified": true
+  },
+  {
+   "id": "ru-bitrix",
+   "time": "2026-10-21T17:57:00+03:00",
+   "category": "ru",
+   "title": "1С-Битрикс готовит обновление облака",
+   "text": "Обновление серверов облачного Битрикс24 готовят и тестируют. Временные ограничения сохраняются: формы, сделки в CRM, письма, бизнес-процессы.",
+   "source_name": "1С-Битрикс",
+   "source_url": "https://www.1c-bitrix.ru/about/news/29334792/",
+   "verified": true
+  },
+  {
+   "id": "brockman",
+   "time": "2026-10-21T17:58:00+03:00",
+   "category": "ai",
+   "title": "Грег Брокман про коалицию",
+   "text": "Два месяца OpenAI вела коалицию, которая закрывала php2shell, один из самых серьёзных багов в открытом софте за последнее время.",
+   "source_name": "X @gdb",
+   "source_url": "https://x.com/gdb/status/2112921529650688312",
+   "verified": true
+  },
+  {
+   "id": "ubuntu-fix",
+   "time": "2026-10-21T18:07:00+03:00",
+   "category": "defense",
+   "title": "levelsio: в Ubuntu вышло исправление",
+   "text": "levelsio пишет, что для PHP в Ubuntu вышло исправление. Бюллетень USN-8948-1 сверен: 26.10, 26.04, 24.04, 22.04.",
+   "source_name": "X @levelsio",
+   "source_url": "https://x.com/levelsio/status/2112923845267210658",
+   "verified": true,
+   "source_url2": "https://ubuntu.com/security/notices/USN-8948-1"
+  },
+  {
+   "id": "ru-snapshot",
+   "time": "2026-10-21T18:47:00+03:00",
+   "category": "ru",
+   "title": "Срез по России: исправленного PHP нет",
+   "text": "Ни один российский хостинг и ни одна панель не объявили установку исправленного PHP. Подтверждённых взломов в .ru не найдено.",
+   "source_name": "Срез по России 18:47 МСК",
+   "source_url": "https://serejaris.github.io/php2shell/#russia",
+   "verified": true
+  },
+  {
+   "id": "docker-commit",
+   "time": "2026-10-21T16:44:00+03:00",
+   "category": "defense",
+   "title": "Docker: коммит с исправленным PHP",
+   "text": "В официальном образе php коммит «[security] Update to 8.5.12, 8.4.27, 8.3.36, 8.2.35».",
+   "source_name": "docker-library/php",
+   "source_url": "https://github.com/docker-library/php/commits",
+   "verified": true
+  },
+  {
+   "id": "fastly",
+   "time": "2026-10-21T16:53:00+03:00",
+   "category": "defense",
+   "title": "Fastly включает виртуальный патч",
+   "text": "Fastly защищает клиентов виртуальным патчем на своей стороне.",
+   "source_name": "Fastly Blog",
+   "source_url": "https://www.fastly.com/blog/fastlys-proactive-protection-critical-php-rce-cve-2026-109618",
+   "verified": true
+  },
+  {
+   "id": "huntress",
+   "time": "2026-10-21T17:00:00+03:00",
+   "category": "attack",
+   "title": "Huntress: у клиентов эксплуатации нет",
+   "text": "Huntress на 10:00 ET эксплуатации у своих клиентов не видит, индикаторы взлома не подтверждены.",
+   "source_name": "Huntress",
+   "source_url": "https://www.huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities",
+   "verified": true
+  },
+  {
+   "id": "nl-ncsc-2",
+   "time": "2026-10-21T17:00:00+03:00",
+   "category": "gov",
+   "title": "NCSC-NL обновляет рекомендации",
+   "text": "NCSC-NL обновил свою страницу по php2shell на GitHub (около 17:00 МСК).",
+   "source_name": "NCSC-NL GitHub",
+   "source_url": "https://github.com/NCSC-NL/php2shell",
+   "verified": true,
+   "note": "время примерное"
+  },
+  {
+   "id": "cisa-kev",
+   "time": "2026-10-21T17:04:00+03:00",
+   "category": "gov",
+   "title": "CISA KEV: этих CVE в каталоге нет",
+   "text": "Каталог известных эксплуатируемых уязвимостей CISA от 2026.10.21 этих CVE не содержит. Проверено в 20:02 МСК.",
+   "source_name": "CISA KEV",
+   "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+   "verified": true
+  },
+  {
+   "id": "kinsta",
+   "time": "2026-10-21T17:08:00+03:00",
+   "category": "company",
+   "title": "Kinsta: патч ещё не установлен",
+   "text": "В сообществе Kinsta: «The patch is still not applied».",
+   "source_name": "Kinsta Community",
+   "source_url": "https://community.kinsta.com/t/critical-php-security-release/8314",
+   "verified": true
+  },
+  {
+   "id": "docker-merge",
+   "time": "2026-10-21T17:19:00+03:00",
+   "category": "defense",
+   "title": "Docker: исправление слито",
+   "text": "Коммит с исправленным PHP слит в официальный образ.",
+   "source_name": "docker-library/php",
+   "source_url": "https://github.com/docker-library/php/commits",
+   "verified": true
+  },
+  {
+   "id": "uk-ncsc-2",
+   "time": "2026-10-21T17:19:00+03:00",
+   "category": "gov",
+   "title": "NCSC UK обновляет предупреждение",
+   "text": "После выхода патчей NCSC UK просит действовать немедленно: «consider taking the system offline until it can be fully mitigated».",
+   "source_name": "NCSC UK",
+   "source_url": "https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php",
+   "verified": true
+  },
+  {
+   "id": "hadrian-2",
+   "time": "2026-10-21T17:35:00+03:00",
+   "category": "attack",
+   "title": "Hadrian снова пишет о массовых атаках",
+   "text": "«Exploitation is still happening at scale», цифр нет. Расхождение с watchTowr, Huntress и BSI.",
+   "source_name": "Hadrian",
+   "source_url": "https://hadrian.io/vulnerability-alerts/php2shell-leaked-critical-php-rce-cve-2026-109618-cve-2026-109619",
+   "verified": false,
+   "note": "Открытое расхождение"
+  },
+  {
+   "id": "jp-nisc",
+   "time": "2026-10-21T17:45:00+03:00",
+   "category": "gov",
+   "title": "Япония: центр кибербезопасности просит патчить",
+   "text": "По данным 電ファミニコゲーマー, Центр кибербезопасности Японии просит срочно поставить патч.",
+   "source_name": "X @denfaminicogame",
+   "source_url": "https://x.com/denfaminicogame/status/2112918262376001777",
+   "verified": true
+  },
+  {
+   "id": "phpf",
+   "time": "2026-10-21T17:51:00+03:00",
+   "category": "defense",
+   "title": "PHP Foundation рассказывает о находке",
+   "text": "Фонд PHP рассказал, как нашли дыру и как меняется процесс безопасности PHP.",
+   "source_name": "X @ThePHPF",
+   "source_url": "https://x.com/ThePHPF/status/2112919684748320822",
+   "verified": true
+  },
+  {
+   "id": "ubuntu-x",
+   "time": "2026-10-21T17:55:00+03:00",
+   "category": "defense",
+   "title": "Ubuntu: исправления для всех релизов",
+   "text": "Ubuntu выпустила исправления PHP для всех поддерживаемых релизов (USN-8948-1).",
+   "source_name": "X @ubuntu",
+   "source_url": "https://x.com/ubuntu/status/2112920618161115556",
+   "verified": true
+  },
+  {
+   "id": "watchtowr",
+   "time": "2026-10-21T18:13:00+03:00",
+   "category": "attack",
+   "title": "watchTowr обновляет FAQ",
+   "text": "watchTowr обновил FAQ: попытки эксплуатации видны в их ханипотах (ловушках для атакующих).",
+   "source_name": "watchTowr",
+   "source_url": "https://watchtowr.com/intelligence/php-cve-2026-109618-faq/",
+   "verified": true
+  },
+  {
+   "id": "alpine",
+   "time": "2026-10-21T18:15:00+03:00",
+   "category": "defense",
+   "title": "Alpine: исправлены php84 и php85",
+   "text": "В aports master php84 8.4.27 и php85 8.5.12 исправлены, php83 пока 8.3.35 и уязвим.",
+   "source_name": "Alpine aports",
+   "source_url": "https://git.alpinelinux.org/aports/log/community/php84",
+   "verified": true
+  },
+  {
+   "id": "sansec-forecast",
+   "time": "2026-10-21T18:18:00+03:00",
+   "category": "attack",
+   "title": "Sansec ждёт массовых атак",
+   "text": "Прогноз Sansec: «We expect mass exploitation now that the patch and the writeups are public».",
+   "source_name": "Sansec",
+   "source_url": "https://sansec.io/research/php2shell",
+   "verified": true
+  },
+  {
+   "id": "docker-latest",
+   "time": "2026-10-21T18:49:00+03:00",
+   "category": "defense",
+   "title": "Docker: php:latest = 8.5.12",
+   "text": "Тег php:latest в Docker Hub указывает на PHP 8.5.12.",
+   "source_name": "Docker Hub",
+   "source_url": "https://hub.docker.com/_/php",
+   "verified": true
+  },
+  {
+   "id": "meduza",
+   "time": "2026-10-21T19:14:00+03:00",
+   "category": "ru",
+   "title": "Meduza: Европа отключает госсайты",
+   "text": "Meduza пишет, что европейские правительства начали отключать сайты.",
+   "source_name": "X @meduzaproject",
+   "source_url": "https://x.com/meduzaproject/status/2112940509177979056",
+   "verified": true
+  },
+  {
+   "id": "php-x",
+   "time": "2026-10-21T19:15:00+03:00",
+   "category": "defense",
+   "title": "php.net: вышел PHP 8.2.35",
+   "text": "Официальный аккаунт PHP сообщает о выходе 8.2.35 с исправлениями обеих CVE.",
+   "source_name": "X @php_net",
+   "source_url": "https://x.com/php_net/status/2112940734118588657",
+   "verified": true
+  },
+  {
+   "id": "hostinger",
+   "time": "2026-10-21T19:25:00+03:00",
+   "category": "company",
+   "title": "Hostinger: патч ставят везде",
+   "text": "Hostinger заявляет, что захватить сайты клиентов нельзя и патч ставят на всех серверах.",
+   "source_name": "X @Hostinger",
+   "source_url": "https://x.com/Hostinger/status/2112943242291343380",
+   "verified": false,
+   "note": "Заявление хостинга, независимо не проверено"
+  },
+  {
+   "id": "levelsio-back",
+   "time": "2026-10-21T19:27:00+03:00",
+   "category": "company",
+   "title": "levelsio: всё снова работает",
+   "text": "levelsio пишет, что все сайты снова работают, Ubuntu быстро выпустила бэкпорт. Пост посмотрели 11,8 тыс. раз.",
+   "source_name": "X @levelsio",
+   "source_url": "https://x.com/levelsio",
+   "verified": true
+  },
+  {
+   "id": "kinsta-85",
+   "time": "2026-10-21T19:33:00+03:00",
+   "category": "company",
+   "title": "Kinsta: запатчена только 8.5",
+   "text": "По словам клиента Kinsta, к 19:33 МСК исправлена только ветка 8.5.",
+   "source_name": "Kinsta Community",
+   "source_url": "https://community.kinsta.com/t/critical-php-security-release/8314",
+   "verified": false,
+   "note": "Слова клиента, Kinsta не подтверждала"
+  },
+  {
+   "id": "cisa-x",
+   "time": "2026-10-21T19:40:00+03:00",
+   "category": "gov",
+   "title": "CISA призывает немедленно патчить",
+   "text": "CISA призывает немедленно поставить патчи для обеих CVE.",
+   "source_name": "X @CISACyber",
+   "source_url": "https://x.com/CISACyber/status/2112947079458717969",
+   "verified": true
+  },
+  {
+   "id": "securityweek",
+   "time": "2026-10-21T19:50:00+03:00",
+   "category": "attack",
+   "title": "watchTowr: попытки есть, успешных нет",
+   "text": "SecurityWeek цитирует watchTowr: «Whilst nobody has been successful to date». Попытки также видели Patchstack, Cloudflare и Vega.",
+   "source_name": "SecurityWeek",
+   "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+   "verified": true
+  },
+  {
+   "id": "chainguard",
+   "time": "2026-10-21T19:50:00+03:00",
+   "category": "defense",
+   "title": "PHP Foundation критикует Chainguard",
+   "text": "По данным СМИ, образы Chainguard с исправлением вышли за 6 часов до релиза. Фонд PHP: «Any attacker could now study the fix in binary form».",
+   "source_name": "СМИ",
+   "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+   "verified": false,
+   "note": "по данным СМИ"
+  },
+  {
+   "id": "docker-hub",
+   "time": "2026-10-21T19:51:00+03:00",
+   "category": "defense",
+   "title": "Docker Hub: теги с исправленным PHP",
+   "text": "Исправленные теги официального образа php появились в Docker Hub.",
+   "source_name": "docker-library/php",
+   "source_url": "https://github.com/docker-library/php/commits",
+   "verified": true
+  },
+  {
+   "id": "cpanel",
+   "time": "2026-10-21T19:55:00+03:00",
+   "category": "defense",
+   "title": "cPanel выпускает исправленный PHP",
+   "text": "cPanel: «released updates to PHP versions ea-php74 and above». ea-php85 8.5.12, ea-php84 8.4.27, ea-php83 8.3.36, ea-php82 8.2.35.",
+   "source_name": "cPanel",
+   "source_url": "https://support.cpanel.net/hc/en-us/articles/44397389677335-Critical-PHP-Security-Release-CVE-2026-109618-and-CVE-2026-109619",
+   "verified": true,
+   "note": "время на странице без часового пояса"
+  },
+  {
+   "id": "nvd",
+   "time": "2026-10-21T20:00:00+03:00",
+   "category": "gov",
+   "title": "NVD: оба CVE проанализированы",
+   "text": "NVD: статус Analyzed, CVSS 3.1 9.8 CRITICAL, CWE-416 use-after-free. В KEV этих CVE нет.",
+   "source_name": "NVD",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109618",
+   "verified": true
+  },
+  {
+   "id": "ru-spaceweb",
+   "time": "2026-10-21T18:48:00+03:00",
+   "category": "ru",
+   "title": "SpaceWeb ограничил upload_progress",
+   "text": "SpaceWeb ограничил upload_progress и обещает снять ограничения после обновления всех версий PHP. Клиентам с PHP ниже 8.2 советуют перейти на 8.3.",
+   "source_name": "SpaceWeb в Telegram",
+   "source_url": "https://t.me/spaceweb/1065",
+   "verified": true
+  },
+  {
+   "id": "ru-sprinthost",
+   "time": "2026-10-21T19:05:00+03:00",
+   "category": "ru",
+   "title": "Sprinthost ставит обновления",
+   "text": "На серверах под своим управлением Sprinthost ограничил уязвимые механизмы и устанавливает обновления. Владельцам боксов советуют обновить PHP самим.",
+   "source_name": "Sprinthost в Telegram",
+   "source_url": "https://t.me/sprinthost/623",
+   "verified": true
+  },
+  {
+   "id": "ru-kaspersky",
+   "time": "2026-10-21T19:07:00+03:00",
+   "category": "ru",
+   "title": "Kaspersky: эксплойт независимо не подтверждён",
+   "text": "Kaspersky: «Подлинность и точное поведение эксплойта на данный момент независимо не подтверждены». Основная рекомендация: срочно обновиться.",
+   "source_name": "Kaspersky в Telegram",
+   "source_url": "https://t.me/kasperskylab_ru/7816",
+   "source_url2": "https://securelist.ru/php2shell-critical-vulnerabilities-in-php/117380/",
+   "verified": true
+  },
+  {
+   "id": "ru-snapshot-2",
+   "time": "2026-10-21T20:12:00+03:00",
+   "category": "ru",
+   "title": "Срез по России: исправленного PHP нет",
+   "text": "Ни один российский хостинг не сообщил, что исправленный PHP уже стоит. БДУ ФСТЭК завела BDU:2026-17191 и BDU:2026-17192, НКЦКИ и ГосСОПКА молчат. Подтверждённых взломов в .ru нет.",
+   "source_name": "Срез по РФ 20:12 МСК",
+   "source_url": "https://bdu.fstec.ru/vul/2026-17191",
+   "verified": true
+  }
+ ]
+}

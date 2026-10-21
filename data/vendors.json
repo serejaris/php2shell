@@ -1,0 +1,444 @@
+{
+ "_doc": "status: fixed | partial | mitigated | workaround | pending | nopatch | nodata. time — ISO МСК или null.",
+ "vendors": [
+  {
+   "name": "PHP (php.net)",
+   "kind": "апстрим",
+   "status": "fixed",
+   "detail": "8.5.12, 8.4.27, 8.3.36, 8.2.35",
+   "time": "2026-10-21T16:34:00+03:00",
+   "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+   "verified": true
+  },
+  {
+   "name": "PHP 8.1 и старше",
+   "kind": "апстрим",
+   "status": "nopatch",
+   "detail": "Официальных патчей нет, переезд на 8.2+",
+   "time": null,
+   "source_url": "https://www.php.net/archive/2026.php",
+   "verified": true
+  },
+  {
+   "name": "Ubuntu",
+   "kind": "дистрибутив",
+   "status": "fixed",
+   "detail": "USN-8948-1: 26.10, 26.04, 24.04, 22.04",
+   "time": "2026-10-21T17:55:00+03:00",
+   "source_url": "https://ubuntu.com/security/notices/USN-8948-1",
+   "verified": true
+  },
+  {
+   "name": "Debian 13 trixie",
+   "kind": "дистрибутив",
+   "status": "fixed",
+   "detail": "php8.4 8.4.27-1~deb13u1, DSA-6574-1",
+   "time": null,
+   "source_url": "https://security-tracker.debian.org/tracker/CVE-2026-109618",
+   "verified": true
+  },
+  {
+   "name": "Debian 12 bookworm",
+   "kind": "дистрибутив",
+   "status": "fixed",
+   "detail": "php8.2 8.2.35-1~deb12u1, DLA-4848-1",
+   "time": null,
+   "source_url": "https://security-tracker.debian.org/tracker/CVE-2026-109618",
+   "verified": true
+  },
+  {
+   "name": "Alpine",
+   "kind": "дистрибутив",
+   "status": "partial",
+   "detail": "aports master: php84 8.4.27 и php85 8.5.12 исправлены, php83 пока 8.3.35",
+   "time": "2026-10-21T18:15:00+03:00",
+   "source_url": "https://git.alpinelinux.org/aports/log/community/php84",
+   "verified": true
+  },
+  {
+   "name": "Red Hat",
+   "kind": "дистрибутив",
+   "status": "pending",
+   "detail": "Исправления нет: Bugzilla 2556842 в статусе NEW, RHSA нет",
+   "time": null,
+   "source_url": "https://bugzilla.redhat.com/show_bug.cgi?id=2556842",
+   "verified": true
+  },
+  {
+   "name": "Docker (официальный образ php)",
+   "kind": "контейнеры",
+   "status": "fixed",
+   "detail": "php:latest = 8.5.12; коммит 16:44, слит 17:19, теги 19:51",
+   "time": "2026-10-21T18:49:00+03:00",
+   "source_url": "https://hub.docker.com/_/php",
+   "verified": true
+  },
+  {
+   "name": "Chainguard",
+   "kind": "контейнеры",
+   "status": "fixed",
+   "detail": "Образы с исправлением вышли за 6 часов до релиза (по СМИ)",
+   "time": null,
+   "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+   "verified": false,
+   "note": "по данным СМИ"
+  },
+  {
+   "name": "Google App Engine (PHP 8.2+)",
+   "kind": "облако",
+   "status": "fixed",
+   "detail": "Обновляется сам",
+   "time": null,
+   "source_url": "https://cloud.google.com/blog/products/identity-security/responding-to-core-php-vulnerabilities-cve-2026-109618-cve-2026-109619",
+   "verified": true
+  },
+  {
+   "name": "cPanel",
+   "kind": "панель",
+   "status": "fixed",
+   "detail": "ea-php74 и новее; ea-php85 8.5.12, ea-php84 8.4.27, ea-php83 8.3.36, ea-php82 8.2.35; сборки 11.110.0.153 / 11.134.0.66 / 11.136.0.50 / 11.138.0.18; для <7.4 TuxCare ELS",
+   "time": "2026-10-21T19:55:00+03:00",
+   "source_url": "https://support.cpanel.net/hc/en-us/articles/44397389677335-Critical-PHP-Security-Release-CVE-2026-109618-and-CVE-2026-109619",
+   "verified": true,
+   "note": "время на странице без пояса"
+  },
+  {
+   "name": "Plesk (Linux)",
+   "kind": "панель",
+   "status": "fixed",
+   "detail": "Исправлено",
+   "time": null,
+   "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351",
+   "verified": true
+  },
+  {
+   "name": "Plesk (Windows)",
+   "kind": "панель",
+   "status": "pending",
+   "detail": "Исправления пока нет",
+   "time": null,
+   "source_url": "https://support.plesk.com/hc/en-us/articles/44397729587351",
+   "verified": true
+  },
+  {
+   "name": "ISPmanager",
+   "kind": "панель",
+   "status": "workaround",
+   "detail": "Только обходные меры, готовых сборок нет",
+   "time": "2026-10-21T12:40:00+03:00",
+   "source_url": "https://t.me/ispmanager/712",
+   "verified": true
+  },
+  {
+   "name": "Kinsta",
+   "kind": "хостинг",
+   "status": "partial",
+   "detail": "17:08 патч не установлен; к 19:33 по словам клиента исправлена только 8.5",
+   "time": "2026-10-21T19:33:00+03:00",
+   "source_url": "https://community.kinsta.com/t/critical-php-security-release/8314",
+   "verified": false,
+   "note": "со слов клиента"
+  },
+  {
+   "name": "Hostinger",
+   "kind": "хостинг",
+   "status": "fixed",
+   "detail": "Заявляет, что патч ставят на всех серверах",
+   "time": "2026-10-21T19:25:00+03:00",
+   "source_url": "https://x.com/Hostinger/status/2112943242291343380",
+   "verified": false,
+   "note": "заявление вендора"
+  },
+  {
+   "name": "SiteGround",
+   "kind": "хостинг",
+   "status": "partial",
+   "detail": "PHP 8.3.36 на большинстве серверов",
+   "time": null,
+   "source_url": "https://www.siteground.com/",
+   "verified": false,
+   "note": "не подтверждено"
+  },
+  {
+   "name": "Cloudflare WAF",
+   "kind": "защита",
+   "status": "mitigated",
+   "detail": "Защита по умолчанию для free и платного WAF",
+   "time": "2026-10-21T06:02:00+03:00",
+   "source_url": "https://blog.cloudflare.com/php-vulnerabilities-waf-protection/",
+   "verified": true
+  },
+  {
+   "name": "Fastly",
+   "kind": "защита",
+   "status": "mitigated",
+   "detail": "Виртуальный патч",
+   "time": "2026-10-21T16:53:00+03:00",
+   "source_url": "https://www.fastly.com/blog/fastlys-proactive-protection-critical-php-rce-cve-2026-109618",
+   "verified": true
+  }
+ ],
+ "reactions": [
+  {
+   "who": "Премьер-министр Японии",
+   "kind": "государство",
+   "country": "Япония",
+   "action": "Просит всех принять меры сегодня же вечером",
+   "time": "2026-10-21T15:55:00+03:00",
+   "source_url": "https://x.com/takaichi_sanae/status/2112890642590564386",
+   "verified": true
+  },
+  {
+   "who": "Сайты Нидерландов",
+   "kind": "компании",
+   "country": "Нидерланды",
+   "action": "Mijn Overheid, NotuBiz, FC Twente, FC Groningen, Tweakers ушли в офлайн (по NU.nl)",
+   "time": null,
+   "source_url": "https://www.nu.nl/tech/6413897/live-grote-nederlandse-sites-uit-voorzorg-offline-wegens-kwetsbaarheid-php.html",
+   "verified": true
+  },
+  {
+   "who": "Valtori",
+   "kind": "государство",
+   "country": "Финляндия",
+   "action": "Закрыл доступ из интернета к публичным госсервисам, взлома не было",
+   "time": "2026-10-21T12:45:00+03:00",
+   "source_url": "https://yle.fi/a/74-20252600",
+   "verified": true
+  },
+  {
+   "who": "NVD",
+   "kind": "государство",
+   "country": "США",
+   "action": "Analyzed, CVSS 3.1 9.8, CWE-416",
+   "time": "2026-10-21T20:00:00+03:00",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109618",
+   "verified": true
+  },
+  {
+   "who": "Cloudflare",
+   "kind": "компания",
+   "country": "—",
+   "action": "Защита WAF всем клиентам с 06:02 МСК, в 10:43 МСК сообщил об атаках",
+   "time": "2026-10-21T10:43:00+03:00",
+   "source_url": "https://x.com/dok2001/status/2112811965735202970",
+   "verified": true
+  },
+  {
+   "who": "OpenAI",
+   "kind": "компания",
+   "country": "—",
+   "action": "Два месяца вела коалицию, готовившую исправление",
+   "time": "2026-10-21T17:04:00+03:00",
+   "source_url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities",
+   "verified": true
+  },
+  {
+   "who": "Wiz",
+   "kind": "компания",
+   "country": "—",
+   "action": "Нашла обе дыры с ИИ, опубликовала разбор",
+   "time": "2026-10-21T16:38:00+03:00",
+   "source_url": "https://www.wiz.io/blog/php2shell-php-rce",
+   "verified": true
+  },
+  {
+   "who": "Calif",
+   "kind": "компания",
+   "country": "—",
+   "action": "Нашла критическую дыру с GPT-5.6 Sol",
+   "time": null,
+   "source_url": "https://x.com/calif_io/status/2112914613297668583",
+   "verified": true
+  },
+  {
+   "who": "levelsio",
+   "kind": "компания",
+   "country": "—",
+   "action": "Отключил все свои сайты и VPS до патча",
+   "time": "2026-10-21T15:44:00+03:00",
+   "source_url": "https://x.com/levelsio/status/2112887674251976827",
+   "verified": true
+  },
+  {
+   "who": "Cygames (Umamusume)",
+   "kind": "компания",
+   "country": "Япония",
+   "action": "Связала техработы с уязвимостью PHP (по Dexerto)",
+   "time": null,
+   "source_url": "https://www.dexerto.com/pokemon/pokemon-umamusume-and-other-major-games-taken-offline-over-critical-php-vulnerability-3420823/",
+   "verified": true
+  },
+  {
+   "who": "BBC",
+   "kind": "компания",
+   "country": "Великобритания",
+   "action": "Пропали страницы нескольких программ, связь с PHP BBC не подтвердила",
+   "time": null,
+   "source_url": "https://www.bbc.co.uk/news/articles/cmly0lg3w5x2o",
+   "verified": false
+  },
+  {
+   "who": "Nintendo",
+   "kind": "компания",
+   "country": "Япония",
+   "action": "Сервисы на техработах, связь с PHP не подтверждена",
+   "time": null,
+   "source_url": "https://therecord.media/php-script-vulnerabilities-warnings",
+   "verified": false
+  },
+  {
+   "who": "BSI (v1.1)",
+   "kind": "государство",
+   "country": "Германия",
+   "action": "Предупреждение обновлено: подтверждённой эксплуатации нет",
+   "time": null,
+   "source_url": "https://www.bsi.bund.de/SharedDocs/Cybersicherheitswarnungen/DE/2026/2026-297981-1032.html",
+   "verified": true
+  },
+  {
+   "who": "Центр кибербезопасности Японии",
+   "kind": "государство",
+   "country": "Япония",
+   "action": "Просит срочно поставить патч (по 電ファミニコゲーマー)",
+   "time": "2026-10-21T17:45:00+03:00",
+   "source_url": "https://x.com/denfaminicogame/status/2112918262376001777",
+   "verified": true
+  },
+  {
+   "who": "Sansec",
+   "kind": "компания",
+   "country": "—",
+   "action": "Прогноз: массовые атаки после публикации патча и разборов",
+   "time": "2026-10-21T18:18:00+03:00",
+   "source_url": "https://sansec.io/research/php2shell",
+   "verified": true
+  },
+  {
+   "who": "NCSC UK",
+   "kind": "государство",
+   "country": "Великобритания",
+   "action": "«consider taking the system offline until it can be fully mitigated»; после патчей просит действовать немедленно",
+   "time": "2026-10-21T17:19:00+03:00",
+   "source_url": "https://www.ncsc.gov.uk/news/critical-security-issue-affecting-php",
+   "verified": true
+  },
+  {
+   "who": "NCSC-NL",
+   "kind": "государство",
+   "country": "Нидерланды",
+   "action": "Временно отключил свой сайт, рекомендации на GitHub обновлены около 17:00 МСК",
+   "time": "2026-10-21T14:50:00+03:00",
+   "source_url": "https://github.com/NCSC-NL/php2shell",
+   "verified": true
+  },
+  {
+   "who": "CERT-FR",
+   "kind": "государство",
+   "country": "Франция",
+   "action": "CERTFR-2026-ALE-014 обновлён: исправления доступны",
+   "time": null,
+   "source_url": "https://cert.cyber.gouv.fr/alerte/CERTFR-2026-ALE-014/",
+   "verified": true
+  },
+  {
+   "who": "CERT-EU",
+   "kind": "государство",
+   "country": "ЕС",
+   "action": "2026-018: «initial PoCs have begun to circulate»",
+   "time": null,
+   "source_url": "https://cert.europa.eu/publications/security-advisories/2026-018",
+   "verified": false
+  },
+  {
+   "who": "CISA",
+   "kind": "государство",
+   "country": "США",
+   "action": "Призывает немедленно патчить; в каталоге KEV этих CVE нет (проверено 20:02 МСК)",
+   "time": "2026-10-21T19:40:00+03:00",
+   "source_url": "https://x.com/CISACyber/status/2112947079458717969",
+   "verified": true
+  },
+  {
+   "who": "JPCERT",
+   "kind": "государство",
+   "country": "Япония",
+   "action": "Ничего не сообщает",
+   "time": null,
+   "source_url": "https://www.jpcert.or.jp/",
+   "verified": true
+  },
+  {
+   "who": "НКЦКИ",
+   "kind": "государство",
+   "country": "Россия",
+   "action": "Заявлений нет (проверено 20:02 МСК)",
+   "time": null,
+   "source_url": "https://safe-surf.ru/specialists/bulletins-nkcki/",
+   "verified": true
+  },
+  {
+   "who": "БДУ ФСТЭК",
+   "kind": "государство",
+   "country": "Россия",
+   "action": "Записи BDU:2026-17191 и BDU:2026-17192: критический уровень, эксплойт в открытом доступе, способ устранения уточняется",
+   "time": null,
+   "source_url": "https://bdu.fstec.ru/vul/2026-17191",
+   "verified": true
+  },
+  {
+   "who": "ГосСОПКА",
+   "kind": "государство",
+   "country": "Россия",
+   "action": "Заявлений нет (проверено 20:02 МСК)",
+   "time": null,
+   "source_url": "https://gossopka.ru/",
+   "verified": true
+  },
+  {
+   "who": "Huntress",
+   "kind": "компания",
+   "country": "США",
+   "action": "Эксплуатации у клиентов не видит, IOC не подтверждены",
+   "time": "2026-10-21T17:00:00+03:00",
+   "source_url": "https://www.huntress.com/blog/php2shell-leaked-critical-php-vulnerabilities",
+   "verified": true
+  },
+  {
+   "who": "watchTowr",
+   "kind": "компания",
+   "country": "—",
+   "action": "Видит попытки в ханипотах, успешных пока нет",
+   "time": "2026-10-21T19:50:00+03:00",
+   "source_url": "https://www.securityweek.com/php2shell-patches-land-as-first-exploitation-attempts-hit-sensors/",
+   "verified": true
+  },
+  {
+   "who": "Fastly",
+   "kind": "компания",
+   "country": "—",
+   "action": "Виртуальный патч для клиентов",
+   "time": "2026-10-21T16:53:00+03:00",
+   "source_url": "https://www.fastly.com/blog/fastlys-proactive-protection-critical-php-rce-cve-2026-109618",
+   "verified": true
+  },
+  {
+   "who": "Shadowserver",
+   "kind": "компания",
+   "country": "—",
+   "action": "Тега под эти CVE нет, счётчика нет (20:17 МСК)",
+   "time": "2026-10-21T20:17:00+03:00",
+   "source_url": "https://dashboard.shadowserver.org/",
+   "verified": true
+  },
+  {
+   "who": "Kaspersky",
+   "kind": "компания",
+   "country": "Россия",
+   "action": "Подлинность эксплойта независимо не подтверждена, советует срочно обновиться",
+   "time": "2026-10-21T19:07:00+03:00",
+   "source_url": "https://t.me/kasperskylab_ru/7816",
+   "verified": true
+  }
+ ]
+}
