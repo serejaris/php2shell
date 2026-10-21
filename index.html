@@ -9,14 +9,13 @@
 <meta property="og:image" content="https://serejaris.github.io/php2shell/img/php2shell.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@serejaris"><meta name="twitter:image" content="https://serejaris.github.io/php2shell/img/php2shell.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%23ff1493%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/dash.css?v=668944d9">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/dash.css?v=2c409a5f">
 <style>:root{--bg:#0b0a10;--panel:#15131d;--line:#2a2635;--fg:#efeaf5;--mute:#a49db3;--pink:#ff1493;--lime:#b6ff3b}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:Outfit,system-ui,sans-serif;font-size:23px;line-height:1.55;
- background-image:radial-gradient(circle at 15% -10%,rgba(255,20,147,.18),transparent 40%),radial-gradient(circle at 110% 30%,rgba(182,255,59,.08),transparent 35%),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
- background-size:auto,auto,40px 40px,40px 40px;background-attachment:fixed}
+ background-image:none}
 main{max-width:940px;margin:0 auto;padding:72px 40px 120px}
 .mono{font-family:'JetBrains Mono',monospace;font-size:.92em}
 .hl{color:var(--lime)}
@@ -137,98 +136,127 @@ figure{max-width:1240px}
 @media(max-width:1199px){.dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.dgrid{grid-template-columns:1fr}}
 </style></head><body>
-<div id="dash" x-data="dash()" class="font-sans text-[#efeaf5] leading-snug" style="font-size:clamp(14px,0.35rem + 0.72vw,21px)">
- <div class="mx-auto w-[min(1760px,calc(100%-2*clamp(14px,2.2vw,48px)))] pt-[1.1em] pb-[2em]">
+<div id="dash" x-data="dash()" style="font-size:clamp(14px,0.35rem + 0.72vw,21px);background:#0d0e10;color:#e8e9ec;font-family:Inter,system-ui,sans-serif;line-height:1.375">
+ <div class="mx-auto w-[min(1800px,calc(100%-2*clamp(16px,2.6vw,56px)))] pt-[1.2em] pb-[2.5em]">
 
-  <!-- top bar -->
-  <div class="flex flex-wrap items-center gap-[0.9em] mb-[0.9em]">
-   <span class="inline-flex items-center gap-[0.45em] rounded-full bg-[#ff3b3b] text-black font-bold font-mono px-[0.8em] py-[0.25em] text-[0.85em] tracking-wider"><span class="w-[0.6em] h-[0.6em] rounded-full bg-black animate-pulse"></span>LIVE</span>
-   <div class="font-extrabold text-[1.9em] tracking-tight leading-none"><span class="text-hot">PHP2Shell</span> · инцидент</div>
-   <div class="font-mono text-[0.85em] text-mute">CVE-2026-109618 · CVE-2026-109619</div>
-   <div class="ml-auto flex flex-wrap items-center gap-[0.9em] font-mono">
-    <div class="text-right leading-tight"><div class="text-[1.7em] font-bold text-white tabular-nums" x-text="clock()"></div><div class="text-[0.75em] text-mute">Москва, <span x-text="today()"></span></div></div>
-    <div class="text-[0.8em] leading-tight text-right"><div>данные: <b class="text-acid" x-text="updatedMSK()"></b></div><div class="text-mute">обновлены <span x-text="ago()"></span> · проверено <span x-text="fetchedAgo()"></span></div></div>
-    <a href="#read" class="no-underline rounded-xl bg-hot text-black font-bold px-[1em] py-[0.5em] text-[0.9em] hover:bg-acid">Читать разбор ↓</a>
+  <!-- header -->
+  <header class="flex flex-wrap items-baseline gap-x-[1.2em] gap-y-[0.3em] pb-[0.8em] border-b border-line">
+   <div class="text-[1.15em] font-semibold tracking-tight text-white">PHP2Shell <span class="text-mute font-normal">· живая сводка</span></div>
+   <div class="font-cve text-[0.75em] text-mute">CVE-2026-109618 · CVE-2026-109619</div>
+   <div class="ml-auto flex flex-wrap items-baseline gap-x-[1.4em] text-[0.8em] text-mute">
+    <span><span class="inline-block w-[0.5em] h-[0.5em] rounded-full bg-hot mr-[0.4em] align-middle animate-pulse"></span>Москва, <span class="text-white" x-text="today()+', '+clockHM()"></span></span>
+    <span>данные на <span class="text-white" x-text="updatedMSK()"></span> · обновляются раз в минуту</span>
+    <a href="#read" class="no-underline text-white border-b border-white/40 hover:border-white">Читать разбор ↓</a>
    </div>
-  </div>
-  <div x-show="err" x-text="err" class="mb-[0.6em] rounded-lg border border-[#ffd400]/60 bg-[#ffd400]/10 text-[#ffd400] px-[0.8em] py-[0.4em] font-mono text-[0.8em]"></div>
-  <div x-show="!loaded" class="text-mute font-mono">Загружаю данные…</div>
+  </header>
+  <div x-show="err" x-text="err" class="mt-[0.6em] text-[0.8em] text-hot"></div>
+  <div x-show="!loaded" class="mt-[1em] text-mute">Загружаю данные…</div>
 
   <template x-if="loaded">
-  <div class="grid grid-cols-12 gap-[0.8em]">
+  <div>
+  <div class="grid grid-cols-[minmax(0,1fr)_19em] gap-x-[2.6em] mt-[1em]" id="hero">
 
-   <!-- agents live -->
-   <div class="col-span-12 rounded-2xl border border-hot/60 bg-gradient-to-r from-hot/10 via-panel to-panel p-[0.9em]" id="agents">
-    <div class="flex flex-wrap items-center gap-[0.7em]"><span class="w-[0.6em] h-[0.6em] rounded-full bg-hot animate-pulse"></span><div class="font-mono text-[0.75em] uppercase tracking-wider text-hot">Агенты в эфире</div>
-     <template x-for="(v,k) in AG" :key="k"><span class="inline-flex items-center gap-[0.35em] text-[0.8em]"><span class="inline-flex items-center justify-center w-[1.7em] h-[1.7em] rounded-full text-black font-bold font-mono text-[0.75em]" :style="`background:${v.c}`" x-text="v.i"></span><span x-text="k"></span></span></template>
-     <div class="ml-auto font-mono text-[0.75em] text-mute" x-text="feedAgo()"></div></div>
-    <template x-if="!feedItems.length"><div class="mt-[0.5em] text-mute text-[0.95em]">Агенты ещё не прислали реплик. Как только пришлют, они появятся здесь, свежие сверху.</div></template>
-    <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-[0.5em] mt-[0.6em] max-h-[14em] overflow-y-auto pr-[0.3em]">
-     <template x-for="(f,i) in feedItems" :key="i+f.time_msk">
-      <div class="flex gap-[0.6em] items-start rounded-xl border px-[0.7em] py-[0.5em]" :class="fresh(f)?'border-hot bg-hot/10 shadow-[0_0_16px_rgba(255,20,147,.25)]':'border-line bg-black/25'">
-       <span class="inline-flex items-center justify-center w-[2.2em] h-[2.2em] rounded-full text-black font-bold font-mono text-[0.85em] shrink-0" :style="`background:${av(f.agent).c}`" x-text="av(f.agent).i"></span>
-       <div class="min-w-0"><div class="flex gap-[0.6em] font-mono text-[0.75em]"><b class="text-white" x-text="f.agent"></b><span class="text-acid" x-text="tm(f.time_msk)+' МСК'"></span><template x-if="fresh(f)"><span class="text-hot">● свежее</span></template></div>
-        <div class="text-[0.95em] mt-[0.15em]" x-text="f.say"></div></div>
+   <!-- main column -->
+   <div class="min-w-0">
+    <h2 class="m-0 text-[1.7em] leading-[1.15] font-semibold tracking-[-0.02em] text-white" x-text="S.hero.headline"></h2>
+
+    <!-- big numbers -->
+    <div class="grid grid-cols-4 gap-x-[2em] mt-[0.9em]">
+     <template x-for="(n,i) in S.hero.numbers" :key="i">
+      <div class="border-t border-line pt-[0.5em]">
+       <div class="leading-none font-semibold tracking-[-0.03em] tabular-nums" :class="{'text-hot':n.tone==='red','text-acid':n.tone==='green','text-white':n.tone==='white'}"><span class="text-[2.6em]" x-text="num(n).v"></span><span class="text-[1.25em] ml-[0.25em] text-mute font-normal" x-text="num(n).u"></span></div>
+       <div class="mt-[0.45em] text-[0.95em] text-[#c9cbd1] leading-snug" x-text="num(n).l"></div>
+       <div class="mt-[0.3em] text-[0.68em] text-mute"><a class="text-mute no-underline hover:text-white" :href="n.source_url" :target="n.source_url.startsWith('#')?'':'_blank'" x-text="'Источник: '+n.source_name"></a><template x-if="!n.verified"><span class="ml-[0.4em]">· не подтверждено</span></template></div>
       </div>
      </template>
     </div>
-   </div>
 
-   <!-- threat light -->
-   <div class="col-span-12 lg:col-span-3 rounded-2xl border border-line bg-panel p-[1em] flex gap-[1em]">
-    <div class="flex flex-col gap-[0.4em] bg-black/60 rounded-full p-[0.4em] h-fit">
-     <span class="block w-[1.6em] h-[1.6em] rounded-full" :class="threatColor()==='red'?'bg-[#ff3b3b] shadow-[0_0_18px_#ff3b3b] animate-pulse':'bg-[#ff3b3b]/15'"></span>
-     <span class="block w-[1.6em] h-[1.6em] rounded-full" :class="threatColor()==='yellow'?'bg-[#ffd400] shadow-[0_0_18px_#ffd400]':'bg-[#ffd400]/15'"></span>
-     <span class="block w-[1.6em] h-[1.6em] rounded-full" :class="threatColor()==='lime'?'bg-acid shadow-[0_0_18px_#b6ff3b]':'bg-acid/15'"></span>
-    </div>
-    <div class="min-w-0">
-     <div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Уровень угрозы</div>
-     <div class="text-[2.1em] font-extrabold leading-none mt-[0.15em]" :class="tone(threatColor())" x-text="S.threat.label"></div>
-     <div class="mt-[0.5em] text-[0.95em]" x-text="S.threat.note"></div>
-     <template x-for="(c,i) in S.cves" :key="i"><div class="mt-[0.5em] font-mono text-[0.78em]"><a class="text-hot no-underline" :href="c.source_url" target="_blank" x-text="c.id"></a> <span class="text-white">CVSS 3.1 <b x-text="c.cvss31"></b> · 4.0 <b x-text="c.cvss40"></b></span><div class="text-mute" x-text="c.kind+' · '+c.cwe"></div></div></template>
-    </div>
-   </div>
-
-   <!-- counters -->
-   <div class="col-span-12 lg:col-span-5 grid grid-cols-3 gap-[0.8em]">
-    <template x-for="c in S.counters" :key="c.id">
-     <div class="rounded-2xl border border-line bg-panel p-[0.9em] flex flex-col">
-      <div class="font-mono text-[0.72em] uppercase tracking-wider text-mute" x-text="c.label"></div>
-      <div class="font-mono font-bold text-[1.9em] tabular-nums mt-[0.3em] leading-none" :class="c.id==='patch'?'text-acid':c.id==='attacks'?'text-[#ffd400]':'text-hot'" x-text="since(c)"></div>
-      <div class="mt-auto pt-[0.5em] font-mono text-[0.72em] text-mute">от <a class="text-mute underline decoration-dotted" :href="c.source_url" target="_blank" x-text="sinceAt(c)"></a></div>
+    <!-- timeline -->
+    <section class="mt-[1.1em]">
+     <h3 class="m-0 text-[1.15em] font-semibold text-white">За 21 час: от утечки эксплойта до патча и первых попыток атак</h3>
+     <div class="text-[0.72em] text-mute mt-[0.2em]">Ключевые события, время московское, ночные часы на шкале сжаты. <span class="text-hot">●</span> атаки и угрозы <span class="text-acid ml-[0.6em]">●</span> патчи и защита <span class="text-[#8b8d98] ml-[0.6em]">●</span> реакция государств и компаний</div>
+     <div class="relative h-[10.4em] mt-[0.1em]" id="heroTl">
+      <div class="absolute left-0 right-0 top-1/2 h-px bg-[#3a3d44]"></div>
+      <template x-for="(t,i) in axisTicks()" :key="'t'+i">
+       <div class="absolute top-1/2 -translate-x-1/2 text-[0.62em] text-mute tabular-nums" :style="`left:${t.x}%`"><div class="mx-auto w-px h-[0.5em] bg-[#3a3d44]"></div><div class="mt-[0.15em] whitespace-nowrap" x-text="t.l"></div></div>
+      </template>
+      <div class="absolute top-[calc(50%-0.6em)] h-[1.2em] w-[2px] bg-white/60" :style="`left:${nowX()}%`"></div>
+      <div class="absolute top-[calc(50%+0.2em)] translate-x-[0.3em] text-[0.62em] text-white/70" :style="`left:${nowX()}%`">сейчас</div>
+      <template x-for="(m,i) in miles()" :key="m.id">
+       <div>
+        <div class="absolute w-px" :class="m.strong?'bg-acid':'bg-[#4a4d55]'" :style="stem(m)"></div>
+        <div class="absolute rounded-full -translate-x-1/2 -translate-y-1/2 top-1/2" :class="m.strong?'w-[0.95em] h-[0.95em]':'w-[0.6em] h-[0.6em]'" :style="`left:${m.x}%;background:${m.col}`"></div>
+        <a class="absolute no-underline leading-tight whitespace-nowrap" :href="m.source_url" target="_blank" :style="lab(m)">
+         <div class="text-[0.66em] text-mute tabular-nums" x-text="m.when"></div>
+         <div class="text-[0.82em]" :class="m.strong?'text-acid font-semibold':'text-[#e8e9ec]'" x-text="m.label+(m.verified?'':' (не подтверждено)')"></div>
+        </a>
+       </div>
+      </template>
      </div>
-    </template>
+    </section>
+
+    <div class="grid grid-cols-[1.15fr_1fr] gap-x-[2.6em] mt-[0.3em]">
+     <!-- who fixed -->
+     <section>
+      <h3 class="m-0 text-[1.05em] font-semibold text-white" x-text="mxTitle()"></h3>
+      <div class="text-[0.72em] text-mute mt-[0.2em]"><span class="text-acid">■</span> исправлено <span class="text-[#8b8d98] ml-[0.5em]">■</span> обновляют или защищают: частичный патч, ограничения, WAF <span class="text-hot ml-[0.5em]">■</span> молчат</div>
+      <template x-for="(row,ri) in matrix()" :key="ri">
+       <div class="mt-[0.45em]">
+        <div class="flex items-baseline justify-between text-[0.85em]"><span class="font-semibold text-white" x-text="row.title"></span><span class="text-mute text-[0.85em] tabular-nums" x-text="row.n+' в списке'"></span></div>
+        <div class="flex h-[0.55em] mt-[0.3em] gap-[2px]"><template x-for="(c,ci) in row.cols" :key="ci"><div :style="`flex:${c.items.length} 0 0;background:${c.col}`" x-show="c.items.length"></div></template></div>
+        <div class="grid grid-cols-3 gap-x-[1em] mt-[0.35em]">
+         <template x-for="(c,ci) in row.cols" :key="ci">
+          <div class="min-w-0">
+           <div class="tabular-nums"><span class="text-[1.35em] font-semibold" :style="`color:${c.col==='#5c5f68'?'#c9cbd1':c.col}`" x-text="c.items.length"></span> <span class="text-[0.72em] text-mute" x-text="c.l"></span></div>
+           <div class="text-[0.6em] text-[#a9abb3] leading-[1.25]" x-text="c.items.map(x=>x.name+(x.verified?'':'*')).join(', ')||'—'"></div>
+          </div>
+         </template>
+        </div>
+       </div>
+      </template>
+      <div class="text-[0.62em] text-mute mt-[0.6em]" x-text="'* не подтверждено. Россия: срез '+tm(H.snapshot)+' МСК, без регуляторов ('+S.hero.regulators.join(', ')+'). Источники в таблицах ниже.'"></div>
+     </section>
+
+     <!-- X -->
+     <section>
+      <h3 class="m-0 text-[1.05em] font-semibold text-white" x-text="xTitle()"></h3>
+      <div class="text-[0.72em] text-mute mt-[0.2em]">Посты со словом «PHP2Shell» в X по часам, МСК</div>
+      <div class="h-[6.6em] mt-[0.3em]"><canvas id="chXh"></canvas></div>
+      <h4 class="m-0 mt-[0.6em] text-[0.95em] font-semibold text-white">Японский X обсуждает уязвимость PHP намного активнее рунета</h4>
+      <div class="h-[3.4em] mt-[0.1em]"><canvas id="chJR"></canvas></div>
+      <div class="text-[0.62em] text-mute mt-[0.3em]" x-text="'Источник: X API counts, срез '+tm(metrics.x_hourly.snapshot)+' МСК. Запросы разные, сравнение примерное: японский запрос «PHP + 脆弱性/パッチ/メンテ», русские посты про PHP за сутки.'"></div>
+     </section>
+    </div>
    </div>
 
-   <!-- version checker -->
-   <div class="col-span-12 lg:col-span-4 rounded-2xl border-2 border-hot bg-gradient-to-br from-hot/20 to-panel p-[1em]">
-    <div class="font-mono text-[0.75em] uppercase tracking-wider text-hot">Проверь свою версию PHP</div>
-    <div class="flex gap-[0.5em] mt-[0.5em]">
-     <input x-model="ver" id="verInput" placeholder="например 8.3.12" class="flex-1 min-w-0 rounded-xl border border-line bg-black/50 text-white font-mono text-[1.3em] px-[0.6em] py-[0.35em] outline-none focus:border-acid">
+   <!-- side column -->
+   <aside class="min-w-0 border-l border-line pl-[1.6em] flex flex-col">
+    <div>
+     <div class="text-[0.95em] font-semibold text-white">Проверь свою версию PHP</div>
+     <input x-model="ver" id="verInput" placeholder="например 8.3.12" class="mt-[0.5em] w-full rounded-md border border-[#3a3d44] bg-transparent text-white text-[1.05em] tabular-nums px-[0.6em] py-[0.35em] outline-none focus:border-white">
+     <div class="flex flex-wrap gap-[0.6em] mt-[0.4em] text-[0.7em]"><template x-for="x in ['8.3.12','8.4.27','8.1.31']"><button @click="ver=x" class="cursor-pointer bg-transparent text-mute hover:text-white underline decoration-dotted p-0" x-text="x"></button></template></div>
+     <template x-if="check()"><div id="verResult" class="mt-[0.6em] border-l-2 pl-[0.7em]" :style="`border-color:${toneCol(check().tone)}`"><div class="font-semibold text-[0.95em]" :style="`color:${toneCol(check().tone)}`" x-text="check().title"></div><div class="text-[0.78em] text-[#c9cbd1] mt-[0.15em]" x-text="check().text"></div></div></template>
+     <template x-if="!check()"><div class="mt-[0.6em] text-[0.75em] text-mute">Версию покажет <span class="text-white">php -v</span> или панель хостинга. Исправлены: <span class="text-acid tabular-nums" x-text="Object.values(S.fixed).join(' · ')"></span></div></template>
     </div>
-    <div class="flex flex-wrap gap-[0.4em] mt-[0.5em] font-mono text-[0.75em]">
-     <template x-for="x in ['8.3.12','8.4.27','8.1.31','7.4.33']"><button @click="ver=x" class="cursor-pointer rounded-full border border-line bg-black/40 text-mute px-[0.7em] py-[0.15em] hover:text-white" x-text="x"></button></template>
+    <div id="agents" class="mt-[1.6em] pt-[1em] border-t border-line flex-1 min-h-0 flex flex-col">
+     <div class="flex items-baseline justify-between"><div class="text-[0.95em] font-semibold text-white">Агенты в эфире</div><div class="text-[0.66em] text-mute" x-text="feedAgo()"></div></div>
+     <template x-if="!feedItems.length"><div class="mt-[0.5em] text-[0.78em] text-mute">Реплик пока нет. Новые появятся здесь сверху.</div></template>
+     <div class="mt-[0.4em] overflow-y-auto max-h-[34em] pr-[0.3em]">
+      <template x-for="(f,i) in feedItems" :key="i+f.time_msk">
+       <div class="py-[0.55em] border-b border-line/70 pl-[0.6em] border-l-2" :class="fresh(f)?'border-l-hot':'border-l-transparent'">
+        <div class="flex items-center gap-[0.45em] text-[0.7em]"><span class="inline-flex items-center justify-center w-[1.9em] h-[1.9em] rounded-full bg-[#2a2c31] text-white font-semibold text-[0.85em]" x-text="av(f.agent).i"></span><b class="text-white font-semibold" x-text="f.agent"></b><span class="text-mute tabular-nums" x-text="tm(f.time_msk)+' МСК'"></span><template x-if="fresh(f)"><span class="text-hot">новое</span></template></div>
+        <div class="text-[0.82em] mt-[0.25em] text-[#dfe0e4]" x-text="f.say"></div>
+       </div>
+      </template>
+     </div>
     </div>
-    <template x-if="check()"><div id="verResult" class="mt-[0.6em] rounded-xl border px-[0.8em] py-[0.55em]" :class="chip(check().tone)"><div class="font-bold text-[1.15em]" x-text="check().title"></div><div class="text-[0.9em] text-[#efeaf5] mt-[0.2em]" x-text="check().text"></div></div></template>
-    <template x-if="!check()"><div class="mt-[0.6em] text-[0.85em] text-mute">Версию покажет <span class="font-mono text-white">php -v</span> или панель хостинга. Исправлены: <span class="font-mono text-acid" x-text="Object.values(S.fixed).join(' · ')"></span></div></template>
-   </div>
+   </aside>
+  </div>
 
-   <!-- KPIs -->
-   <template x-for="(k,i) in S.kpis" :key="i">
-    <a :href="k.source_url" target="_blank" class="col-span-6 md:col-span-4 xl:col-span-2 no-underline text-[#efeaf5] rounded-2xl border border-line bg-panel p-[0.9em] border-t-4 hover:border-hot" :class="{'border-t-[#ff3b3b]':k.tone==='red','border-t-[#ffd400]':k.tone==='yellow','border-t-acid':k.tone==='lime','border-t-mute':k.tone==='mute'}">
-     <div class="font-mono text-[0.72em] uppercase tracking-wider text-mute" x-text="k.label"></div>
-     <div class="text-[1.65em] font-extrabold mt-[0.2em] leading-tight" :class="tone(k.tone)" x-text="k.value"></div>
-     <div class="text-[0.8em] text-[#d9d3e3] mt-[0.2em]" x-text="k.sub"></div>
-    </a>
-   </template>
-   <a href="#dash-ru" class="col-span-12 md:col-span-8 xl:col-span-2 no-underline text-[#efeaf5] rounded-2xl border border-line bg-panel p-[0.9em] border-t-4 border-t-[#ffd400] hover:border-hot">
-    <div class="font-mono text-[0.72em] uppercase tracking-wider text-mute" x-text="S.russia.label"></div>
-    <div class="text-[1.35em] font-extrabold mt-[0.2em] leading-tight text-[#ffd400]" x-text="S.russia.value"></div>
-    <div class="text-[0.8em] text-[#d9d3e3] mt-[0.2em]" x-text="S.russia.sub"></div>
-   </a>
-
+  <div class="mt-[3em] pt-[1em] border-t border-line flex items-baseline gap-[1em]"><h2 class="m-0 text-[1.5em] font-semibold text-white">Подробности</h2><span class="text-[0.8em] text-mute">все события, таблицы, лента X и чек-лист</span></div>
+  <div class="grid grid-cols-12 gap-[0.8em] mt-[1em]">
    <!-- attack status -->
-   <div class="col-span-12 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 rounded-lg border border-line bg-panel p-[1em]">
     <div class="flex flex-wrap items-baseline gap-[0.8em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Атаки: что говорят источники</div><div class="font-bold text-[1.1em] text-[#ffd400]" x-text="S.attack_status.summary"></div></div>
     <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[0.6em] mt-[0.7em]">
      <template x-for="(a,i) in S.attack_status.sources" :key="i">
@@ -242,7 +270,7 @@ figure{max-width:1240px}
    </div>
 
    <!-- timeline -->
-   <div class="col-span-12 xl:col-span-7 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 xl:col-span-7 rounded-lg border border-line bg-panel p-[1em]">
     <div class="flex flex-wrap items-center gap-[0.5em] mb-[0.6em]">
      <div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-[0.4em]">Таймлайн, МСК</div>
      <button id="tlAll" @click="cat='all'" class="cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :class="cat==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'">все <span x-text="events.length"></span></button>
@@ -277,19 +305,19 @@ figure{max-width:1240px}
 
    <!-- charts column -->
    <div class="col-span-12 xl:col-span-5 grid gap-[0.8em]">
-    <div class="rounded-2xl border border-line bg-panel p-[1em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">События по часам, МСК</div><div class="h-[13em] mt-[0.4em]"><canvas id="chHours"></canvas></div></div>
-    <div class="rounded-2xl border border-line bg-panel p-[1em]"><div class="flex justify-between font-mono text-[0.75em] uppercase tracking-wider text-mute"><span>Обсуждение в X по часам, МСК</span><span x-text="'срез '+tm(metrics.x_hourly.snapshot)"></span></div><div class="h-[13em] mt-[0.4em]"><canvas id="chX"></canvas></div>
+    <div class="rounded-lg border border-line bg-panel p-[1em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">События по часам, МСК</div><div class="h-[13em] mt-[0.4em]"><canvas id="chHours"></canvas></div></div>
+    <div class="rounded-lg border border-line bg-panel p-[1em]"><div class="flex justify-between font-mono text-[0.75em] uppercase tracking-wider text-mute"><span>Обсуждение в X по часам, МСК</span><span x-text="'срез '+tm(metrics.x_hourly.snapshot)"></span></div><div class="h-[13em] mt-[0.4em]"><canvas id="chX"></canvas></div>
      <div class="mt-[0.4em] text-[0.8em] text-[#d9d3e3]">Всего: <template x-for="q in metrics.x_hourly.queries" :key="q.id"><span class="mr-[0.8em]"><span x-text="q.label"></span> <b class="text-white font-mono" x-text="q.total.toLocaleString('ru-RU')"></b></span></template></div></div>
    </div>
 
-   <div class="col-span-12 lg:col-span-6 rounded-2xl border border-line bg-panel p-[1em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Просмотры ключевых постов X (логарифмическая шкала)</div><div class="h-[17em] mt-[0.4em]"><canvas id="chViews"></canvas></div></div>
-   <div class="col-span-12 sm:col-span-6 lg:col-span-3 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 lg:col-span-6 rounded-lg border border-line bg-panel p-[1em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Просмотры ключевых постов X (логарифмическая шкала)</div><div class="h-[17em] mt-[0.4em]"><canvas id="chViews"></canvas></div></div>
+   <div class="col-span-12 sm:col-span-6 lg:col-span-3 rounded-lg border border-line bg-panel p-[1em]">
     <div class="font-mono text-[0.75em] uppercase tracking-wider text-mute">Доля PHP среди сайтов</div>
     <div class="grid grid-cols-2 gap-[0.5em] mt-[0.5em]"><template x-for="(p,i) in metrics.php_share" :key="p.label"><div class="text-center"><div class="relative h-[8em]"><canvas :id="'chShare'+i"></canvas><div class="absolute inset-0 flex items-center justify-center text-[1.6em] font-extrabold" :class="i?'text-hot':'text-acid'" x-text="p.value+'%'"></div></div><div class="mt-[0.3em] text-[0.85em]" x-text="p.label"></div></div></template></div>
     <div class="mt-[0.7em] font-mono text-[0.72em] uppercase tracking-wider text-mute">Сколько PHP в сети</div>
     <template x-for="(x,i) in metrics.exposure" :key="i"><div class="mt-[0.35em] text-[0.8em]"><b x-text="x.label+': '"></b><span x-text="x.value"></span><template x-if="!x.verified"><span class="ml-[0.3em] text-[#ffd400] font-mono text-[0.8em]">не подтверждено</span></template></div></template>
    </div>
-   <div class="col-span-12 sm:col-span-6 lg:col-span-3 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 sm:col-span-6 lg:col-span-3 rounded-lg border border-line bg-panel p-[1em]">
     <template x-for="s in metrics.series" :key="s.id"><div><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute" x-text="s.label"></div><div class="text-[2em] font-extrabold text-hot leading-none mt-[0.2em]"><span x-text="last(s).v"></span> <span class="text-[0.45em] text-mute font-mono" x-text="'на '+tm(last(s).t)+' МСК'"></span></div><div class="h-[9em] mt-[0.3em]"><canvas :id="'chS_'+s.id"></canvas></div></div></template>
     <div class="mt-[0.6em] font-mono text-[0.72em] uppercase tracking-wider text-mute">Тренды X</div>
     <div class="flex flex-wrap gap-[0.3em] mt-[0.3em]"><template x-for="t in metrics.x_trends.items"><span class="rounded-full bg-black/40 border border-line px-[0.6em] text-[0.8em]" x-text="t"></span></template></div>
@@ -297,7 +325,7 @@ figure{max-width:1240px}
    </div>
 
    <!-- vendors table -->
-   <div class="col-span-12 xl:col-span-6 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 xl:col-span-6 rounded-lg border border-line bg-panel p-[1em]">
     <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-auto">Дистрибутивы и вендоры</div><input x-model="vQ" placeholder="фильтр…" class="rounded-lg border border-line bg-black/40 text-white px-[0.6em] py-[0.15em] font-mono text-[0.8em] w-[9em]"></div>
     <div class="flex flex-wrap gap-[0.35em] mt-[0.5em]"><button @click="vSt='all'" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="vSt==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'">все</button><template x-for="(v,k) in VST" :key="k"><button x-show="vCnt(k)" @click="vSt=k" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="vSt===k?'ring-2 ring-white '+chip(v.c):chip(v.c)" x-text="v.l+' '+vCnt(k)"></button></template></div>
     <div class="overflow-x-auto mt-[0.5em] max-h-[22em] overflow-y-auto"><table class="w-full border-collapse text-[0.85em]"><thead class="sticky top-0 bg-panel"><tr class="text-left font-mono text-[0.85em] text-mute">
@@ -306,7 +334,7 @@ figure{max-width:1240px}
    </div>
 
    <!-- russia table -->
-   <div id="dash-ru" class="col-span-12 xl:col-span-6 rounded-2xl border border-line bg-panel p-[1em]">
+   <div id="dash-ru" class="col-span-12 xl:col-span-6 rounded-lg border border-line bg-panel p-[1em]">
     <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-auto">Россия: хостинги и регуляторы · <span x-text="'срез '+tm(H.snapshot)+' МСК'"></span></div><input x-model="hQ" placeholder="фильтр…" class="rounded-lg border border-line bg-black/40 text-white px-[0.6em] py-[0.15em] font-mono text-[0.8em] w-[9em]"></div>
     <div class="mt-[0.4em] text-[0.9em] text-[#d9d3e3]" x-text="H.summary"></div>
     <div class="flex flex-wrap gap-[0.35em] mt-[0.5em]" id="hostChips"><button @click="hSt='all'" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="hSt==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'" x-text="'все '+hosting.length"></button><template x-for="(v,k) in HST" :key="k"><button @click="hSt=k" class="cursor-pointer rounded-full border px-[0.6em] text-[0.75em] font-mono" :class="hSt===k?'ring-2 ring-white '+chip(v.c):chip(v.c)" x-text="v.l+' '+hCnt(k)"></button></template></div>
@@ -316,7 +344,7 @@ figure{max-width:1240px}
    </div>
 
    <!-- reactions table -->
-   <div class="col-span-12 xl:col-span-7 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 xl:col-span-7 rounded-lg border border-line bg-panel p-[1em]">
     <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-auto">Страны и компании: кто как отреагировал</div><input x-model="rQ" placeholder="фильтр: Япония, CERT…" class="rounded-lg border border-line bg-black/40 text-white px-[0.6em] py-[0.15em] font-mono text-[0.8em] w-[12em]"></div>
     <div class="overflow-x-auto mt-[0.5em] max-h-[24em] overflow-y-auto"><table class="w-full border-collapse text-[0.85em]"><thead class="sticky top-0 bg-panel"><tr class="text-left font-mono text-[0.85em] text-mute">
      <th class="py-[0.3em] pr-[0.5em] cursor-pointer" @click="sortBy(rSort,'who')">Кто <span x-text="arrow(rSort,'who')"></span></th><th class="pr-[0.5em] cursor-pointer" @click="sortBy(rSort,'country')">Страна <span x-text="arrow(rSort,'country')"></span></th><th class="pr-[0.5em] cursor-pointer" @click="sortBy(rSort,'kind')">Тип <span x-text="arrow(rSort,'kind')"></span></th><th class="pr-[0.5em]">Реакция</th><th class="cursor-pointer" @click="sortBy(rSort,'time')">МСК <span x-text="arrow(rSort,'time')"></span></th></tr></thead>
@@ -325,19 +353,19 @@ figure{max-width:1240px}
 
    <!-- checklist + fakes -->
    <div class="col-span-12 xl:col-span-5 grid gap-[0.8em]">
-    <div class="rounded-2xl border-2 border-acid/70 bg-panel p-[1em]">
+    <div class="rounded-lg border border-line bg-panel p-[1em]">
      <div class="flex justify-between font-mono text-[0.75em] uppercase tracking-wider"><span class="text-acid">Что сделать прямо сейчас</span><span class="text-mute" x-text="done()+' из '+S.checklist.length"></span></div>
      <div class="h-[0.4em] rounded-full bg-black/50 mt-[0.4em] overflow-hidden"><div class="h-full bg-acid transition-all" :style="`width:${S.checklist.length?done()/S.checklist.length*100:0}%`"></div></div>
      <template x-for="c in S.checklist" :key="c.id"><label class="flex gap-[0.6em] items-start mt-[0.5em] cursor-pointer text-[0.95em]"><input type="checkbox" class="mt-[0.3em] w-[1.1em] h-[1.1em] accent-[#b6ff3b] shrink-0" :checked="checks[c.id]" @change="toggle(c.id)"><span :class="checks[c.id]?'line-through text-mute':''" x-text="c.text"></span></label></template>
     </div>
-    <div class="rounded-2xl border border-[#ff3b3b]/60 bg-[#ff3b3b]/5 p-[1em]">
+    <div class="rounded-lg border border-[#ff3b3b]/60 bg-[#ff3b3b]/5 p-[1em]">
      <div class="font-mono text-[0.75em] uppercase tracking-wider text-[#ff6b6b]">Осторожно: фейки</div>
      <template x-for="f in S.fakes"><div class="mt-[0.45em] text-[0.9em] flex gap-[0.5em]"><span class="text-[#ff6b6b]">✕</span><span><span x-text="f.text"></span><template x-if="!f.verified"><span class="ml-[0.3em] font-mono text-[0.8em] text-[#ffd400]" x-text="'не подтверждено'+(f.note?' ('+f.note+')':'')"></span></template><template x-if="f.source_url"><a :href="f.source_url" target="_blank" class="ml-[0.3em] text-mute font-mono text-[0.8em]">↗</a></template></span></div></template>
     </div>
    </div>
 
    <!-- X feed -->
-   <div class="col-span-12 rounded-2xl border border-line bg-panel p-[1em]">
+   <div class="col-span-12 rounded-lg border border-line bg-panel p-[1em]">
     <div class="flex flex-wrap items-center gap-[0.5em]"><div class="font-mono text-[0.75em] uppercase tracking-wider text-mute mr-[0.4em]">Лента X по-русски</div>
      <button @click="tTopic='all'" class="cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :class="tTopic==='all'?'bg-white text-black border-white':'border-line text-mute bg-transparent'" x-text="'все '+tweets.length"></button>
      <template x-for="c in topics()" :key="c"><button @click="tTopic=c" class="cursor-pointer rounded-full border px-[0.7em] py-[0.1em] text-[0.8em] font-mono" :style="tTopic===c?`background:${CAT[c].c};color:#000;border-color:${CAT[c].c}`:`color:${CAT[c].c};border-color:${CAT[c].c}55;background:transparent`" x-text="CAT[c].l+' '+tweets.filter(t=>t.topic===c).length"></button></template>
@@ -355,8 +383,9 @@ figure{max-width:1240px}
    </div>
 
   </div>
+  </div>
   </template>
-  <div class="mt-[1em] text-center"><a href="#read" class="no-underline inline-block rounded-2xl bg-hot text-black font-extrabold px-[1.4em] py-[0.6em] text-[1.1em] hover:bg-acid">Читать разбор ↓</a></div>
+  <div class="mt-[2em] text-center"><a href="#read" class="no-underline inline-block border border-white/40 text-white px-[1.4em] py-[0.5em] text-[1em] hover:border-white">Читать разбор ↓</a></div>
  </div>
 </div>
 
@@ -871,7 +900,7 @@ figure{max-width:1240px}
 <footer>Сережа Рис · <a href="https://x.com/serejaris">@serejaris</a> · <a href="https://t.me/vibecod3rs">t.me/vibecod3rs</a></footer>
 </main>
 <script src="assets/chart.umd.min.js?v=5b183d09"></script>
-<script src="assets/dash.js?v=f09b0ba2"></script>
+<script src="assets/dash.js?v=d4c47bf4"></script>
 <script defer src="assets/alpine.min.js?v=47a8be80"></script>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body></html>

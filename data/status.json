@@ -263,5 +263,101 @@
   "tone": "yellow",
   "source_url": "https://bdu.fstec.ru/vul/2026-17191",
   "verified": true
+ },
+ "hero": {
+  "headline": "В PHP нашли дыру, через которую можно захватить сайт. Патч вышел 21 октября в 16:34 МСК. Попытки атак есть, успешные взломы не подтверждены.",
+  "numbers": [
+   {
+    "value": "9,8",
+    "unit": "из 10",
+    "label": "опасность по шкале CVSS 3.1",
+    "source_name": "NVD",
+    "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109618",
+    "verified": true,
+    "tone": "red"
+   },
+   {
+    "value": "1,89 млн",
+    "unit": "",
+    "label": "серверов с PHP видно из интернета",
+    "source_name": "скан Modat 20.10, без проверки на уязвимость",
+    "source_url": "https://modat.io/blog/php-exposure-before-the-21-oct-2026-security-release/",
+    "verified": true,
+    "tone": "white"
+   },
+   {
+    "auto": "ru_patched",
+    "label": "российских хостингов и платформ объявили, что патч установлен",
+    "source_name": "срез по России",
+    "source_url": "#dash-ru",
+    "verified": true,
+    "tone": "red"
+   },
+   {
+    "auto": "since_patch",
+    "label": "прошло с выхода патча в 16:34 МСК",
+    "source_name": "php.net, GitHub Security Advisory",
+    "source_url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+    "verified": true,
+    "tone": "green"
+   }
+  ],
+  "milestones": [
+   {
+    "id": "leak-video",
+    "label": "Видео эксплойта в X",
+    "lane": 1
+   },
+   {
+    "id": "cf-waf",
+    "label": "Cloudflare включает защиту",
+    "lane": -1
+   },
+   {
+    "id": "cf-attacks",
+    "label": "Cloudflare видит попытки атак",
+    "lane": 1
+   },
+   {
+    "id": "fi-valtori",
+    "label": "Финляндия закрывает госсервисы",
+    "lane": -1
+   },
+   {
+    "id": "jp-pm",
+    "label": "Премьер Японии просит обновиться",
+    "lane": 2,
+    "anchor": "end"
+   },
+   {
+    "id": "php-patch",
+    "label": "Выходит патч PHP",
+    "lane": 1,
+    "strong": true
+   },
+   {
+    "id": "cisa-x",
+    "label": "CISA: патчить немедленно",
+    "lane": -1,
+    "anchor": "end"
+   },
+   {
+    "id": "securityweek",
+    "label": "watchTowr: попытки есть, успешных взломов нет",
+    "lane": -2,
+    "anchor": "end"
+   },
+   {
+    "id": "ru-snapshot-2",
+    "label": "Россия: о патче не объявил никто",
+    "lane": 2,
+    "anchor": "end"
+   }
+  ],
+  "regulators": [
+   "НКЦКИ",
+   "ГосСОПКА",
+   "БДУ ФСТЭК"
+  ]
  }
 }
